@@ -23,6 +23,7 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: any) => {
     if (error.response?.data?.message === "jwt expired") {
+      localStorage.clear();
       window.location.href = PUBLIC_ROUTE.SIGNIN;
     }
     const originalRequest: any = error.config;

@@ -47,6 +47,7 @@ const useFetch = () => {
   };
 
   if (error === "jwt expired") {
+    localStorage.clear();
     window.location.href = PUBLIC_ROUTE.SIGNIN;
   }
 
