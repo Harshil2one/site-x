@@ -239,6 +239,7 @@ const ProfilePage = () => {
                   value={profileData?.name || ""}
                   onDebounce={(name) => handleChange("name", name)}
                   bounceTime={0}
+                  isReset
                 />
               </Grid>
 
@@ -254,6 +255,7 @@ const ProfilePage = () => {
                   value={profileData?.email || ""}
                   onDebounce={(email) => handleChange("email", email)}
                   bounceTime={0}
+                  isReset
                 />
               </Grid>
 
@@ -269,6 +271,7 @@ const ProfilePage = () => {
                   value={profileData?.contact || ""}
                   onDebounce={(contact) => handleChange("contact", contact)}
                   bounceTime={0}
+                  isReset
                 />
               </Grid>
             </Grid>

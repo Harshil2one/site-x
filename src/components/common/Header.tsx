@@ -30,6 +30,7 @@ import {
   Puzzle,
   Users,
   Bike,
+  Briefcase,
 } from "lucide-react";
 import { PRIVATE_ROUTE, PUBLIC_ROUTE, USER_ROLE } from "../../enums";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -131,6 +132,11 @@ const NavList = ({ ...props }) => {
       name: "Requests",
       icon: <Bike size={22} />,
       href: PRIVATE_ROUTE.RIDER_REQUESTS,
+    },
+    {
+      name: "Jobs",
+      icon: <Briefcase size={22} />,
+      href: PRIVATE_ROUTE.JOBS,
     },
     {
       name: "Users",

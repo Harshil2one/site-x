@@ -27,6 +27,7 @@ export enum PRIVATE_ROUTE {
   USERS = "/users",
   COUPON_CODES = "/coupon-codes",
   RIDER_REQUESTS = "/rider-requests",
+  JOBS = "/jobs",
 }
 
 export enum USER_ROLE {
@@ -100,6 +101,7 @@ export enum TABLE_NAME {
   RESTAURANTS = "restaurants",
   FOODS = "foods",
   COUPONS = "coupons",
+  JOBS = "jobs",
   USERS = "users",
 }
 

@@ -16,11 +16,13 @@ const DineInRestaurantPage = lazy(
 );
 const CartPage = lazy(() => import("../pages/Cart"));
 const OrderHistoryPage = lazy(() => import("../pages/OrderHistory"));
-const RideWithUsPage = lazy(() => import("../pages/RideWithUs"));
 
 const TermsConditionPage = lazy(() => import("../pages/footer/TermsCondition"));
 const PrivacyPolicyPage = lazy(() => import("../pages/footer/PrivacyPolicy"));
 const ContactUsPage = lazy(() => import("../pages/footer/ContactUs"));
+const RideWithUsPage = lazy(() => import("../pages/footer/RideWithUs"));
+const AboutUsPage = lazy(() => import("../pages/footer/About"));
+const CareersPage = lazy(() => import("../pages/footer/Careers"));
 
 const AdminDashboard = lazy(() => import("../pages/admin/Dashboard"));
 const AdminRestaurants = lazy(() => import("../pages/admin/Restaurants"));
@@ -28,6 +30,7 @@ const AdminFoods = lazy(() => import("../pages/admin/Foods"));
 const AdminCoupons = lazy(() => import("../pages/admin/Coupons"));
 const AdminUsers = lazy(() => import("../pages/admin/Users"));
 const AdminRiderRequests = lazy(() => import("../pages/admin/RiderRequests"));
+const AdminJobs = lazy(() => import("../pages/admin/Jobs"));
 
 const NotFoundPage = lazy(() => import("../pages/NotFound"));
 
@@ -97,6 +100,14 @@ const AllRoutes = () => {
       path: PUBLIC_ROUTE.CONTACT_US,
       element: <ContactUsPage />,
     },
+    {
+      path: PUBLIC_ROUTE.ABOUT_US,
+      element: <AboutUsPage />,
+    },
+    {
+      path: PUBLIC_ROUTE.CAREERS,
+      element: <CareersPage />,
+    },
     { path: PRIVATE_ROUTE.DASHBOARD, element: <AdminDashboard /> },
     {
       path: PRIVATE_ROUTE.RESTAURANTS,
@@ -117,6 +128,10 @@ const AllRoutes = () => {
     {
       path: PRIVATE_ROUTE.RIDER_REQUESTS,
       element: <AdminRiderRequests />,
+    },
+    {
+      path: PRIVATE_ROUTE.JOBS,
+      element: <AdminJobs />,
     },
     {
       path: PUBLIC_ROUTE.NOT_FOUND,

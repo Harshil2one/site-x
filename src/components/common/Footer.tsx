@@ -11,7 +11,7 @@ const Footer = () => {
         bgcolor: "#f5f5f7",
         py: 6,
         px: 3,
-        background: "url(/assets/bg-footer.jpg)",
+        background: "url(https://downtownmidland.com/wp-content/uploads/2020/07/Food_Header2-1920x488.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -19,7 +19,7 @@ const Footer = () => {
           content: '""',
           position: "absolute",
           inset: 0,
-          bgcolor: "rgba(255, 255, 255, 0.5)",
+          bgcolor: "rgba(255, 255, 255, 0.3)",
           zIndex: 1,
         },
         "& > *": {

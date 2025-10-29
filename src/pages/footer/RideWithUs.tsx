@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Card, Typography } from "@mui/material";
-import Input from "../components/UI/Input";
-import CustomButton from "../components/UI/Button";
+import Input from "../../components/UI/Input";
+import CustomButton from "../../components/UI/Button";
 import { useFormik } from "formik";
-import { rideWithUsValidationSchema } from "../utils/schema";
-import useFetch from "../hooks/useFetch";
+import { rideWithUsValidationSchema } from "../../utils/schema";
+import useFetch from "../../hooks/useFetch";
 
 const RideWithUs = () => {
   const { response, makeAPICall } = useFetch();

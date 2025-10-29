@@ -49,6 +49,10 @@ export const rideWithUsValidationSchema = Yup.object({
     .required("Mobile number is required"),
 });
 
+export const jobValidationSchema = Yup.object({
+  title: Yup.string().min(3, "Job title must be long enough").required("Job title is required"),
+});
+
 export const contactUsValidationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   email: Yup.string()
