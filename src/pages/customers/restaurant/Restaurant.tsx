@@ -8,14 +8,14 @@ import {
 } from "react-router";
 import { Box, Card, Divider, Typography } from "@mui/material";
 import { CircleStar, Rose, ShoppingBag } from "lucide-react";
-import useFetch from "../../hooks/useFetch";
-import type { IRestaurant } from "../../types/restaurant";
-import SwipeButtons from "../../components/common/SwipeButtons";
-import FoodCard from "../../components/common/FoodCard";
-import type { IFood } from "../../types/food";
-import { FOOD_CARD_TYPE, PRIVATE_ROUTE } from "../../enums";
-import type { AppDispatch, RootState } from "../../redux/store";
-import { getAllFoodItems } from "../../redux/actions/restaurant";
+import useFetch from "../../../hooks/useFetch";
+import type { IRestaurant } from "../../../types/restaurant";
+import SwipeButtons from "../../../components/common/SwipeButtons";
+import FoodCard from "../../../components/common/FoodCard";
+import type { IFood } from "../../../types/food";
+import { FOOD_CARD_TYPE, PRIVATE_ROUTE } from "../../../enums";
+import type { AppDispatch, RootState } from "../../../redux/store";
+import { getAllFoodItems } from "../../../redux/actions/restaurant";
 
 const ITEMS_TO_SHOW = 4;
 
@@ -58,7 +58,7 @@ const RestaurantPage = () => {
 
   return (
     <>
-      <Box sx={{ py: 3, px: 4 }}>
+      <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
         <Typography sx={{ fontSize: "28px", fontWeight: 700, mb: 3 }}>
           {restaurantDetails?.name}
         </Typography>
@@ -164,6 +164,7 @@ const RestaurantPage = () => {
                     src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/offers/generic"
                     width={50}
                     height={50}
+                    loading="lazy"
                   />
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography sx={{ fontWeight: 700, fontSize: "18px" }}>
@@ -319,8 +320,8 @@ const RestaurantPage = () => {
           sx={{
             position: "fixed",
             bottom: 0,
-            left: "12%",
-            right: "12%",
+            left: { md: "12%", sm: "8%", xs: 0 },
+            right: { md: "12%", sm: "8%", xs: 0 },
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",

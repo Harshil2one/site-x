@@ -5,6 +5,7 @@ import Input from "../UI/Input";
 import { BUTTON_VARIANT, INPUT_SIZE } from "../../enums";
 import type { IAddress } from "../../types/common";
 import CustomButton from "../UI/Button";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   address: IAddress;
@@ -19,13 +20,15 @@ const Address = ({
   handleChange,
   updateAddress,
 }: IProps) => {
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-        Address
+        {t("addressHeader")}
       </Typography>
       <Typography variant="body1" sx={{ color: "text.secondary", mb: 1 }}>
-        Keep your residential details upto date.
+        {t("addressSubText")}
       </Typography>
 
       <Divider sx={{ mb: 4 }} />
@@ -33,10 +36,10 @@ const Address = ({
       <Grid container spacing={3}>
         <Grid size={12}>
           <InputLabel htmlFor="line1" sx={{ fontSize: 14, mb: 0.5 }}>
-            Line 1
+            {t("line1")}
           </InputLabel>
           <Input
-            placeholder="Building Name / Flat"
+            placeholder={t("line1Placeholder")}
             size={INPUT_SIZE.SMALL}
             style={{ width: "100%" }}
             startAdornment={<House size={20} />}
@@ -49,10 +52,10 @@ const Address = ({
 
         <Grid size={12}>
           <InputLabel htmlFor="line2" sx={{ fontSize: 14, mb: 0.5 }}>
-            Line 2
+            {t("line2")}
           </InputLabel>
           <Input
-            placeholder="Area / Village"
+            placeholder={t("line2Placeholder")}
             size={INPUT_SIZE.SMALL}
             style={{ width: "100%" }}
             startAdornment={<Building size={20} />}
@@ -63,12 +66,12 @@ const Address = ({
           />
         </Grid>
 
-        <Grid size={{ md: 4, sm: 12 }}>
+        <Grid size={{ md: 4, sm: 12, xs: 12 }}>
           <InputLabel htmlFor="city" sx={{ fontSize: 14, mb: 0.5 }}>
-            City
+            {t("city")}
           </InputLabel>
           <Input
-            placeholder="City"
+            placeholder={t("city")}
             size={INPUT_SIZE.SMALL}
             style={{ width: "100%" }}
             startAdornment={<MapPinHouse size={20} />}
@@ -79,12 +82,12 @@ const Address = ({
           />
         </Grid>
 
-        <Grid size={{ md: 4, sm: 12 }}>
+        <Grid size={{ md: 4, sm: 12, xs: 12 }}>
           <InputLabel htmlFor="state" sx={{ fontSize: 14, mb: 0.5 }}>
-            State
+            {t("state")}
           </InputLabel>
           <Input
-            placeholder="State"
+            placeholder={t("state")}
             size={INPUT_SIZE.SMALL}
             style={{ width: "100%" }}
             startAdornment={<MapPinned size={20} />}
@@ -95,12 +98,12 @@ const Address = ({
           />
         </Grid>
 
-        <Grid size={{ md: 4, sm: 12 }}>
+        <Grid size={{ md: 4, sm: 12, xs: 12 }}>
           <InputLabel htmlFor="pin" sx={{ fontSize: 14, mb: 0.5 }}>
-            Pin code
+            {t("pin")}
           </InputLabel>
           <Input
-            placeholder="Pin code"
+            placeholder={t("pin")}
             size={INPUT_SIZE.SMALL}
             style={{ width: "100%" }}
             startAdornment={<Map size={20} />}
@@ -122,7 +125,7 @@ const Address = ({
           }}
         >
           <CustomButton
-            btnText="Update"
+            btnText={t("update")}
             variant={BUTTON_VARIANT.CONTAINED}
             style={{ padding: "8px 0", width: "150px", borderRadius: "8px" }}
             onClick={updateAddress}

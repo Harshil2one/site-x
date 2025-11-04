@@ -1,0 +1,270 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: "en",
+    debug: false,
+    interpolation: {
+      escapeValue: false,
+    },
+    resources: {
+      en: {
+        translation: {
+          // Headers
+          greeting: "Welcome to Bigbite!",
+          search: "Search",
+          offers: "Offers",
+          history: "History",
+          cart: "Cart",
+          profile: "My Profile",
+          logout: "Logout",
+          restaurants: "Restaurants",
+          foods: "Foods",
+          coupons: "Coupons",
+          orders: "Orders",
+          requests: "Requests",
+          jobs: "Jobs",
+          users: "Users",
+          restaurant: "Restaurant",
+          menu: "Menu",
+
+          // Footers
+          footerHeader: "Start your day with biting something tasty!",
+          company: "Company",
+          aboutUs: "About Us",
+          careers: "Careers",
+          contactUs: "Contact Us",
+          helpSupport: "Help & Support",
+          rideWithUs: "Ride with us",
+          legal: "Legal",
+          terms: "Terms and Conditions",
+          policy: "Cookie Policy",
+          availableIn: "Available In:",
+          ahmedabad: "Ahmedabad",
+          tagLine: "© 2025 BigBite Limited",
+
+          // Not Found
+          notFound: "404 | Page Not Found",
+          goToHome: "Go To Home",
+
+          // Profile
+          profileHeader: "My Profile",
+          profileSubText:
+            "Update your personal information and keep your details look young.",
+          switchToUser: "Switch to user",
+          becomeAdmin: "Become an admin",
+          username: "Username",
+          usernamePlaceholder: "Enter your preferred name",
+          email: "Email Address",
+          emailPlaceholder: "Enter your email address",
+          mobile: "Mobile/Telephone",
+          mobilePlaceholder: "Enter your contact details",
+          profilePictureText: "Click to change profile picture",
+          imageValidationText: ".jpg, .png and .gif size less than 10MB.",
+          imageError: "Image size exceeds 10MB. Please choose a smaller file.",
+          addressHeader: "Address",
+          addressSubText: "Keep your residential details upto date.",
+          line1: "Line 1",
+          line1Placeholder: "Building Name / Flat",
+          line2: "Line 2",
+          line2Placeholder: "Area / Village",
+          city: "City",
+          state: "State",
+          pin: "Pin Code",
+          deleteAccount: "Delete My Account",
+          update: "Update",
+          cancel: "Cancel",
+
+          // Food Slides
+          foodSlidesHeader: "What's on your mind?",
+          burger: "Burger",
+          biryani: "Biryani",
+          snacks: "Snacks",
+          chinese: "Chinese",
+          khichdi: "Khichdi",
+          kathiyawadi: "Kathiyawadi",
+          pizza: "Pizza",
+          northIndian: "North Indian",
+          coffee: "Coffee",
+          parathas: "Parathas",
+          sweets: "Sweets",
+          southIndian: "South Indian",
+          shakes: "Shakes",
+          tea: "Tea",
+          deserts: "Deserts",
+
+          // Top Restaurants
+          topRestaurantsHeader: "Top restaurant chains around you",
+          mins: "mins",
+
+          // Filters
+          ratings: "Ratings 4.0+",
+          veg: "Pure Veg",
+          nonVeg: "Non Veg",
+          rateLessThan300: "Less Than Rs. 300",
+          rate300to600: "Rs. 300-Rs. 600",
+          distanceWithin5km: "Within 5km",
+          sortBy: "Sort By",
+          relevance: "Relevance(Default)",
+          deliveryTime: "Delivery Time",
+          rating: "Rating",
+          costLowToHigh: "Cost:Low to High",
+          costHighToLow: "Cost:High to Low",
+
+          // Home
+          homeHeader: "Restaurants with online food delivery around you",
+          cuisineTitle: "Best Cuisines Near Me",
+          cuisine1: "Kathiyawadi Restaurant Near Me",
+          cuisine2: "Chinese Restaurant Near Me",
+          cuisine3: "South Indian Restaurant Near Me",
+          cuisine4: "Indian Restaurant Near Me",
+          cuisine5: "Kerala Restaurant Near Me",
+          cuisine6: "Korean Restaurant Near Me",
+          cuisine7: "North Indian Restaurant Near Me",
+          cuisine8: "Seafood Restaurant Near Me",
+          cuisine9: "Bengali Restaurant Near Me",
+          cuisine10: "Punjabi Restaurant Near Me",
+          cuisine11: "Italian Restaurant Near Me",
+          nearByTitle: "Explore Every Restaurants Near Me",
+          nearBy1: "Explore Restaurants Near Me",
+          nearBy2: "Explore Top Restaurants Near Me",
+
+          // Search
+          searchPlaceholder: "Search for restaurants and food",
+        },
+      },
+      jp: {
+        translation: {
+          // Headers
+          greeting: "Bigbiteへようこそ！",
+          search: "検索",
+          offers: "オファー",
+          history: "歴史",
+          cart: "カート",
+          profile: "私のプロフィール",
+          logout: "ログアウト",
+          restaurants: "レストラン",
+          foods: "食品",
+          coupons: "クーポン",
+          orders: "注文",
+          requests: "リクエスト",
+          jobs: "求人",
+          users: "ユーザー",
+          restaurant: "レストラン",
+          menu: "メニュー",
+
+          // Footers
+          footerHeader: "おいしいものを食べて一日を始めましょう!",
+          company: "会社",
+          aboutUs: "私たちについて",
+          careers: "キャリア",
+          contactUs: "お問い合わせ",
+          helpSupport: "ヘルプとサポート",
+          rideWithUs: "私たちと一緒に乗りましょう",
+          legal: "法律上の",
+          terms: "利用規約",
+          policy: "クッキーポリシー",
+          availableIn: "利用可能な地域:",
+          ahmedabad: "アーメダバード",
+          tagLine: "© 2025 ビッグバイトリミテッド",
+
+          // Not Found
+          notFound: "404 | ページが見つかりません",
+          goToHome: "ホームへ行く",
+
+          // Profile
+          profileHeader: "私のプロフィール",
+          profileSubText: "個人情報を更新し、詳細を若々しく保ちます。",
+          switchToUser: "ユーザーに切り替える",
+          becomeAdmin: "管理者になる",
+          username: "ユーザー名",
+          usernamePlaceholder: "好みの名前を入力してください",
+          email: "電子メールアドレス",
+          emailPlaceholder: "メールアドレスを入力してください",
+          mobile: "携帯電話/電話",
+          mobilePlaceholder: "連絡先の詳細を入力してください",
+          profilePictureText:
+            "プロフィール写真を変更するにはクリックしてください",
+          imageValidationText: ".jpg、.png、.gif のサイズは 10 MB 未満です。",
+          imageError:
+            "画像サイズが10MBを超えています。より小さいファイルを選択してください。",
+          addressHeader: "住所",
+          addressSubText: "居住地の詳細情報を最新の状態に保ってください。",
+          line1: "1行目",
+          line1Placeholder: "建物名・アパート名",
+          line2: "2行目",
+          line2Placeholder: "エリア・村",
+          city: "市",
+          state: "州",
+          pin: "PINコード",
+          deleteAccount: "アカウントを削除する",
+          update: "アップデート",
+          cancel: "キャンセル",
+
+          // Food Slides
+          foodSlidesHeader: "何を考えているの？",
+          burger: "バーガー",
+          biryani: "ビリヤニ",
+          snacks: "スナック",
+          chinese: "中国語",
+          khichdi: "キチディ",
+          kathiyawadi: "カティヤワディ",
+          pizza: "ピザ",
+          northIndian: "北インド人",
+          coffee: "コーヒー",
+          parathas: "パラタ",
+          sweets: "お菓子",
+          southIndian: "南インド人",
+          shakes: "震える",
+          tea: "お茶",
+          deserts: "砂漠",
+
+          // Top Restaurants
+          topRestaurantsHeader: "あなたの周りのトップレストランチェーン",
+          mins: "分",
+
+          // Filters
+          ratings: "評価 4.0+",
+          veg: "ピュアベジ",
+          nonVeg: "ノンベジ",
+          rateLessThan300: "300ルピー未満",
+          rate300to600: "300ルピー～600ルピー",
+          distanceWithin5km: "5km以内",
+          sortBy: "並べ替え",
+          relevance: "関連性（デフォルト）",
+          deliveryTime: "納期",
+          rating: "評価",
+          costLowToHigh: "コスト:低～高",
+          costHighToLow: "コスト:高から低",
+
+          // Home
+          homeHeader:
+            "あなたの近くにあるオンラインフードデリバリー対応レストラン",
+          cuisineTitle: "近くの最高の料理",
+          cuisine1: "近くのカティヤワディ レストラン",
+          cuisine2: "近くの中華料理店",
+          cuisine3: "近くの南インド料理レストラン",
+          cuisine4: "近くのインド料理レストラン",
+          cuisine5: "近くのケララ料理レストラン",
+          cuisine6: "近くの韓国料理レストラン",
+          cuisine7: "近くの北インド料理レストラン",
+          cuisine8: "近くのシーフードレストラン",
+          cuisine9: "近くのベンガル料理レストラン",
+          cuisine10: "近くのパンジャブ料理レストラン",
+          cuisine11: "近くのイタリア料理レストラン",
+          nearByTitle: "近くのレストランをすべて探す",
+          nearBy1: "近くのレストランを探す",
+          nearBy2: "近くの人気レストランを探す",
+
+          // Search
+          searchPlaceholder: "レストランや食べ物を検索",
+        },
+      },
+    },
+  });
+
+export default i18n;

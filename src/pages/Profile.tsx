@@ -20,8 +20,11 @@ import { type IAddress } from "../types/common";
 import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch, type RootState } from "../redux/store";
 import { switchRoles } from "../redux/slices/role";
+import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
+  const { t } = useTranslation();
+
   const { response, makeAPICall, loading, error, setError } = useFetch();
   const navigate = useNavigate();
   const fileInput = useRef<HTMLInputElement>(null);
@@ -34,7 +37,12 @@ const ProfilePage = () => {
   const role = useSelector((state: RootState) => state.user.role);
 
   const [image, setImage] = useState<string | null>(null);
-  const [profileData, setProfileData] = useState({
+  const [profileData, setProfileData] = useState<{
+    name: string;
+    email: string;
+    contact: string;
+    image: string | null;
+  }>({
     name: "",
     email: "",
     contact: "",
@@ -59,7 +67,7 @@ const ProfilePage = () => {
 
       const sizeInMB = file.size / (1024 * 1024);
       if (Math.floor(sizeInMB) > 10) {
-        setError("Image size exceeds 10MB. Please choose a smaller file.");
+        setError(t("imageError"));
         return;
       }
 
@@ -67,7 +75,7 @@ const ProfilePage = () => {
 
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        setProfileData((prev) => ({ ...prev, image: base64String as any }));
+        setProfileData((prev) => ({ ...prev, image: base64String }));
         setImage(base64String);
       };
 
@@ -137,7 +145,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Box sx={{ py: 4 }}>
+      <Box sx={{ py: { md: 4, xs: 1, sm: 2 } }}>
         <Box
           sx={{
             display: "flex",
@@ -145,22 +153,18 @@ const ProfilePage = () => {
             alignItems: "center",
           }}
         >
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-              My Profile
-            </Typography>
-            <Typography variant="body1" sx={{ color: "text.secondary", mb: 1 }}>
-              Update your personal information and keep your details look young.
-            </Typography>
-          </Box>
-          {user.isAdmin && (
+          <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+            {t("profileHeader")}
+          </Typography>
+
+          {user.role === 1 && (
             <CustomButton
               variant={BUTTON_VARIANT.OUTLINED}
               style={{
                 width: "max-content",
               }}
               btnText={
-                role === USER_ROLE.ADMIN ? "Switch to user" : "Become an admin"
+                role === USER_ROLE.ADMIN ? t("switchToUser") : t("becomeAdmin")
               }
               onClick={() =>
                 dispatch(
@@ -172,7 +176,9 @@ const ProfilePage = () => {
             />
           )}
         </Box>
-
+        <Typography variant="body1" sx={{ color: "text.secondary", mb: 1 }}>
+          {t("profileSubText")}
+        </Typography>
         <Divider sx={{ mb: 4 }} />
 
         <Grid container spacing={5} sx={{ alignItems: "center" }}>
@@ -216,10 +222,10 @@ const ProfilePage = () => {
                   variant="body2"
                   sx={{ color: "text.secondary", fontStyle: "italic" }}
                 >
-                  Click to change profile picture
+                  {t("profilePictureText")}
                 </Typography>
                 <Typography sx={{ color: "red", fontSize: 15 }}>
-                  .jpg, .png and .gif size less than 10MB.
+                  {t("imageValidationText")}
                 </Typography>
               </Box>
             </Box>
@@ -229,10 +235,10 @@ const ProfilePage = () => {
             <Grid container spacing={3}>
               <Grid size={12}>
                 <InputLabel htmlFor="name" sx={{ fontSize: 14, mb: 0.5 }}>
-                  Username
+                  {t("username")}
                 </InputLabel>
                 <Input
-                  placeholder="Enter your preferred name"
+                  placeholder={t("usernamePlaceholder")}
                   size={INPUT_SIZE.SMALL}
                   style={{ width: "100%" }}
                   startAdornment={<User size={20} />}
@@ -243,12 +249,12 @@ const ProfilePage = () => {
                 />
               </Grid>
 
-              <Grid size={{ md: 6, sm: 12 }}>
+              <Grid size={{ md: 6, sm: 12, xs: 12 }}>
                 <InputLabel htmlFor="email" sx={{ fontSize: 14, mb: 0.5 }}>
-                  Email Address
+                  {t("email")}
                 </InputLabel>
                 <Input
-                  placeholder="Enter your email address"
+                  placeholder={t("emailPlaceholder")}
                   size={INPUT_SIZE.SMALL}
                   style={{ width: "100%" }}
                   startAdornment={<Mail size={20} />}
@@ -259,12 +265,12 @@ const ProfilePage = () => {
                 />
               </Grid>
 
-              <Grid size={{ md: 6, sm: 12 }}>
+              <Grid size={{ md: 6, sm: 12, xs: 12 }}>
                 <InputLabel htmlFor="contact" sx={{ fontSize: 14, mb: 0.5 }}>
-                  Mobile/Telephone
+                  {t("mobile")}
                 </InputLabel>
                 <Input
-                  placeholder="Enter your contact details"
+                  placeholder={t("mobilePlaceholder")}
                   size={INPUT_SIZE.SMALL}
                   style={{ width: "100%" }}
                   startAdornment={<Phone size={20} />}
@@ -284,24 +290,36 @@ const ProfilePage = () => {
       </Box>
       <Box sx={{ display: "flex", mt: 2, justifyContent: "space-between" }}>
         <CustomButton
-          btnText="Delete My Account"
+          btnText={t("deleteAccount")}
           variant={BUTTON_VARIANT.OUTLINED}
-          style={{ padding: "8px 0", width: "180px", borderRadius: "8px" }}
+          style={{
+            padding: { md: "8px 0", sm: "6px 2px", xs: "4px" },
+            width: { md: "180px", sm: "auto", xs: "max-content" },
+            borderRadius: "8px",
+          }}
           icon={<Trash2 size={18} />}
           onClick={deleteAccount}
         />
         <Box sx={{ display: "flex", gap: 2 }}>
           <CustomButton
-            btnText="Update"
+            btnText={t("update")}
             variant={BUTTON_VARIANT.CONTAINED}
-            style={{ padding: "8px 0", width: "100px", borderRadius: "8px" }}
+            style={{
+              padding: { md: "8px 0", sm: "6px 2px", xs: "4px" },
+              width: { md: "100px", sm: "auto", xs: "max-content" },
+              borderRadius: "8px",
+            }}
             onClick={updateProfile}
             loading={loading}
           />
           <CustomButton
-            btnText="Cancel"
+            btnText={t("cancel")}
             variant={BUTTON_VARIANT.OUTLINED}
-            style={{ width: "100px", borderRadius: "8px" }}
+            style={{
+              width: { md: "100px", sm: "auto", xs: "max-content" },
+              borderRadius: "8px",
+              padding: { md: "8px 0", sm: "6px 2px", xs: "4px" },
+            }}
             onClick={() => navigate(PUBLIC_ROUTE.HOME)}
           />
         </Box>

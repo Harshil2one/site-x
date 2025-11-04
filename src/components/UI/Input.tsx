@@ -26,7 +26,7 @@ interface IProps {
   disabled?: boolean;
   multiline?: boolean;
   required?: boolean;
-  error?: any;
+  error?: string | boolean | undefined;
   isReset?:boolean;
   testId?: string;
   onDebounce?: (value: string) => void;
@@ -83,6 +83,10 @@ const Input = (props: IProps) => {
     return () => clearTimeout(handler);
   }, [inputValue]);
 
+  useEffect(() => {
+    if (isReset) setInputValue(value);
+  }, [value, isReset]);
+
   const endIcon = inputValue?.length
     ? clearIcon
       ? clearIcon
@@ -114,8 +118,8 @@ const Input = (props: IProps) => {
       variant={variant}
       type={type}
       size={size}
-      defaultValue={bounceTime === 0 ? value : inputValue}
-      value={isReset ? value : ""}
+      value={bounceTime === 0 ? value : inputValue}
+      // value={isReset ? value : inputValue}
       className={className}
       sx={style}
       inputRef={inputRef}
@@ -123,7 +127,7 @@ const Input = (props: IProps) => {
       multiline={multiline}
       minRows={3}
       required={required}
-      error={error}
+      error={Boolean(error)}
       data-testid={testId}
       slotProps={{
         input: {

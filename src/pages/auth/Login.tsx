@@ -3,7 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Box, InputLabel, Typography } from "@mui/material";
 import Input from "../../components/UI/Input";
 import CustomButton from "../../components/UI/Button";
-import { INPUT_SIZE, INPUT_TYPE, PUBLIC_ROUTE, USER_ROLE } from "../../enums";
+import {
+  INPUT_SIZE,
+  INPUT_TYPE,
+  PRIVATE_ROUTE,
+  PUBLIC_ROUTE,
+  USER_ROLE,
+} from "../../enums";
 import { Eye, EyeOff } from "lucide-react";
 import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
@@ -12,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cart";
 import { switchRoles } from "../../redux/slices/role";
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const { loading, response, error, setError, makeAPICall } = useFetch();
   const { setLocalStorage } = useLocalStorage();
 
@@ -50,7 +56,14 @@ const LoginPage: React.FC = () => {
     setLocalStorage("user", response.data.user);
     setLocalStorage("token", response?.data.token);
     dispatch(addToCart(response?.data?.cart));
-    navigate(PUBLIC_ROUTE.HOME);
+    dispatch(switchRoles(response.data.user?.role));
+    if (response.data.user?.role === 1 || response.data.user?.role === 2) {
+      navigate(PUBLIC_ROUTE.HOME);
+    } else if (response.data.user?.role === 3) {
+      navigate(PRIVATE_ROUTE.RIDERS);
+    } else if (response.data.user?.role === 4) {
+      navigate(PRIVATE_ROUTE.RESTAURANT);
+    }
   }
 
   return (

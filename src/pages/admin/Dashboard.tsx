@@ -74,7 +74,12 @@ const Dashboard = () => {
           }}
         >
           Hey, {user?.name?.split(" ")?.[1]}!
-          <img src="../../../public/assets/waving.svg" width={45} height={45} />
+          <img
+            src="../../../public/assets/waving.svg"
+            width={45}
+            height={45}
+            loading="lazy"
+          />
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 18, fontWeight: 600 }}>
           Take a look at your application stats

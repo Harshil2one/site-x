@@ -33,7 +33,7 @@ const cartSlice = createSlice({
         state.userCart = {
           restaurant,
           food: [
-            ...(state.userCart?.food ? state.userCart?.food : []),
+            ...(state.userCart?.food ? state.userCart.food : []),
             Number(food),
           ],
         };
@@ -66,7 +66,7 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Get Cart Items
-      .addCase(getAllCartItems.pending, (state, _action) => {
+      .addCase(getAllCartItems.pending, (state) => {
         state.isLoading = true;
         state.cartDetails = initialState.cartDetails;
       })
@@ -75,13 +75,13 @@ const cartSlice = createSlice({
         state.cartDetails = data;
         state.isLoading = false;
       })
-      .addCase(getAllCartItems.rejected, (state, _action) => {
+      .addCase(getAllCartItems.rejected, (state) => {
         state.cartDetails = initialState.cartDetails;
         state.isLoading = false;
       })
 
       // Reorder
-      .addCase(reorderCart.pending, (state, _action) => {
+      .addCase(reorderCart.pending, (state) => {
         state.isLoading = true;
         state.userCart = initialState.userCart;
       })
@@ -90,13 +90,13 @@ const cartSlice = createSlice({
         state.userCart = data;
         state.isLoading = false;
       })
-      .addCase(reorderCart.rejected, (state, _action) => {
+      .addCase(reorderCart.rejected, (state) => {
         state.userCart = initialState.userCart;
         state.isLoading = false;
       })
 
       // Empty Cart Items
-      .addCase(emptyCartItems.pending, (state, _action) => {
+      .addCase(emptyCartItems.pending, (state) => {
         state.isLoading = true;
         state.cartDetails = initialState.cartDetails;
       })
@@ -105,7 +105,7 @@ const cartSlice = createSlice({
         state.cartDetails = initialState.cartDetails;
         state.isLoading = false;
       })
-      .addCase(emptyCartItems.rejected, (state, _action) => {
+      .addCase(emptyCartItems.rejected, (state) => {
         state.cartDetails = initialState.cartDetails;
         state.isLoading = false;
       });

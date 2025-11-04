@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import RestaurantCard from "../common/RestaurantCard";
 import SwipeButtons from "../common/SwipeButtons";
 import type { IRestaurant } from "../../types/restaurant";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   restaurants: IRestaurant[];
@@ -11,6 +12,8 @@ interface IProps {
 const ITEMS_TO_SHOW = 4;
 
 const TopRestaurantsPage = ({ restaurants }: IProps) => {
+  const { t } = useTranslation();
+
   const [startIndex, setStartIndex] = useState(0);
 
   return (
@@ -24,7 +27,7 @@ const TopRestaurantsPage = ({ restaurants }: IProps) => {
         }}
       >
         <Typography variant="h6" fontWeight={700}>
-          Top restaurant chains around you
+          {t("topRestaurantsHeader")}
         </Typography>
         <SwipeButtons
           startIndex={startIndex}

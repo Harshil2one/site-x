@@ -77,7 +77,7 @@ const Coupons = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <DeletePopup
         open={deleteOpen}
         setOpen={setDeleteOpen}
@@ -167,14 +167,9 @@ const Coupons = () => {
           alignItems: "center",
         }}
       >
-        <Box>
-          <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>
-            Coupons
-          </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
-            All Coupons are valid based on the terms
-          </Typography>
-        </Box>
+        <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>
+          Coupons
+        </Typography>
         <CustomButton
           btnText="New Coupon"
           icon={<Plus size={18} />}
@@ -187,6 +182,9 @@ const Coupons = () => {
           }}
         />
       </Box>
+      <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
+        All Coupons are valid based on the terms
+      </Typography>
 
       <CommonTable
         tableName={TABLE_NAME.COUPONS}

@@ -54,12 +54,14 @@ const RiderRequests = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexDirection: { md: "row", sm: "row", xs: "column" },
+          mb: { md: 0, sm: 0, xs: 2 },
         }}
       >
         <Box>
@@ -102,6 +104,7 @@ const RiderRequests = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  flexDirection: { md: "row", sm: "row", xs: "column" },
                 }}
               >
                 <Box
@@ -144,6 +147,7 @@ const RiderRequests = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     gap: 2,
+                    mt: { md: 0, sm: 0, xs: 1 },
                   }}
                 >
                   {request.status === STATUS.PENDING ? (

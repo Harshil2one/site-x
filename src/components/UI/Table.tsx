@@ -13,8 +13,22 @@ import {
   Typography,
 } from "@mui/material";
 import CustomButton from "./Button";
-import { BUTTON_VARIANT, RESTAURANT_TYPE, TABLE_NAME } from "../../enums";
-import { Pencil, Star, Trash2 } from "lucide-react";
+import {
+  BUTTON_VARIANT,
+  RESTAURANT_TYPE,
+  STATUS,
+  TABLE_NAME,
+} from "../../enums";
+import {
+  Ban,
+  Pencil,
+  Signature,
+  Star,
+  ThumbsDown,
+  ThumbsUp,
+  Trash2,
+} from "lucide-react";
+import type { IRestaurant } from "../../types/restaurant";
 
 interface IHeader {
   id: string;
@@ -26,6 +40,7 @@ interface IProps {
   tableName: TABLE_NAME;
   headers: IHeader[];
   listData: any[];
+  restaurant?: IRestaurant;
   rowsToShow?: number;
   isPagination?: boolean;
   handleNameClick?: (id: number) => void;
@@ -38,6 +53,7 @@ const CommonTable = (props: IProps) => {
     tableName,
     headers,
     listData,
+    restaurant = {} as IRestaurant,
     rowsToShow = 10,
     isPagination = true,
     handleNameClick,
@@ -139,6 +155,7 @@ const CommonTable = (props: IProps) => {
                                     borderRadius: "4px",
                                     objectFit: "cover",
                                   }}
+                                  loading="lazy"
                                 />
                               )}
                               <Box>
@@ -174,6 +191,7 @@ const CommonTable = (props: IProps) => {
                                         width: 12,
                                         height: 12,
                                       }}
+                                      loading="lazy"
                                     />
                                     {row?.isBest === 1 && (
                                       <Typography
@@ -218,10 +236,50 @@ const CommonTable = (props: IProps) => {
                             />
                           </TableCell>
                         );
-                      } else if (header.id === "isAdmin") {
+                      } else if (header.id === "role") {
                         return (
                           <TableCell align={header.align}>
-                            {row[header.id] ? "Admin" : "User"}
+                            {row[header.id] === 1
+                              ? "Admin"
+                              : row[header.id] === 2
+                              ? "Customer"
+                              : row[header.id] === 3
+                              ? "Delivery Partner"
+                              : "Restaurant Owner"}
+                          </TableCell>
+                        );
+                      } else if (header.id === "restaurant-name") {
+                        return (
+                          <TableCell align={header.align}>
+                            {row?.restaurant?.name}
+                          </TableCell>
+                        );
+                      } else if (header.id === "order-items") {
+                        return (
+                          <TableCell align={header.align}>
+                            <Box
+                              sx={{ display: "flex", flexDirection: "column" }}
+                            >
+                              {row?.food?.map((f: any) => (
+                                <span>{f.count + " x " + f.name}</span>
+                              ))}
+                            </Box>
+                          </TableCell>
+                        );
+                      } else if (header.id === "order-status") {
+                        return (
+                          <TableCell align={header.align}>
+                            <Chip
+                              color={
+                                row.payment_status === "paid"
+                                  ? "success"
+                                  : row.payment_status === "failed"
+                                  ? "error"
+                                  : "default"
+                              }
+                              label={row.payment_status}
+                              sx={{ fontWeight: 600 }}
+                            />
                           </TableCell>
                         );
                       } else if (header.id === "actions") {
@@ -258,6 +316,101 @@ const CommonTable = (props: IProps) => {
                                   handleDelete && handleDelete(row.id)
                                 }
                               />
+                            </Box>
+                          </TableCell>
+                        );
+                      } else if (header.id === "restaurant-actions") {
+                        return (
+                          <TableCell align="center" key={header.id}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 1,
+                              }}
+                            >
+                              {row.status === STATUS.PENDING ? (
+                                <>
+                                  <CustomButton
+                                    btnText="Reject"
+                                    icon={<ThumbsDown size={18} />}
+                                    style={{
+                                      width: "max-content !important",
+                                    }}
+                                    onClick={() =>
+                                      handleDelete && handleDelete(row.id)
+                                    }
+                                  />
+                                  <CustomButton
+                                    btnText="Approve"
+                                    icon={<ThumbsUp size={18} />}
+                                    style={{
+                                      width: "max-content !important",
+                                      backgroundColor: "green !important",
+                                    }}
+                                    onClick={() =>
+                                      handleEdit && handleEdit(row.id)
+                                    }
+                                  />
+                                </>
+                              ) : row.status === STATUS.APPROVED ? (
+                                <CustomButton
+                                  btnText="Approved"
+                                  variant={BUTTON_VARIANT.OUTLINED}
+                                  icon={<Signature size={18} />}
+                                  style={{
+                                    borderColor: "green !important",
+                                    color: "green !important",
+                                  }}
+                                  disabled
+                                />
+                              ) : (
+                                <CustomButton
+                                  btnText="Rejected"
+                                  variant={BUTTON_VARIANT.OUTLINED}
+                                  icon={<Ban size={18} />}
+                                  disabled
+                                />
+                              )}
+                            </Box>
+                          </TableCell>
+                        );
+                      } else if (header.id === "food-actions") {
+                        return (
+                          <TableCell align="center" key={header.id}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 1,
+                              }}
+                            >
+                              {!restaurant?.food?.includes(row?.id) ? (
+                                <CustomButton
+                                  btnText="Add"
+                                  icon={<ThumbsUp size={18} />}
+                                  style={{
+                                    width: "max-content !important",
+                                    backgroundColor: "green !important",
+                                  }}
+                                  onClick={() =>
+                                    handleEdit && handleEdit(row.id)
+                                  }
+                                />
+                              ) : (
+                                <CustomButton
+                                  btnText="Remove"
+                                  icon={<ThumbsDown size={18} />}
+                                  style={{
+                                    width: "max-content !important",
+                                  }}
+                                  onClick={() =>
+                                    handleDelete && handleDelete(row.id)
+                                  }
+                                />
+                              )}
                             </Box>
                           </TableCell>
                         );

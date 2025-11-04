@@ -104,7 +104,7 @@ const Foods = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <DeletePopup
         open={deleteOpen}
         setOpen={setDeleteOpen}
@@ -152,6 +152,7 @@ const Foods = () => {
                     height: "100%",
                     objectFit: "cover",
                   }}
+                  loading="lazy"
                 />
                 <IconButton
                   size="small"
@@ -214,7 +215,7 @@ const Foods = () => {
               onChange={(e) =>
                 formik.setFieldValue(
                   "type",
-                  e.target.checked ? "veg" : "non-veg"
+                  e.target.checked ? "veg" : "nonVeg"
                 )
               }
             />
@@ -317,14 +318,9 @@ const Foods = () => {
           alignItems: "center",
         }}
       >
-        <Box>
-          <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>
-            Foods
-          </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
-            All Foods are listed with required details
-          </Typography>
-        </Box>
+        <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>
+          Foods
+        </Typography>
         <CustomButton
           btnText="New Food"
           icon={<Plus size={18} />}
@@ -338,6 +334,9 @@ const Foods = () => {
           }}
         />
       </Box>
+      <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
+        All Foods are listed with required details
+      </Typography>
 
       <CommonTable
         tableName={TABLE_NAME.FOODS}

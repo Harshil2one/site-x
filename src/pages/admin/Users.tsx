@@ -43,7 +43,7 @@ const Users = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <DeletePopup
         open={deleteOpen}
         setOpen={setDeleteOpen}
@@ -65,7 +65,7 @@ const Users = () => {
           { id: "name", label: "Name", align: "left" },
           { id: "email", label: "Email", align: "left" },
           { id: "contact", label: "Contact", align: "center" },
-          { id: "isAdmin", label: "Role", align: "center" },
+          { id: "role", label: "Role", align: "center" },
           { id: "delete", label: "Actions", align: "center" },
         ]}
         listData={allUsers}

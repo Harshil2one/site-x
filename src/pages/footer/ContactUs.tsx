@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Grid, Typography } from "@mui/material";
+import { Card, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Input from "../../components/UI/Input";
 import CustomButton from "../../components/UI/Button";
 import { useFormik } from "formik";
@@ -8,6 +8,9 @@ import toast from "react-hot-toast";
 import { contactUsValidationSchema } from "../../utils/schema";
 
 const ContactUsPage = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const { error, makeAPICall } = useFetch();
 
   const formik = useFormik({
@@ -37,21 +40,32 @@ const ContactUsPage = () => {
         container
         spacing={5}
         sx={{
-          py: 3,
+          py: { md: 3, xs: 1, sm: 2 },
           background:
             "linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgba(213, 69, 69, 0.2) 60%, rgba(255, 255, 255, 1) 100%)",
         }}
       >
-        <img
-          src={"../../../public/assets/bg-salad.webp"}
-          width={250}
-          style={{ position: "absolute", bottom: -248, left: 0, zIndex: 999 }}
-        />
-        <img
-          src={"../../../public/assets/bg-sandwich.webp"}
-          width={250}
-          style={{ position: "absolute", top: 10, right: 0, zIndex: 999 }}
-        />
+        {!isMobile && (
+          <>
+            <img
+              src={"../../../public/assets/bg-salad.webp"}
+              width={250}
+              style={{
+                position: "absolute",
+                bottom: -248,
+                left: 0,
+                zIndex: 999,
+              }}
+              loading="lazy"
+            />
+            <img
+              src={"../../../public/assets/bg-sandwich.webp"}
+              width={250}
+              style={{ position: "absolute", top: 10, right: 0, zIndex: 999 }}
+              loading="lazy"
+            />
+          </>
+        )}
         <Grid size={{ md: 7, sm: 12 }}>
           <Typography gutterBottom sx={{ fontWeight: 700, fontSize: "40px" }}>
             Customer Support
@@ -82,7 +96,7 @@ const ContactUsPage = () => {
             Number: 096530
           </Typography>
         </Grid>
-        <Grid size={{ md: 5, sm: 12 }}>
+        <Grid size={{ md: 5, sm: 12, xs: 12 }}>
           <Card
             elevation={0}
             sx={{
@@ -144,8 +158,9 @@ const ContactUsPage = () => {
         style={{
           marginTop: "20px",
           width: "100%",
-          height: "360px"
+          height: "360px",
         }}
+        loading="lazy"
       />
     </>
   );

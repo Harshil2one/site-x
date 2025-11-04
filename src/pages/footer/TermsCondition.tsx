@@ -3,7 +3,7 @@ import { Box, Typography, Divider } from "@mui/material";
 
 const TermsAndPrivacyPage: React.FC = () => {
   return (
-    <Box sx={{ py: 3, px: 4 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <Box mb={4}>
         <Typography gutterBottom sx={{ fontWeight: 700, fontSize: "28px" }}>
           Terms & Conditions

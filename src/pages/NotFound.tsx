@@ -3,8 +3,11 @@ import { Box, Typography } from "@mui/material";
 import CustomButton from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";
 import { PUBLIC_ROUTE } from "../enums";
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   return (
@@ -19,10 +22,10 @@ const NotFoundPage = () => {
       }}
     >
       <Typography variant="h4" data-testid="header-title">
-        404 | Page Not Found
+        {t("notFound")}
       </Typography>
       <CustomButton
-        btnText="Go To Home"
+        btnText={t("goToHome")}
         testId="go-home-button"
         onClick={() => navigate(PUBLIC_ROUTE.HOME)}
       />

@@ -17,19 +17,18 @@ const restaurantSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Get Cart Items
-      .addCase(getAllFoodItems.pending, (state, _action) => {
+      .addCase(getAllFoodItems.pending, (state) => {
         state.foodItems = initialState.foodItems;
       })
       .addCase(getAllFoodItems.fulfilled, (state, action) => {
         const { data } = action.payload;
         state.foodItems = data;
       })
-      .addCase(getAllFoodItems.rejected, (state, _action) => {
+      .addCase(getAllFoodItems.rejected, (state) => {
         state.foodItems = initialState.foodItems;
       });
   },
 });
 
-export const {} = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;

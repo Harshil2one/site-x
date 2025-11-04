@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Chip, FormControl, MenuItem, Select } from "@mui/material";
 import { X } from "lucide-react";
 import type { IFilter } from "../../types/common";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   filters: IFilter[];
@@ -11,17 +12,17 @@ interface IProps {
 }
 
 const sortingOption = [
-  "Sort By",
-  "Relevance(Default)",
-  "Delivery Time",
-  "Rating",
-  "Cost:Low to High",
-  "Cost:High to Low",
+  "sortBy",
+  "relevance",
+  "deliveryTime",
+  "rating",
+  "costLowToHigh",
+  "costHighToLow",
 ];
 
 const initialFilters = {
   veg: false,
-  "non-veg": false,
+  "nonVeg": false,
   ratings: false,
   offers: false,
   rate300to600: false,
@@ -31,8 +32,10 @@ const initialFilters = {
 };
 
 const Filters = (props: IProps) => {
+  const { t } = useTranslation();
+
   const { filters, defaultSelected, selectedFilter, setSelectedFilter } = props;
-  const [sort, setSort] = useState("Sort By");
+  const [sort, setSort] = useState("sortBy");
 
   useEffect(() => {
     setSelectedFilter(initialFilters);
@@ -47,7 +50,7 @@ const Filters = (props: IProps) => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", gap: 1 }}>
+    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
       <FormControl>
         <Select
           value={sort}
@@ -75,7 +78,7 @@ const Filters = (props: IProps) => {
                 }}
                 value={option}
               >
-                {option}
+                {t(option)}
               </MenuItem>
             );
           })}
@@ -85,7 +88,7 @@ const Filters = (props: IProps) => {
         return (
           <Chip
             key={filter.id}
-            label={filter.title}
+            label={t(filter.label)}
             variant="outlined"
             deleteIcon={<X size={16} color="black" />}
             sx={{

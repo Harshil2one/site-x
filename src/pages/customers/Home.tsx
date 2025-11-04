@@ -1,40 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Box, Divider, Typography } from "@mui/material";
-import FoodSlides from "../components/home/FoodSlides";
-import TopRestaurantsPage from "../components/home/TopRestaurants";
-import Filters from "../components/home/Filters";
-import useFetch from "../hooks/useFetch";
-import type { IRestaurant } from "../types/restaurant";
-import RestaurantCard from "../components/common/RestaurantCard";
+import FoodSlides from "../../components/home/FoodSlides";
+import TopRestaurantsPage from "../../components/home/TopRestaurants";
+import Filters from "../../components/home/Filters";
+import useFetch from "../../hooks/useFetch";
+import type { IRestaurant } from "../../types/restaurant";
+import RestaurantCard from "../../components/common/RestaurantCard";
+import { useTranslation } from "react-i18next";
 
 const filters = [
-  { id: 1, label: "ratings", title: "Ratings 4.0+" },
-  { id: 2, label: "veg", title: "Pure Veg" },
-  { id: 3, label: "non-veg", title: "Non Veg" },
-  { id: 4, label: "offers", title: "Offers" },
-  { id: 5, label: "rateLessThan300", title: "Less Than Rs. 300" },
-  { id: 6, label: "rate300to600", title: "Rs. 300-Rs. 600" },
-  { id: 7, label: "distanceWithin5km", title: "Within 5km" },
+  { id: 1, label: "ratings" },
+  { id: 2, label: "veg" },
+  { id: 3, label: "nonVeg" },
+  { id: 4, label: "offers" },
+  { id: 5, label: "rateLessThan300" },
+  { id: 6, label: "rate300to600" },
+  { id: 7, label: "distanceWithin5km" },
 ];
 
 const cuisinesOptions = [
-  "Kathiyawadi Restaurant Near Me",
-  "Chinese Restaurant Near Me",
-  "South Indian Restaurant Near Me",
-  "Indian Restaurant Near Me",
-  "Kerala Restaurant Near Me",
-  "Korean Restaurant Near Me",
-  "North Indian Restaurant Near Me",
-  "Seafood Restaurant Near Me",
-  "Bengali Restaurant Near Me",
-  "Punjabi Restaurant Near Me",
-  "Italian Restaurant Near Me",
+  "cuisine1",
+  "cuisine2",
+  "cuisine3",
+  "cuisine4",
+  "cuisine5",
+  "cuisine6",
+  "cuisine7",
+  "cuisine8",
+  "cuisine9",
+  "cuisine10",
+  "cuisine11",
 ];
 
-const nearByOptions = [
-  "Explore Restaurants Near Me",
-  "Explore Top Restaurants Near Me",
-];
+const nearByOptions = ["nearBy1", "nearBy2"];
 
 const LIMIT = 12;
 
@@ -42,15 +40,22 @@ const HomePage = () => {
   const { response, makeAPICall } = useFetch();
   const allRestaurants = response?.data;
 
+  const { t } = useTranslation();
+
   const [selectedFilter, setSelectedFilter] = useState<any>({});
 
   useEffect(() => {
     const filterQuery = Object.keys(selectedFilter)
       .filter((key) => selectedFilter?.[key])
       .join(",");
-    makeAPICall(`restaurants${filterQuery ? `?filter=${filterQuery}` : ""}`, {
-      method: "GET",
-    });
+    makeAPICall(
+      `restaurants?requests=approved${
+        filterQuery ? `&filter=${filterQuery}` : ""
+      }`,
+      {
+        method: "GET",
+      }
+    );
   }, [selectedFilter]);
 
   return (
@@ -65,7 +70,7 @@ const HomePage = () => {
       <Divider sx={{ mt: 6, mb: 4 }} />
       <Box sx={{ px: 3 }}>
         <Typography variant="h5" fontWeight={700} data-testid="header-title">
-          Restaurants with online food delivery around you
+          {t("homeHeader")}
         </Typography>
         <Box sx={{ mt: 2 }}>
           <Filters
@@ -78,6 +83,7 @@ const HomePage = () => {
               mt: 2,
               display: "flex",
               flexWrap: "wrap",
+              justifyContent: { md: "", xs: "center" },
               gap: 5,
             }}
           >
@@ -89,7 +95,7 @@ const HomePage = () => {
       </Box>
       <Box sx={{ px: 5 }}>
         <Typography variant="h5" fontWeight={700} sx={{ pt: 6 }}>
-          Best Cuisines Near Me
+          {t("cuisineTitle")}
         </Typography>
         <Box sx={{ pt: 2, display: "flex", flexWrap: "wrap", gap: 2 }}>
           {cuisinesOptions?.map((cuisine) => (
@@ -104,12 +110,12 @@ const HomePage = () => {
                 borderRadius: "16px",
               }}
             >
-              {cuisine}
+              {t(cuisine)}
             </Typography>
           ))}
         </Box>
         <Typography variant="h5" fontWeight={700} sx={{ pt: 10 }}>
-          Explore Every Restaurants Near Me
+          {t("nearByTitle")}
         </Typography>
         <Box sx={{ pt: 2, display: "flex", flexWrap: "wrap", gap: 2 }}>
           {nearByOptions?.map((option) => (
@@ -124,7 +130,7 @@ const HomePage = () => {
                 borderRadius: "16px",
               }}
             >
-              {option}
+              {t(option)}
             </Typography>
           ))}
         </Box>

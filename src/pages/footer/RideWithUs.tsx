@@ -22,7 +22,7 @@ const RideWithUs = () => {
   });
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <img
         src={`../../../public/assets/ride-with-us.jpg`}
         style={{
@@ -33,6 +33,7 @@ const RideWithUs = () => {
           objectPosition: "top",
           marginBottom: "16px",
         }}
+        loading="lazy"
       />
       <Typography
         variant="h5"
@@ -40,8 +41,8 @@ const RideWithUs = () => {
           px: 1.5,
           color: "white",
           position: "absolute",
-          top: 150,
-          left: 230,
+          top: { md: 150, xs: 100 },
+          left: { md: 230, xs: 30 },
           whiteSpace: "wrap",
           maxWidth: "400px",
           fontSize: 50,
@@ -54,11 +55,11 @@ const RideWithUs = () => {
         variant="h6"
         sx={{
           px: 1.5,
-          color: "white",
+          color: { md: "white", xs: "black" },
           fontWeight: 600,
           position: "absolute",
-          bottom: 290,
-          left: 230,
+          bottom: { md: 290, xs: 210 },
+          left: { md: 230, xs: 30 },
           whiteSpace: "wrap",
           maxWidth: "400px",
           display: "flex",
@@ -69,7 +70,7 @@ const RideWithUs = () => {
       >
         <Typography
           sx={{
-            border: "1px solid white",
+            border: { md: "1px solid white", xs: "1px solid black" },
             px: 1.5,
             py: 1,
             fontWeight: 700,
@@ -88,7 +89,7 @@ const RideWithUs = () => {
           width: "300px",
           height: "310px",
           p: 3,
-          position: "absolute",
+          position: { md: "absolute", xs: "initial" },
           top: 125,
           right: 230,
           whiteSpace: "wrap",
@@ -111,7 +112,11 @@ const RideWithUs = () => {
               justifyContent: "center",
             }}
           >
-            <img src="../../../public/assets/success.gif" width={300} />
+            <img
+              src="../../../public/assets/success.gif"
+              width={300}
+              loading="lazy"
+            />
             <Typography
               sx={{ fontSize: 28, color: "#414449", textAlign: "center" }}
             >
@@ -171,6 +176,8 @@ const RideWithUs = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexDirection: { md: "row", xs: "column" },
+          gap: { md: 0, xs: 2 },
         }}
       >
         {[
@@ -187,7 +194,11 @@ const RideWithUs = () => {
               gap: 1,
             }}
           >
-            <img src={`../../../public/assets/${benefit.img}`} width={100} />
+            <img
+              src={`../../../public/assets/${benefit.img}`}
+              width={100}
+              loading="lazy"
+            />
             <Typography sx={{ fontWeight: 600, fontSize: 20, color: "grey" }}>
               {benefit.label}
             </Typography>
@@ -204,9 +215,13 @@ const RideWithUs = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexDirection: { md: "row", xs: "column" },
+          gap: { md: 0, xs: 2 },
         }}
       >
-        <Typography sx={{ fontSize: 28, color: "#414449" }}>
+        <Typography
+          sx={{ fontSize: 28, color: "#414449", textAlign: "center" }}
+        >
           Become a Bigbite partner today
         </Typography>
         <CustomButton

@@ -57,7 +57,11 @@ const SearchCard = (props: IProps) => {
             <Typography
               variant="body1"
               sx={{
-                color: "grey",
+                color:
+                  (new Date().getHours() < 9 && new Date().getHours() > 21) ||
+                  place.open === 0
+                    ? "red"
+                    : "grey",
                 fontSize: "13px",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -65,13 +69,31 @@ const SearchCard = (props: IProps) => {
                 maxWidth: "215px",
               }}
             >
-              {new Date().getHours() < 9 && new Date().getHours() > 21
+              {(new Date().getHours() < 9 && new Date().getHours() > 21) ||
+              place.open === 0
                 ? "Closed"
                 : "Opens till 9:00 PM"}
             </Typography>
           </Box>
-          <Link to={`${PUBLIC_ROUTE.RESTAURANT}/${place?.restaurantId}#${place.foodId}`}>
-            <ArrowRight size={24} color="grey" style={{ cursor: "pointer" }} />
+          <Link
+            to={
+              (new Date().getHours() < 9 && new Date().getHours() > 21) ||
+              place.open === 0
+                ? ``
+                : `${PUBLIC_ROUTE.RESTAURANT}/${place?.restaurantId}#${place.foodId}`
+            }
+          >
+            <ArrowRight
+              size={24}
+              color="grey"
+              style={{
+                cursor:
+                  (new Date().getHours() < 9 && new Date().getHours() > 21) ||
+                  place.open === 0
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+            />
           </Link>
         </Box>
         <Box sx={{ borderTop: "1px dashed grey" }} />
@@ -90,6 +112,7 @@ const SearchCard = (props: IProps) => {
               }`}
               width={18}
               height={18}
+              loading="lazy"
             />
             <Typography
               variant="body1"
@@ -117,6 +140,7 @@ const SearchCard = (props: IProps) => {
               borderRadius: "8px",
               objectFit: "cover",
             }}
+            loading="lazy"
           />
         </Box>
       </Box>
@@ -144,6 +168,7 @@ const SearchCard = (props: IProps) => {
           borderRadius: "8px",
           objectFit: "cover",
         }}
+        loading="lazy"
       />
       <Box>
         <Typography variant="body1" sx={{ fontWeight: 600 }}>
@@ -167,10 +192,7 @@ const SearchCard = (props: IProps) => {
           sx={{
             color: "grey",
             fontSize: "14px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            maxWidth: "215px",
+            whiteSpace: "pre-wrap",
           }}
         >
           {place?.special?.join(", ")}

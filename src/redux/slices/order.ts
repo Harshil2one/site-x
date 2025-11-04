@@ -19,7 +19,7 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Get Cart Items
-      .addCase(getAllOrdersHistory.pending, (state, _action) => {
+      .addCase(getAllOrdersHistory.pending, (state) => {
         state.isLoading = true;
         state.orders = initialState.orders;
       })
@@ -28,13 +28,11 @@ const orderSlice = createSlice({
         state.orders = data;
         state.isLoading = false;
       })
-      .addCase(getAllOrdersHistory.rejected, (state, _action) => {
+      .addCase(getAllOrdersHistory.rejected, (state) => {
         state.orders = initialState.orders;
         state.isLoading = false;
       });
   },
 });
-
-export const {} = orderSlice.actions;
 
 export default orderSlice.reducer;

@@ -31,6 +31,9 @@ import {
   Users,
   Bike,
   Briefcase,
+  Earth,
+  ShoppingBasket,
+  CookingPot,
 } from "lucide-react";
 import { PRIVATE_ROUTE, PUBLIC_ROUTE, USER_ROLE } from "../../enums";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -38,6 +41,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch, type RootState } from "../../redux/store";
 import { emptyCart } from "../../redux/slices/cart";
 import { switchRoles } from "../../redux/slices/role";
+import i18n from "../../utils/i18n";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   hideNav: boolean;
@@ -50,6 +55,8 @@ interface INavLink {
 }
 
 const NavList = ({ ...props }) => {
+  const { t } = useTranslation();
+
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -83,24 +90,24 @@ const NavList = ({ ...props }) => {
 
   const userPages = [
     {
-      name: "Search",
+      name: "search",
       icon: <Search size={22} />,
       href: PUBLIC_ROUTE.SEARCH,
     },
     {
-      name: "Offers",
+      name: "offers",
       icon: <BadgePercent size={22} />,
       href: PUBLIC_ROUTE.OFFERS,
     },
     {
-      name: "History",
+      name: "history",
       icon: <History size={22} />,
       href: PUBLIC_ROUTE.HISTORY,
     },
     ...(user?.id
       ? [
           {
-            name: "Cart",
+            name: "cart",
             icon: (
               <Badge badgeContent={cart?.length || 0} color="error">
                 <ShoppingBag size={22} />
@@ -114,34 +121,60 @@ const NavList = ({ ...props }) => {
 
   const adminPages = [
     {
-      name: "Restaurants",
+      name: "restaurants",
       icon: <UtensilsCrossed size={22} />,
       href: PRIVATE_ROUTE.RESTAURANTS,
     },
     {
-      name: "Foods",
+      name: "foods",
       icon: <Cookie size={22} />,
       href: PRIVATE_ROUTE.FOODS,
     },
     {
-      name: "Coupons",
+      name: "orders",
+      icon: <ShoppingBasket size={22} />,
+      href: PRIVATE_ROUTE.ORDERS,
+    },
+    {
+      name: "coupons",
       icon: <Puzzle size={22} />,
       href: PRIVATE_ROUTE.COUPON_CODES,
     },
     {
-      name: "Requests",
+      name: "requests",
       icon: <Bike size={22} />,
       href: PRIVATE_ROUTE.RIDER_REQUESTS,
     },
     {
-      name: "Jobs",
+      name: "jobs",
       icon: <Briefcase size={22} />,
       href: PRIVATE_ROUTE.JOBS,
     },
     {
-      name: "Users",
+      name: "users",
       icon: <Users size={22} />,
       href: PRIVATE_ROUTE.USERS,
+    },
+  ];
+
+  const ownerPages = [
+    {
+      name: "restaurant",
+      icon: <UtensilsCrossed size={22} />,
+      href: PRIVATE_ROUTE.RESTAURANT,
+    },
+    {
+      name: "menu",
+      icon: <CookingPot size={22} />,
+      href: PRIVATE_ROUTE.MENU,
+    },
+  ];
+
+  const ridersPages = [
+    {
+      name: "rides",
+      icon: <UtensilsCrossed size={22} />,
+      href: PRIVATE_ROUTE.RIDERS,
     },
   ];
 
@@ -155,33 +188,36 @@ const NavList = ({ ...props }) => {
       width={{ xs: "200px", md: "initial" }}
       {...props}
     >
-      {(user?.id && role === USER_ROLE.ADMIN ? adminPages : userPages).map(
-        (page: INavLink) => (
-          <Link
-            key={page.href}
-            component={DOMLink}
-            to={page.href}
-            sx={{
-              height: "60px",
-              color: location.pathname.includes(page.href)
-                ? "#d54545"
-                : "black",
-              cursor: "pointer",
-              fontWeight: 600,
-              textDecoration: "none",
-              display: "flex",
-              gap: 0.5,
-              alignItems: "center",
-              "&:hover": {
-                color: "#d54545",
-              },
-            }}
-          >
-            {page.href === PRIVATE_ROUTE.USER_PROFILE ? page.name : page.icon}
-            {page.href === PRIVATE_ROUTE.USER_PROFILE ? page.icon : page.name}
-          </Link>
-        )
-      )}
+      {(user?.id && role === USER_ROLE.ADMIN
+        ? adminPages
+        : role === USER_ROLE.OWNER
+        ? ownerPages
+        : role === USER_ROLE.RIDER
+        ? ridersPages
+        : userPages
+      ).map((page: INavLink) => (
+        <Link
+          key={page.href}
+          component={DOMLink}
+          to={page.href}
+          sx={{
+            height: "60px",
+            color: location.pathname.includes(page.href) ? "#d54545" : "black",
+            cursor: "pointer",
+            fontWeight: 600,
+            textDecoration: "none",
+            display: "flex",
+            gap: 0.5,
+            alignItems: "center",
+            "&:hover": {
+              color: "#d54545",
+            },
+          }}
+        >
+          {page.href === PRIVATE_ROUTE.USER_PROFILE ? t(page.name) : page.icon}
+          {page.href === PRIVATE_ROUTE.USER_PROFILE ? page.icon : t(page.name)}
+        </Link>
+      ))}
       {user?.id ? (
         isMobile ? (
           <>
@@ -203,7 +239,7 @@ const NavList = ({ ...props }) => {
               }}
             >
               <Avatar src={user.image} sx={{ width: 28, height: 28 }} />
-              Profile
+              {t("profile")}
             </Link>
             <Divider />
             <Link
@@ -219,11 +255,30 @@ const NavList = ({ ...props }) => {
                 alignItems: "center",
               }}
             >
-              <LogOut size={22} /> Logout
+              <LogOut size={22} /> {t("logout")}
             </Link>
           </>
         ) : (
           <>
+            <Link
+              onClick={() =>
+                i18n.changeLanguage(i18n.language === "en" ? "jp" : "en")
+              }
+              sx={{
+                height: "60px",
+                color: "black",
+                cursor: "pointer",
+                fontWeight: 600,
+                textDecoration: "none",
+                display: "flex",
+                gap: 0.5,
+                alignItems: "center",
+                "&:hover": { color: "#d54545" },
+              }}
+            >
+              <Earth size={22} />
+              {i18n.language.toUpperCase()}
+            </Link>
             <Link
               onClick={handleClick}
               sx={{
@@ -261,7 +316,7 @@ const NavList = ({ ...props }) => {
                 to={PRIVATE_ROUTE.USER_PROFILE}
                 onClick={handleClose}
               >
-                <User size={22} /> My Profile
+                <User size={22} /> {t("profile")}
               </MenuItem>
               <Divider />
               <MenuItem
@@ -269,7 +324,7 @@ const NavList = ({ ...props }) => {
                 onClick={handleLogout}
               >
                 <LogOut size={22} />
-                Logout
+                {t("logout")}
               </MenuItem>
             </Menu>
           </>
@@ -332,6 +387,8 @@ const Nav = () => {
 };
 
 const Header = (props: IProps) => {
+  const { t } = useTranslation();
+
   const { hideNav } = props;
   const navigate = useNavigate();
 
@@ -367,6 +424,10 @@ const Header = (props: IProps) => {
                 navigate(
                   role === USER_ROLE.ADMIN
                     ? PRIVATE_ROUTE.DASHBOARD
+                    : role === USER_ROLE.OWNER
+                    ? PRIVATE_ROUTE.RESTAURANT
+                    : role === USER_ROLE.RIDER
+                    ? PRIVATE_ROUTE.RIDERS
                     : PUBLIC_ROUTE.HOME
                 )
               }

@@ -12,7 +12,7 @@ const MagicWandLoader: React.FC = () => {
       <img
         src={"../../../public/assets/loader.gif"}
         alt="Loading..."
-        width={400}
+        width={300}
       />
     </div>
   );

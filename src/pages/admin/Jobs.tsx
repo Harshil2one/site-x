@@ -77,7 +77,7 @@ const Jobs = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <DeletePopup
         open={deleteOpen}
         setOpen={setDeleteOpen}
@@ -155,14 +155,7 @@ const Jobs = () => {
           alignItems: "center",
         }}
       >
-        <Box>
-          <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>
-            Jobs
-          </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
-            All Jobs with open positions
-          </Typography>
-        </Box>
+        <Typography sx={{ fontSize: "28px", fontWeight: 700 }}>Jobs</Typography>
         <CustomButton
           btnText="New Job"
           icon={<Plus size={18} />}
@@ -175,6 +168,9 @@ const Jobs = () => {
           }}
         />
       </Box>
+      <Typography variant="body1" sx={{ color: "text.secondary", mb: 2 }}>
+        All Jobs with open positions
+      </Typography>
 
       <CommonTable
         tableName={TABLE_NAME.JOBS}

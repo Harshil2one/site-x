@@ -2,8 +2,11 @@ import React from "react";
 import { Box, Grid, Typography, Link, Stack } from "@mui/material";
 import { Linkedin, Facebook, Twitter, Instagram } from "lucide-react";
 import { PUBLIC_ROUTE } from "../../enums";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -11,7 +14,8 @@ const Footer = () => {
         bgcolor: "#f5f5f7",
         py: 6,
         px: 3,
-        background: "url(https://downtownmidland.com/wp-content/uploads/2020/07/Food_Header2-1920x488.jpg)",
+        background:
+          "url(https://downtownmidland.com/wp-content/uploads/2020/07/Food_Header2-1920x488.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -36,11 +40,11 @@ const Footer = () => {
         sx={{ mb: 6 }}
       >
         <Typography variant="h5" sx={{ fontWeight: 600 }}>
-          Start your day with biting something tasty!
+          {t("footerHeader")}
         </Typography>
       </Stack>
 
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 3 }}>
           <Stack spacing={2}>
             <Typography
@@ -66,16 +70,16 @@ const Footer = () => {
               </Box>
               igBite
             </Typography>
-            <Typography variant="body2">© 2025 BigBite Limited</Typography>
+            <Typography variant="body2">{t("tagLine")}</Typography>
           </Stack>
         </Grid>
         <Grid size={{ xs: 6, sm: 2 }}>
           <Typography variant="subtitle1" fontWeight={600} mb={1}>
-            Company
+            {t("company")}
           </Typography>
           {[
-            { label: "About Us", path: PUBLIC_ROUTE.ABOUT_US },
-            { label: "Careers", path: PUBLIC_ROUTE.CAREERS },
+            { label: "aboutUs", path: PUBLIC_ROUTE.ABOUT_US },
+            { label: "careers", path: PUBLIC_ROUTE.CAREERS },
           ].map((option) => (
             <Link
               key={option.path}
@@ -85,18 +89,18 @@ const Footer = () => {
               display="block"
               sx={{ mb: 0.5 }}
             >
-              {option.label}
+              {t(option.label)}
             </Link>
           ))}
         </Grid>
 
         <Grid size={{ xs: 6, sm: 2 }}>
           <Typography variant="subtitle1" fontWeight={600} mb={1}>
-            Contact us
+            {t("contactUs")}
           </Typography>
           {[
-            { label: "Help & Support", path: PUBLIC_ROUTE.CONTACT_US },
-            { label: "Ride with us", path: PUBLIC_ROUTE.RIDE_WITH_US },
+            { label: "helpSupport", path: PUBLIC_ROUTE.CONTACT_US },
+            { label: "rideWithUs", path: PUBLIC_ROUTE.RIDE_WITH_US },
           ].map((option) => (
             <Link
               key={option.path}
@@ -106,18 +110,18 @@ const Footer = () => {
               display="block"
               sx={{ mb: 0.5 }}
             >
-              {option.label}
+              {t(option.label)}
             </Link>
           ))}
         </Grid>
 
         <Grid size={{ xs: 6, sm: 2 }}>
           <Typography variant="subtitle1" fontWeight={600}>
-            Legal
+            {t("legal")}
           </Typography>
           {[
-            { label: "Terms & Conditions", path: PUBLIC_ROUTE.TERM_POLICY },
-            { label: "Cookie Policy", path: PUBLIC_ROUTE.PRIVACY_POLICY },
+            { label: "terms", path: PUBLIC_ROUTE.TERM_POLICY },
+            { label: "policy", path: PUBLIC_ROUTE.PRIVACY_POLICY },
           ].map((option) => (
             <Link
               key={option.path}
@@ -127,16 +131,16 @@ const Footer = () => {
               display="block"
               sx={{ mb: 0.5 }}
             >
-              {option.label}
+              {t(option.label)}
             </Link>
           ))}
         </Grid>
 
         <Grid size={{ xs: 6, sm: 2 }}>
           <Typography variant="subtitle1" fontWeight={600} mb={1}>
-            Available in:
+            {t("availableIn")}
           </Typography>
-          {["Ahmedabad"].map((city) => (
+          {["ahmedabad"].map((city) => (
             <Link
               key={city}
               color="inherit"
@@ -144,7 +148,7 @@ const Footer = () => {
               display="block"
               sx={{ mb: 0.5 }}
             >
-              {city}
+              {t(city)}
             </Link>
           ))}
         </Grid>

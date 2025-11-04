@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Box, Typography } from "@mui/material";
-import useFetch from "../hooks/useFetch";
-import RestaurantCard from "../components/common/RestaurantCard";
-import type { IRestaurant } from "../types/restaurant";
+import useFetch from "../../hooks/useFetch";
+import RestaurantCard from "../../components/common/RestaurantCard";
+import type { IRestaurant } from "../../types/restaurant";
 
 const FoodCollectionPage = () => {
   const { food } = useParams();

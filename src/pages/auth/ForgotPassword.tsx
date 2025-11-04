@@ -9,7 +9,7 @@ import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
 import OtpInput from "../../components/UI/OTPInput";
 
-const ForgotPasswordPage: React.FC = () => {
+const ForgotPasswordPage = () => {
   const { loading, response, error, makeAPICall } = useFetch();
   const navigate = useNavigate();
 

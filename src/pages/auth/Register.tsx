@@ -1,25 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, InputLabel, Typography } from "@mui/material";
+import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import Input from "../../components/UI/Input";
 import CustomButton from "../../components/UI/Button";
 import { INPUT_SIZE, INPUT_TYPE, PUBLIC_ROUTE } from "../../enums";
 import { Eye, EyeOff } from "lucide-react";
 import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
+import axiosInstance from "../../utils/axiosInstance";
+import type { IRole } from "../../types/users";
 
-const RegisterPage: React.FC = () => {
+const RegisterPage = () => {
   const { loading, response, error, setError, makeAPICall } = useFetch();
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [roles, setRoles] = useState<IRole[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    role: 2,
     password: "",
     confirmPassword: "",
   });
 
-  const handleChange = (key: string, value: string) => {
+  const getAllRoles = async () => {
+    const roles = await axiosInstance.get("/auth/roles");
+    setRoles(roles.data?.data);
+  };
+
+  const handleChange = (key: string, value: string | number) => {
     setError("");
     setFormData({ ...formData, [key]: value });
   };
@@ -32,6 +41,7 @@ const RegisterPage: React.FC = () => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
+          role: formData.role,
         },
       });
     } else {
@@ -47,6 +57,10 @@ const RegisterPage: React.FC = () => {
     toast.success(response.message);
     navigate(PUBLIC_ROUTE.SIGNIN);
   }
+
+  useEffect(() => {
+    getAllRoles();
+  }, []);
 
   return (
     <Box
@@ -109,6 +123,36 @@ const RegisterPage: React.FC = () => {
             value={formData.email}
             testId="email-input"
           />
+        </Box>
+
+        <Box>
+          <InputLabel htmlFor="role" sx={{ fontSize: 14, mb: 0.5 }}>
+            Select Role
+          </InputLabel>
+          <Select
+            value={formData.role}
+            onChange={(event) => handleChange("role", event.target.value)}
+            displayEmpty
+            sx={{
+              height: "40px",
+              width: "100%",
+              fontSize: "0.8rem !important",
+            }}
+          >
+            {roles?.map((option: IRole) => {
+              return (
+                <MenuItem
+                  key={option.id}
+                  sx={{
+                    fontWeight: formData.role === option.id ? 600 : 500,
+                  }}
+                  value={option.id}
+                >
+                  {option.role}
+                </MenuItem>
+              );
+            })}
+          </Select>
         </Box>
 
         <Box>

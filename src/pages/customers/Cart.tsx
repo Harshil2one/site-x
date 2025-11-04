@@ -5,23 +5,23 @@ import {
   emptyCartItems,
   getAllCartItems,
   updateCartItems,
-} from "../redux/actions/cart";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { type AppDispatch, type RootState } from "../redux/store";
-import { BUTTON_VARIANT, PUBLIC_ROUTE, RESTAURANT_TYPE } from "../enums";
+} from "../../redux/actions/cart";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { type AppDispatch, type RootState } from "../../redux/store";
+import { BUTTON_VARIANT, PUBLIC_ROUTE, RESTAURANT_TYPE } from "../../enums";
 import { Link, useNavigate } from "react-router";
-import Address from "../components/common/AddressField";
-import type { IAddress } from "../types/common";
-import useFetch from "../hooks/useFetch";
-import Input from "../components/UI/Input";
-import CustomButton from "../components/UI/Button";
+import Address from "../../components/common/AddressField";
+import type { IAddress } from "../../types/common";
+import useFetch from "../../hooks/useFetch";
+import Input from "../../components/UI/Input";
+import CustomButton from "../../components/UI/Button";
 import { Info, Tag, Trash2 } from "lucide-react";
-import RenderRazorpay from "../components/payments/RenderRazorpay";
-import axiosInstance from "../utils/axiosInstance";
-import Loader from "../components/UI/Loader";
-import FoodCounterButton from "../components/common/FoodCounterButton";
-import type { IFood } from "../types/food";
-import { addToCart, removeFromCart } from "../redux/slices/cart";
+import RenderRazorpay from "../../components/payments/RenderRazorpay";
+import axiosInstance from "../../utils/axiosInstance";
+import Loader from "../../components/UI/Loader";
+import FoodCounterButton from "../../components/common/FoodCounterButton";
+import type { IFood } from "../../types/food";
+import { addToCart, removeFromCart } from "../../redux/slices/cart";
 
 const GST_PCT = 0.18;
 
@@ -145,7 +145,7 @@ const CartPage = () => {
     }
   };
 
-  const handlePaymentFailure = async (error: any) => {
+  const handlePaymentFailure = async (error: { payment_id: string }) => {
     setDisplayRazor(false);
     await axiosInstance.post(
       `/orders/capturePaymentFailure/${orderDetails.orderId}`,
@@ -186,6 +186,7 @@ const CartPage = () => {
           src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
           width={350}
           height={350}
+          loading="lazy"
         />
         <Box
           sx={{
@@ -214,7 +215,12 @@ const CartPage = () => {
   return (
     <Loader fullScreen loading={isLoading}>
       <Card
-        sx={{ px: 4, py: 3, boxShadow: "none", border: "1px solid #8080802e" }}
+        sx={{
+          py: { md: 3, xs: 1, sm: 2 },
+          px: { md: 4, sm: 2, xs: 1 },
+          boxShadow: "none",
+          border: "1px solid #8080802e",
+        }}
       >
         <Box sx={{ display: "flex", gap: 2, alignItems: "start" }}>
           <img
@@ -224,6 +230,7 @@ const CartPage = () => {
             style={{
               objectFit: "cover",
             }}
+            loading="lazy"
           />
           <Box
             sx={{
@@ -287,6 +294,7 @@ const CartPage = () => {
                           }`}
                           width={16}
                           height={16}
+                          loading="lazy"
                         />
                         <Typography sx={{ fontWeight: 500 }}>
                           {f?.name} x {countMap[f.id]}
@@ -533,6 +541,7 @@ const CartPage = () => {
                     src={`../../../public/assets/${method.icon}`}
                     width={80}
                     height={80}
+                    loading="lazy"
                   />
                   <Typography
                     sx={{

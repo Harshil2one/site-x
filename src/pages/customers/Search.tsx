@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Box, Chip, Grid, Typography } from "@mui/material";
-import Input from "../components/UI/Input";
+import Input from "../../components/UI/Input";
 import { ChevronLeft, Search, X } from "lucide-react";
-import SearchCard from "../components/search/SearchCard";
-import useFetch from "../hooks/useFetch";
-import type { IRestaurant } from "../types/restaurant";
+import SearchCard from "../../components/search/SearchCard";
+import useFetch from "../../hooks/useFetch";
+import type { IRestaurant } from "../../types/restaurant";
+import { useTranslation } from "react-i18next";
 
 const filters = [
   { label: "Restaurants", id: "restaurants" },
@@ -15,6 +16,8 @@ const filters = [
 ];
 
 const SearchPage = () => {
+  const { t } = useTranslation();
+
   const { response, makeAPICall } = useFetch();
 
   const [selectedFilter, setSelectedFilter] = useState("restaurants");
@@ -28,7 +31,7 @@ const SearchPage = () => {
 
   const handleSearch = (value: string) => {
     setSearch(value);
-    makeAPICall(`restaurants?type=${selectedFilter}&search=${value}`, {
+    makeAPICall(`restaurants?requests=approved&type=${selectedFilter}&search=${value}`, {
       method: "GET",
     });
   };
@@ -37,7 +40,7 @@ const SearchPage = () => {
     const newFilter =
       selectedFilter === "restaurants" ? "dishes" : "restaurants";
     setSelectedFilter(newFilter);
-    makeAPICall(`restaurants?type=${newFilter}&search=${search}`, {
+    makeAPICall(`restaurants?requests=approved&type=${newFilter}&search=${search}`, {
       method: "GET",
     });
   };
@@ -49,9 +52,9 @@ const SearchPage = () => {
   }, [response]);
 
   return (
-    <Box sx={{ py: 3, px: 4 }}>
+    <Box sx={{ py: {md: 3, xs: 1, sm: 2}, px: { md: 4, sm: 2, xs: 1 } }}>
       <Input
-        placeholder="Search for restaurants and food"
+        placeholder={t("searchPlaceholder")}
         style={{
           width: "100%",
         }}

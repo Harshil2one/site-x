@@ -5,7 +5,6 @@ export enum PUBLIC_ROUTE {
   SIGNUP = "/signup",
   FORGOT_PASSWORD = "/forgot-password",
   FOOD_COLLECTION = "/food-collection",
-  RESTAURANT = "/restaurant",
   DINE_IN_RESTAURANT = "/restaurant/dine-in",
   SEARCH = "/search",
   OFFERS = "/offers",
@@ -28,11 +27,20 @@ export enum PRIVATE_ROUTE {
   COUPON_CODES = "/coupon-codes",
   RIDER_REQUESTS = "/rider-requests",
   JOBS = "/jobs",
+  ORDERS = "/orders",
+  ORDER_PLACED = "/order-placed",
+
+  RESTAURANT = "/restaurant",
+  MENU = "/menu",
+
+  RIDERS = "/riders",
 }
 
 export enum USER_ROLE {
-  ADMIN = "admin",
-  USER = "user",
+  ADMIN = 1,
+  USER = 2,
+  OWNER = 4,
+  RIDER = 3,
 }
 
 export enum BUTTON_TYPE {
@@ -84,7 +92,7 @@ export enum INPUT_SIZE {
 
 export enum RESTAURANT_TYPE {
   VEG = "veg",
-  NON_VEG = "non-veg",
+  NON_VEG = "nonVeg",
 }
 
 export enum RESTAURANT_MODE {
@@ -101,8 +109,10 @@ export enum TABLE_NAME {
   RESTAURANTS = "restaurants",
   FOODS = "foods",
   COUPONS = "coupons",
+  ORDERS = "orders",
   JOBS = "jobs",
   USERS = "users",
+  MENU = "menu",
 }
 
 export enum STATUS {

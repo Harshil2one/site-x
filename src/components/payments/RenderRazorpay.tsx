@@ -4,7 +4,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { PUBLIC_ROUTE } from "../../enums";
+import { PRIVATE_ROUTE } from "../../enums";
 import { emptyCartItems } from "../../redux/actions/cart";
 
 declare global {
@@ -20,7 +20,7 @@ interface IProps {
     orderId: string;
   };
   displayRazor: boolean;
-  onFailure: (error: any) => void;
+  onFailure: (error: { payment_id: string }) => void;
 }
 
 const loadScript = (src: any) =>
@@ -70,7 +70,11 @@ const RenderRazorpay = ({ orderDetails, displayRazor, onFailure }: IProps) => {
         email: user?.email,
         contact: user?.contact,
       },
-      handler: async function (response: any) {
+      handler: async function (response: {
+        razorpay_payment_id: string;
+        razorpay_order_id: string;
+        razorpay_signature: string;
+      }) {
         const data = {
           payment_id: response.razorpay_payment_id,
           order_id: response.razorpay_order_id,
@@ -83,7 +87,7 @@ const RenderRazorpay = ({ orderDetails, displayRazor, onFailure }: IProps) => {
               "x-razorpay-signature": import.meta.env.VITE_RAZORPAY_KEY_SECRET,
             },
           });
-          navigate(PUBLIC_ROUTE.HOME);
+          navigate(`${PRIVATE_ROUTE.ORDER_PLACED}/${orderId}`);
           setTimeout(() => {
             dispatch(emptyCartItems(user.id));
           }, 1000);

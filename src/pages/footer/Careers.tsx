@@ -60,6 +60,7 @@ const CareersPage = () => {
           objectFit: "cover",
           objectPosition: "top",
         }}
+        loading="lazy"
       />
       <Typography
         variant="h5"
@@ -69,11 +70,12 @@ const CareersPage = () => {
           fontWeight: 600,
           position: "absolute",
           top: 255,
-          left: 590,
+          left: { md: 590, sm: 250, xs: 10 },
           whiteSpace: "wrap",
+          textAlign: { md: "", xs: "center" },
           maxWidth: "400px",
           letterSpacing: 4,
-          fontSize: 28
+          fontSize: 28,
         }}
       >
         <b>Discover</b> active jobs
@@ -96,7 +98,7 @@ const CareersPage = () => {
         {jobTypes?.map((job) => (
           <Grid
             key={job.id}
-            size={{ md: 4, xs: 6, sm: 12 }}
+            size={{ md: 4, xs: 12, sm: 6 }}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -104,7 +106,7 @@ const CareersPage = () => {
               gap: 2,
             }}
           >
-            <img src={job.icon} />
+            <img src={job.icon} loading="lazy" />
             <Typography
               variant="h6"
               sx={{
@@ -136,9 +138,9 @@ const CareersPage = () => {
           background: "#5134b6",
           px: 25,
           py: 4,
-          width: "132.1%",
+          width: { md: "132.1%", sm: "150%", xs: "180%" },
           justifyContent: "space-around",
-          ml: "-185px",
+          ml: { md: "-185px", sm: "-165px", xs: "-130px" },
         }}
       >
         {response?.data
@@ -147,7 +149,7 @@ const CareersPage = () => {
           ?.map((job: IJob) => (
             <Grid
               key={job.id}
-              size={{ md: 4, xs: 6, sm: 12 }}
+              size={{ md: 4, xs: 12, sm: 6 }}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -159,6 +161,7 @@ const CareersPage = () => {
                 sx={{
                   fontSize: 22,
                   color: "white",
+                  textAlign: "center",
                 }}
               >
                 {job.title}
@@ -181,7 +184,7 @@ const CareersPage = () => {
           flexDirection: "column",
           gap: 4,
           alignItems: "center",
-          px: 35,
+          px: { md: 35, sm: 20, xs: 10 },
         }}
       >
         <Typography
@@ -197,6 +200,7 @@ const CareersPage = () => {
           sx={{
             fontWeight: 600,
             textAlign: "center",
+            fontSize: { md: "3.5rem", sm: "3rem", xs: "2.5rem" },
           }}
         >
           #LetsTalkDeepTech | Webinar Series

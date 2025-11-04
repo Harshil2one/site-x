@@ -10,9 +10,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(localStorage.getItem("token") || "");
-    if (token && config.headers) {
-      config.headers["token"] = token;
+    if (!config.url?.includes("auth/roles")) {
+      const token = JSON.parse(localStorage.getItem("token") || "");
+      if (!config.url?.includes("roles") && token && config.headers) {
+        config.headers = config.headers || {};
+        config.headers["token"] = token;
+      }
     }
     return config;
   },
@@ -25,6 +28,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.data?.message === "jwt expired") {
       localStorage.clear();
       window.location.href = PUBLIC_ROUTE.SIGNIN;
+      return;
     }
     const originalRequest: any = error.config;
 

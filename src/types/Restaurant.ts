@@ -2,6 +2,7 @@ import type { RESTAURANT_MODE, RESTAURANT_TYPE } from "../enums";
 
 export type IRestaurant = {
   id: number;
+  open: number;
   name: string;
   email: string;
   contact: string;

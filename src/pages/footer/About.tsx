@@ -1,28 +1,51 @@
 import React from "react";
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import CountUp from "react-countup";
 
 const AboutUsPage = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
       <img
         style={{
           height: 600,
-          width: "132.1%",
+          width: isMobile ? "164%" : "132.1%",
           justifyContent: "space-around",
           marginLeft: "-185px",
           position: "relative",
           top: 0,
         }}
         src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/about-banner-image-scaled.webp"
+        loading="lazy"
       />
-      <img
-        src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/dineout.webp"
-        style={{ position: "absolute", top: 480, width: "180px" }}
-      />
-      <img
-        src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/food.webp"
-        style={{ position: "absolute", top: 300, left: 450, width: "180px" }}
-      />
+      {!isMobile && (
+        <>
+          <img
+            src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/dineout.webp"
+            style={{ position: "absolute", top: 480, width: "180px" }}
+            loading="lazy"
+          />
+          <img
+            src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/food.webp"
+            style={{
+              position: "absolute",
+              top: 300,
+              left: 450,
+              width: "180px",
+            }}
+            loading="lazy"
+          />
+        </>
+      )}
       <Typography
         sx={{
           border: "2px solid white",
@@ -37,19 +60,35 @@ const AboutUsPage = () => {
           color: "white",
           position: "absolute",
           bottom: 100,
-          left: "50%",
+          left: { md: "48%", xs: "44%" },
         }}
       >
         B
       </Typography>
-      <img
-        src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/instamart.webp"
-        style={{ position: "absolute", top: 300, right: 450, width: "180px" }}
-      />
-      <img
-        src="https://www.swiggy.com/corporate/wp-content/uploads/2025/10/Scenes-new-icon.png"
-        style={{ position: "absolute", top: 480, right: 180, width: "180px" }}
-      />
+      {!isMobile && (
+        <>
+          <img
+            src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/instamart.webp"
+            style={{
+              position: "absolute",
+              top: 300,
+              right: 450,
+              width: "180px",
+            }}
+            loading="lazy"
+          />
+          <img
+            src="https://www.swiggy.com/corporate/wp-content/uploads/2025/10/Scenes-new-icon.png"
+            style={{
+              position: "absolute",
+              top: 480,
+              right: 180,
+              width: "180px",
+            }}
+            loading="lazy"
+          />
+        </>
+      )}
       <Typography
         variant="body1"
         sx={{
@@ -109,7 +148,7 @@ const AboutUsPage = () => {
               millions of Indians.
             </Typography>
           </Grid>
-          <Grid size={{ md: 5, xs: 0 }}>
+          <Grid size={{ md: 5, xs: 0 }} sx={{ display: { md: "initial", xs: "none" } }}>
             <img
               style={{
                 width: "500px",
@@ -118,6 +157,7 @@ const AboutUsPage = () => {
                 border: "1px solid #8080803b",
                 borderRadius: 26,
               }}
+              loading="lazy"
               src="https://img.freepik.com/premium-vector/man-jumping-barrier-obstacle-ambitious-male-character-overcoming-hurdledifficulty-problem-life-trouble-challenge-psychology-concept-flat-vector-illustration-isolated-white-background_198278-23205.jpg"
             />
           </Grid>
@@ -128,6 +168,8 @@ const AboutUsPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
+          flexDirection: { md: "row", xs: "column" },
+          gap: { md: 0, xs: 2 },
         }}
       >
         <Box
@@ -141,7 +183,7 @@ const AboutUsPage = () => {
               lineHeight: "36px",
             }}
           >
-            3 Million+
+            <CountUp start={1} end={3} /> Million+
           </Typography>
           <Typography sx={{ fontWeight: 400, color: "grey", fontSize: 18 }}>
             orders delivered
@@ -164,7 +206,8 @@ const AboutUsPage = () => {
               lineHeight: "36px",
             }}
           >
-            238k+
+            <CountUp end={238} />
+            k+
           </Typography>
           <Typography sx={{ fontWeight: 400, color: "grey", fontSize: 18 }}>
             restaurant partners
@@ -187,7 +230,8 @@ const AboutUsPage = () => {
               lineHeight: "36px",
             }}
           >
-            520k+
+            <CountUp end={520} />
+            k+
           </Typography>
           <Typography sx={{ fontWeight: 400, color: "grey", fontSize: 18 }}>
             delivery partners
@@ -210,7 +254,7 @@ const AboutUsPage = () => {
               lineHeight: "36px",
             }}
           >
-            1+
+            <CountUp start={1} end={1} />+
           </Typography>
           <Typography sx={{ fontWeight: 400, color: "grey", fontSize: 18 }}>
             cities in India

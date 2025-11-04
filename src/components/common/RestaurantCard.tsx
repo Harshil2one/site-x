@@ -4,6 +4,7 @@ import type { IRestaurant } from "../../types/restaurant";
 import { CircleStar } from "lucide-react";
 import { useNavigate } from "react-router";
 import { PUBLIC_ROUTE } from "../../enums";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   place: IRestaurant;
@@ -11,6 +12,8 @@ interface IProps {
 }
 
 const RestaurantCard = (props: IProps) => {
+  const { t } = useTranslation();
+
   const { place, width = 245 } = props;
   const navigate = useNavigate();
 
@@ -33,6 +36,7 @@ const RestaurantCard = (props: IProps) => {
           style={{
             borderRadius: "16px",
           }}
+          loading="lazy"
         />
         {place?.offers?.length > 0 && (
           <Box
@@ -40,7 +44,7 @@ const RestaurantCard = (props: IProps) => {
               position: "relative",
               bottom: 85,
               left: 0,
-              height: "40%",
+              height: "79px",
               borderRadius: "0 0 16px 16px",
               background:
                 "linear-gradient(to top, rgba(0,0,0,0.7), transparent)",
@@ -69,7 +73,7 @@ const RestaurantCard = (props: IProps) => {
       </Box>
       <Box
         sx={{
-          mt: place?.offers?.length ? -4 : 0,
+          mt: place?.offers?.length ? -14 : 0,
           px: 1,
           display: "flex",
           flexDirection: "column",
@@ -99,7 +103,7 @@ const RestaurantCard = (props: IProps) => {
           }}
         >
           <CircleStar size={20} color="green" /> {place.ratings} • {place.time}{" "}
-          mins
+          {t("mins")}
         </Typography>
         <Typography
           variant="body2"

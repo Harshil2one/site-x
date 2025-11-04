@@ -16,7 +16,7 @@ const OtpInput = ({ isFocused = false, length = 6, testId = "", onChange }: IPro
   const handleChange = (value: string, index: number) => {
     if (!/^\d?$/.test(value)) return;
 
-    const newOtp = [...otp] as any;
+    const newOtp = [...otp] as string[];
     newOtp[index] = value;
     setOtp(newOtp);
     onChange?.(newOtp.join(""));
@@ -41,7 +41,7 @@ const OtpInput = ({ isFocused = false, length = 6, testId = "", onChange }: IPro
     if (!/^\d{1,6}$/.test(pasteData)) return;
 
     const pasteDigits = pasteData.split("");
-    const newOtp = [...otp] as any;
+    const newOtp = [...otp] as string[];
     for (let i = 0; i < length; i++) {
       newOtp[i] = pasteDigits[i] || "";
     }

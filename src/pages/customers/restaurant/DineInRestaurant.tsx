@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { useParams } from "react-router";
 import { motion } from "framer-motion";
-import useFetch from "../../hooks/useFetch";
-import type { IRestaurant } from "../../types/restaurant";
+import useFetch from "../../../hooks/useFetch";
+import type { IRestaurant } from "../../../types/restaurant";
 import {
   Calendar,
   CheckCircle2,
@@ -22,7 +22,7 @@ import {
   MapPin,
   PhoneCall,
 } from "lucide-react";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import toast from "react-hot-toast";
 
 const DineInRestaurantPage = () => {
@@ -53,15 +53,18 @@ const DineInRestaurantPage = () => {
 
   useEffect(() => {
     (async () => {
-      const response: any = await makeAPICall(`restaurants/${restaurantId}`, {
-        method: "GET",
-      });
+      const response: { data: IRestaurant } = await makeAPICall(
+        `restaurants/${restaurantId}`,
+        {
+          method: "GET",
+        }
+      );
       setRestaurantDetails(response.data);
     })();
-  }, []);
+  }, [restaurantId]);
 
   return (
-    <Box sx={{ py: 3, px: 4 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <Modal open={isBooked && !loading}>
         <Box
           component={motion.div}
@@ -143,6 +146,7 @@ const DineInRestaurantPage = () => {
           borderRadius: "24px",
           objectFit: "cover",
         }}
+        loading="lazy"
       />
       <Card
         sx={{
@@ -390,6 +394,7 @@ const DineInRestaurantPage = () => {
                       src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/offers/generic"
                       width={50}
                       height={50}
+                      loading="lazy"
                     />
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <Typography sx={{ fontWeight: 700, fontSize: "18px" }}>
@@ -432,6 +437,7 @@ const DineInRestaurantPage = () => {
               src={`../../../public/assets/${menu}`}
               width={300}
               height={350}
+              loading="lazy"
             />
           ))}
         </Box>

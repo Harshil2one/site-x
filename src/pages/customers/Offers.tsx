@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
-import Filters from "../components/home/Filters";
-import type { IRestaurant } from "../types/restaurant";
-import RestaurantCard from "../components/common/RestaurantCard";
-import DineoutCard from "../components/offers/DineoutCard";
-import useFetch from "../hooks/useFetch";
+import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
+import Filters from "../../components/home/Filters";
+import type { IRestaurant } from "../../types/restaurant";
+import RestaurantCard from "../../components/common/RestaurantCard";
+import DineoutCard from "../../components/offers/DineoutCard";
+import useFetch from "../../hooks/useFetch";
 
 const dineoutFilters = [
   { id: 1, label: "distanceWithin5km", title: "Within 5km" },
   { id: 2, label: "offers", title: "Offers" },
   { id: 3, label: "ratings", title: "Ratings 4.0+" },
   { id: 4, label: "veg", title: "Pure Veg" },
-  { id: 5, label: "non-veg", title: "Non Veg" },
+  { id: 5, label: "nonVeg", title: "Non Veg" },
 ];
 
 const onlineFilters = [
   { id: 1, label: "ratings", title: "Ratings 4.0+" },
   { id: 2, label: "veg", title: "Pure Veg" },
-  { id: 3, label: "non-veg", title: "Non Veg" },
+  { id: 3, label: "nonVeg", title: "Non Veg" },
   { id: 4, label: "offers", title: "Offers" },
   { id: 5, label: "new", title: "New on Bigbite" },
   { id: 6, label: "rateLessThan300", title: "Less Than Rs. 300" },
@@ -34,7 +34,7 @@ const OffersPage = () => {
       .filter((key) => selectedFilter?.[key])
       .join(",");
     makeAPICall(
-      `restaurants?filter=${filterQuery ? filterQuery : "offers"}&mode=${
+      `restaurants?requests=approved&filter=${filterQuery ? filterQuery : "offers"}&mode=${
         selectedTab ? "dine" : "online"
       }`,
       {
@@ -44,7 +44,7 @@ const OffersPage = () => {
   }, [selectedTab, selectedFilter]);
 
   return (
-    <Box sx={{ py: 3 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <img
         src={`../../../public/assets/${selectedTab ? "offers" : "food"}.jpg`}
         style={{
@@ -54,6 +54,7 @@ const OffersPage = () => {
           objectFit: "cover",
           marginBottom: "16px",
         }}
+        loading="lazy"
       />
       <Typography
         variant="h5"
@@ -62,8 +63,8 @@ const OffersPage = () => {
           color: "white",
           fontWeight: 600,
           position: "absolute",
-          top: 150,
-          left: 230,
+          top: { md: 150, sm: 100, xs: 100 },
+          left: { md: 230, sm: 30, xs: 30 },
           whiteSpace: "wrap",
           maxWidth: "400px",
         }}
@@ -122,19 +123,21 @@ const OffersPage = () => {
           setSelectedFilter={setSelectedFilter}
         />
       </Box>
-      <Box
+      <Grid
+        container
+        spacing={2}
         sx={{
           mt: 4,
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          gap: 3.5,
         }}
       >
         {selectedTab ? (
           response?.data?.length > 0 ? (
             response?.data?.map((restaurant: IRestaurant) => {
-              return <DineoutCard place={restaurant} />;
+              return (
+                <Grid size={{ md: 4, sm: 6, xs: 12 }}>
+                  <DineoutCard place={restaurant} />
+                </Grid>
+              );
             })
           ) : (
             <Typography sx={{ fontSize: "18px", color: "grey" }}>
@@ -143,14 +146,18 @@ const OffersPage = () => {
           )
         ) : response?.data?.length > 0 ? (
           response?.data?.map((restaurant: IRestaurant) => {
-            return <RestaurantCard place={restaurant} width={258} />;
+            return (
+              <Grid size={{ md: 3, sm: 6, xs: 12 }}>
+                <RestaurantCard place={restaurant} width={258} />
+              </Grid>
+            );
           })
         ) : (
           <Typography sx={{ fontSize: "18px", color: "grey" }}>
             No Restaurants Found.
           </Typography>
         )}
-      </Box>
+      </Grid>
       <Box
         sx={{
           mt: 10,

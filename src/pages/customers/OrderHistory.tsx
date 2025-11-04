@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../redux/store";
-import { getAllOrdersHistory } from "../redux/actions/order";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import CustomButton from "../components/UI/Button";
-import { PRIVATE_ROUTE, PUBLIC_ROUTE } from "../enums";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { getAllOrdersHistory } from "../../redux/actions/order";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import CustomButton from "../../components/UI/Button";
+import { PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../enums";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { CircleCheck } from "lucide-react";
-import Loader from "../components/UI/Loader";
-import type { IOrder } from "../types/order";
-import { reorderCart } from "../redux/actions/cart";
+import Loader from "../../components/UI/Loader";
+import type { IOrder } from "../../types/order";
+import { reorderCart } from "../../redux/actions/cart";
 
 const OrderHistoryPage = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const OrderHistoryPage = () => {
   }, []);
 
   return (
-    <Box sx={{ py: 3, px: 4 }}>
+    <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <Loader fullScreen loading={isLoading}>
         {orders?.length > 0 ? (
           <>
@@ -60,13 +60,21 @@ const OrderHistoryPage = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "start",
+                      flexDirection: { md: "row", sm: "row", xs: "column" },
                     }}
                   >
-                    <Box sx={{ display: "flex", gap: 2 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 2,
+                        flexDirection: { md: "row", sm: "row", xs: "column" },
+                      }}
+                    >
                       <img
                         src={order.restaurant.images?.[0]}
                         width={160}
                         height={100}
+                        loading="lazy"
                       />
                       <Box>
                         <Typography
@@ -122,6 +130,7 @@ const OrderHistoryPage = () => {
                         color: "#4D5070",
                         fontSize: 14,
                         fontWeight: 600,
+                        mt: { md: 0, sm: 2, xs: 2 },
                       }}
                     >
                       Delivered on{" "}
@@ -181,6 +190,7 @@ const OrderHistoryPage = () => {
               src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
               width={350}
               height={350}
+              loading="lazy"
             />
             <Box
               sx={{
