@@ -1,0 +1,153 @@
+import React, { useState } from "react";
+import { Bell, CheckCheck, EyeOff } from "lucide-react";
+import {
+  Badge,
+  Button,
+  Popover,
+  Typography,
+  Box,
+  IconButton,
+  type SxProps,
+  type Theme,
+} from "@mui/material";
+import moment from "moment";
+import { Link } from "react-router-dom";
+
+interface IProps {
+  style?: SxProps<Theme>;
+}
+
+const Notification = ({ style }: IProps) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const notifications: any[] = [];
+
+  return (
+    <Box sx={{ display: "flex", alignItems: "center", ...style }}>
+      <IconButton
+        onClick={handleClick}
+        sx={{
+          color: "black",
+          "&:hover": {
+            background: "transparent",
+          },
+        }}
+      >
+        <Badge
+          variant="dot"
+          color="error"
+          invisible={notifications.length === 0}
+        >
+          <Bell size={20} />
+        </Badge>
+      </IconButton>
+
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        PaperProps={{
+          sx: { p: 2, width: 320, borderRadius: 2 },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 1,
+          }}
+        >
+          <Typography variant="subtitle1">
+            Notifications ({notifications.length})
+          </Typography>
+
+          {notifications.length > 0 && (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => console.log("Mark all as read")}
+              startIcon={<CheckCheck size={14} />}
+            >
+              Mark all as read
+            </Button>
+          )}
+        </Box>
+
+        {notifications.length > 0 ? (
+          notifications.map((item: any) => (
+            <Box
+              key={item._id}
+              sx={{
+                backgroundColor: "#f5f5f5",
+                borderRadius: 1,
+                p: 1.2,
+                mb: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body2">{item.message}</Typography>
+                <IconButton
+                  size="small"
+                  onClick={() => console.log("Hide", item._id)}
+                >
+                  <EyeOff size={14} />
+                </IconButton>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "end",
+                  mt: 0.5,
+                }}
+              >
+                <Typography variant="caption" color="text.secondary">
+                  {moment(item.createdAt).fromNow()}
+                </Typography>
+                {item.link && (
+                  <Link
+                    to={item.link}
+                    style={{ fontSize: 12, textDecoration: "underline" }}
+                  >
+                    See details
+                  </Link>
+                )}
+              </Box>
+            </Box>
+          ))
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            No new notifications
+          </Typography>
+        )}
+      </Popover>
+    </Box>
+  );
+};
+
+export default Notification;

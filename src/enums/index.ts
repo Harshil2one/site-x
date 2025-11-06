@@ -30,10 +30,13 @@ export enum PRIVATE_ROUTE {
   ORDERS = "/orders",
   ORDER_PLACED = "/order-placed",
 
+  OWNER_DASHBOARD = "/owner/dashboard",
   RESTAURANT = "/restaurant",
   MENU = "/menu",
+  ORDER_REQUESTS = "/order-requests",
 
-  RIDERS = "/riders",
+  RIDERS_DASHBOARD = "/riders/dashboard",
+  RIDERS = "/riders/rides",
 }
 
 export enum USER_ROLE {
@@ -119,4 +122,14 @@ export enum STATUS {
   PENDING = "pending",
   APPROVED = "approved",
   REJECTED = "rejected",
+}
+
+export enum ORDER_STATUS {
+  PREPARING = 1,
+  READY_FOR_PICKUP = 2,
+  OUT_FOR_DELIVERY = 3,
+  DELIVERED = 4,
+  CANCELLED = 5,
+  ORDER_PLACED = 6,
+  ORDER_REJECTED = 7,
 }

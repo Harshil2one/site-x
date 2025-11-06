@@ -8,7 +8,12 @@ import {
 } from "../../redux/actions/cart";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { type AppDispatch, type RootState } from "../../redux/store";
-import { BUTTON_VARIANT, PUBLIC_ROUTE, RESTAURANT_TYPE } from "../../enums";
+import {
+  BUTTON_VARIANT,
+  PRIVATE_ROUTE,
+  PUBLIC_ROUTE,
+  RESTAURANT_TYPE,
+} from "../../enums";
 import { Link, useNavigate } from "react-router";
 import Address from "../../components/common/AddressField";
 import type { IAddress } from "../../types/common";
@@ -22,8 +27,9 @@ import Loader from "../../components/UI/Loader";
 import FoodCounterButton from "../../components/common/FoodCounterButton";
 import type { IFood } from "../../types/food";
 import { addToCart, removeFromCart } from "../../redux/slices/cart";
+import toast from "react-hot-toast";
 
-const GST_PCT = 0.18;
+export const GST_PCT = 0.18;
 
 const paymentMethods = [
   { id: 1, label: "Cards", icon: "card.png", value: "card" },
@@ -128,6 +134,10 @@ const CartPage = () => {
   };
 
   const handleCreateOrder = async (amount: number) => {
+    if (!user?.address) {
+      toast.error("Please fill the address before placing order.");
+      return;
+    }
     const data: any = await axiosInstance.post("/orders/createOrder", {
       amount,
       userId: user.id,
@@ -249,7 +259,7 @@ const CartPage = () => {
                   cursor: "pointer",
                 }}
                 onClick={() =>
-                  navigate(`${PUBLIC_ROUTE.RESTAURANT}/${restaurant.id}`)
+                  navigate(`${PRIVATE_ROUTE.RESTAURANT}/${restaurant.id}`)
                 }
               >
                 {restaurant?.name}

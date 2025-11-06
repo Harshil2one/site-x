@@ -5,10 +5,10 @@ import type { AppDispatch, RootState } from "../../redux/store";
 import { getAllOrdersHistory } from "../../redux/actions/order";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import CustomButton from "../../components/UI/Button";
-import { PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../enums";
+import { ORDER_STATUS, PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../enums";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import { CircleCheck } from "lucide-react";
+import { CircleCheck, CircleX } from "lucide-react";
 import Loader from "../../components/UI/Loader";
 import type { IOrder } from "../../types/order";
 import { reorderCart } from "../../redux/actions/cart";
@@ -89,7 +89,7 @@ const OrderHistoryPage = () => {
                           }}
                           onClick={() =>
                             navigate(
-                              `${PUBLIC_ROUTE.RESTAURANT}/${order.restaurant?.id}`
+                              `${PRIVATE_ROUTE.RESTAURANT}/${order.restaurant?.id}`
                             )
                           }
                         >
@@ -123,22 +123,38 @@ const OrderHistoryPage = () => {
                         </Box>
                       </Box>
                     </Box>
-                    <Typography
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        color: "#4D5070",
-                        fontSize: 14,
-                        fontWeight: 600,
-                        mt: { md: 0, sm: 2, xs: 2 },
-                      }}
-                    >
-                      Delivered on{" "}
-                      {moment(order.created_at * 1000)
-                        .add(10, "m")
-                        .format("ddd, MMM DD, YYYY, hh:mm A")}{" "}
-                      <CircleCheck fill="#1BA672" color="white" size={24} />
-                    </Typography>
+                    {order?.order_status === ORDER_STATUS.DELIVERED ? (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Delivered on{" "}
+                        {moment(order.delivered_time * 1000).format(
+                          "ddd, MMM DD, YYYY, hh:mm A"
+                        )}{" "}
+                        <CircleCheck fill="#1BA672" color="white" size={24} />
+                      </Typography>
+                    ) : (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Cancelled
+                        <CircleX fill="red" color="white" size={24} />
+                      </Typography>
+                    )}
                   </Box>
                   <Box sx={{ mt: 2, mb: 1, borderTop: "1px dashed #E1E1E1" }} />
                   <Box

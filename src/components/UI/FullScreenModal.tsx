@@ -19,7 +19,7 @@ interface IProps {
   open: number;
   children: React.ReactNode;
   setOpen: (value: number) => void;
-  handleSave: () => void;
+  handleSave?: () => void;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -66,18 +66,20 @@ const FullScreenDialog = (props: IProps) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {title}
             </Typography>
-            <CustomButton
-              variant={BUTTON_VARIANT.CONTAINED}
-              btnText="Save"
-              style={{
-                width: "max-content",
-                background: "white !important",
-                color: "#D54545 !important",
-                fontSize: 16,
-                fontWeight: 500,
-              }}
-              onClick={handleSave}
-            />
+            {handleSave && (
+              <CustomButton
+                variant={BUTTON_VARIANT.CONTAINED}
+                btnText="Save"
+                style={{
+                  width: "max-content",
+                  background: "white !important",
+                  color: "#D54545 !important",
+                  fontSize: 16,
+                  fontWeight: 500,
+                }}
+                onClick={handleSave}
+              />
+            )}
           </Toolbar>
         </AppBar>
         <Grid container spacing={3} sx={{ p: 3 }}>

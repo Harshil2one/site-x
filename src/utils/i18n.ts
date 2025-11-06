@@ -31,6 +31,8 @@ i18n
           users: "Users",
           restaurant: "Restaurant",
           menu: "Menu",
+          orderRequests: "Order Requests",
+          rides: "Rides",
 
           // Footers
           footerHeader: "Start your day with biting something tasty!",
@@ -133,6 +135,24 @@ i18n
           nearBy1: "Explore Restaurants Near Me",
           nearBy2: "Explore Top Restaurants Near Me",
 
+          // Dashboards
+          heyText: "Welcome to",
+          ownerDashboardHeader: "Take a look at your restaurant stats",
+          ownerSubHeaderText1: "All your restaurants are live and open now.",
+          ownerSubHeaderText2: "All your restaurants are closed now.",
+          ownerWarningText: "Warning:",
+          ownerWarningSubText:
+            "Please follow up with admin for approval for recent listing.",
+          closeRestaurantBtn: "Close restaurant",
+          openRestaurantBtn: "Open restaurant",
+          totalRevenue: "Total Revenue",
+          revenueGrowth: "Revenue Growth",
+          avgOrderAmount: "Average Order Amount",
+          totalOrders: "Total Orders",
+          revenue: "Revenue",
+          revenuePerDay: "Revenues per day",
+          recentOrders: "Recent Orders",
+
           // Search
           searchPlaceholder: "Search for restaurants and food",
         },
@@ -156,6 +176,8 @@ i18n
           users: "ユーザー",
           restaurant: "レストラン",
           menu: "メニュー",
+          orderRequests: "注文リクエスト",
+          rides: "乗り物",
 
           // Footers
           footerHeader: "おいしいものを食べて一日を始めましょう!",
@@ -259,6 +281,24 @@ i18n
           nearByTitle: "近くのレストランをすべて探す",
           nearBy1: "近くのレストランを探す",
           nearBy2: "近くの人気レストランを探す",
+
+          // Dashboards
+          heyText: "へようこそ",
+          ownerDashboardHeader: "レストランの統計を見てみましょう",
+          ownerSubHeaderText1: "すべてのレストランは現在ライブで営業中です。",
+          ownerSubHeaderText2: "あなたのレストランはすべて閉店しています。",
+          ownerWarningText: "警告：",
+          ownerWarningSubText:
+            "最近のリストの承認については管理者に問い合わせてください。",
+          closeRestaurantBtn: "レストランを閉じる",
+          openRestaurantBtn: "オープンレストラン",
+          totalRevenue: "総収益",
+          revenueGrowth: "収益の増加",
+          avgOrderAmount: "平均注文金額",
+          totalOrders: "総注文数",
+          revenue: "収益",
+          revenuePerDay: "1日あたりの収益",
+          recentOrders: "最近の注文",
 
           // Search
           searchPlaceholder: "レストランや食べ物を検索",

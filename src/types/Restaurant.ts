@@ -1,4 +1,4 @@
-import type { RESTAURANT_MODE, RESTAURANT_TYPE } from "../enums";
+import type { RESTAURANT_MODE, RESTAURANT_TYPE, STATUS } from "../enums";
 
 export type IRestaurant = {
   id: number;
@@ -19,4 +19,5 @@ export type IRestaurant = {
   isSpecial: boolean;
   images: string[];
   food: number[];
+  status: STATUS;
 };

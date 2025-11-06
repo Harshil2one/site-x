@@ -34,6 +34,7 @@ import {
   Earth,
   ShoppingBasket,
   CookingPot,
+  Package,
 } from "lucide-react";
 import { PRIVATE_ROUTE, PUBLIC_ROUTE, USER_ROLE } from "../../enums";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -43,6 +44,7 @@ import { emptyCart } from "../../redux/slices/cart";
 import { switchRoles } from "../../redux/slices/role";
 import i18n from "../../utils/i18n";
 import { useTranslation } from "react-i18next";
+import Notification from "./Notification";
 
 interface IProps {
   hideNav: boolean;
@@ -168,12 +170,17 @@ const NavList = ({ ...props }) => {
       icon: <CookingPot size={22} />,
       href: PRIVATE_ROUTE.MENU,
     },
+    {
+      name: "orderRequests",
+      icon: <Package size={22} />,
+      href: PRIVATE_ROUTE.ORDER_REQUESTS,
+    },
   ];
 
   const ridersPages = [
     {
       name: "rides",
-      icon: <UtensilsCrossed size={22} />,
+      icon: <Bike size={22} />,
       href: PRIVATE_ROUTE.RIDERS,
     },
   ];
@@ -182,7 +189,7 @@ const NavList = ({ ...props }) => {
     <Stack
       overflow="auto"
       direction={{ xs: "column", md: "row" }}
-      gap={{ xs: 0, md: 5 }}
+      gap={{ xs: 0, md: 3.5 }}
       ml={{ xs: 3, md: 0 }}
       mt={{ xs: 3, md: 0 }}
       width={{ xs: "200px", md: "initial" }}
@@ -279,6 +286,7 @@ const NavList = ({ ...props }) => {
               <Earth size={22} />
               {i18n.language.toUpperCase()}
             </Link>
+            <Notification />
             <Link
               onClick={handleClick}
               sx={{
@@ -360,13 +368,40 @@ const Nav = () => {
 
   return (
     <>
-      <Button
-        variant="text"
-        onClick={toggleDrawer(true)}
-        sx={{ color: "black", display: { xs: "flex", md: "none" } }}
-      >
-        Menu
-      </Button>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+        <Link
+          onClick={() =>
+            i18n.changeLanguage(i18n.language === "en" ? "jp" : "en")
+          }
+          sx={{
+            height: "60px",
+            color: "black",
+            cursor: "pointer",
+            textDecoration: "none",
+            display: { xs: "flex", md: "none" },
+            gap: 0.5,
+            alignItems: "center",
+            "&:hover": { color: "#d54545" },
+          }}
+        >
+          <Earth size={20} />
+          {i18n.language.toUpperCase()}
+        </Link>
+        <Notification
+          style={{ display: { md: "none", sm: "flex", xs: "flex" } }}
+        />
+        <Button
+          variant="text"
+          onClick={toggleDrawer(true)}
+          sx={{
+            color: "black",
+            fontSize: 16,
+            display: { xs: "flex", md: "none" },
+          }}
+        >
+          Menu
+        </Button>
+      </Box>
       <Drawer
         open={open}
         onClose={toggleDrawer(false)}
@@ -387,8 +422,6 @@ const Nav = () => {
 };
 
 const Header = (props: IProps) => {
-  const { t } = useTranslation();
-
   const { hideNav } = props;
   const navigate = useNavigate();
 
@@ -425,9 +458,9 @@ const Header = (props: IProps) => {
                   role === USER_ROLE.ADMIN
                     ? PRIVATE_ROUTE.DASHBOARD
                     : role === USER_ROLE.OWNER
-                    ? PRIVATE_ROUTE.RESTAURANT
+                    ? PRIVATE_ROUTE.OWNER_DASHBOARD
                     : role === USER_ROLE.RIDER
-                    ? PRIVATE_ROUTE.RIDERS
+                    ? PRIVATE_ROUTE.RIDERS_DASHBOARD
                     : PUBLIC_ROUTE.HOME
                 )
               }

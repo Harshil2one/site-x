@@ -11,5 +11,8 @@ export type IOrder = {
   payment_status: string;
   receipt: string;
   payment_id: string;
+  order_status: number;
   created_at: number;
+  delivered_time: number;
+  user: any;
 };

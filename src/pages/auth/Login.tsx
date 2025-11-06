@@ -60,9 +60,9 @@ const LoginPage = () => {
     if (response.data.user?.role === 1 || response.data.user?.role === 2) {
       navigate(PUBLIC_ROUTE.HOME);
     } else if (response.data.user?.role === 3) {
-      navigate(PRIVATE_ROUTE.RIDERS);
+      navigate(PRIVATE_ROUTE.RIDERS_DASHBOARD);
     } else if (response.data.user?.role === 4) {
-      navigate(PRIVATE_ROUTE.RESTAURANT);
+      navigate(PRIVATE_ROUTE.OWNER_DASHBOARD);
     }
   }
 

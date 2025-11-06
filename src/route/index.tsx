@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import { PRIVATE_ROUTE, PUBLIC_ROUTE } from "../enums";
-import PlaceOrder from "../pages/customers/PlaceOrder";
 
 const LoginPage = lazy(() => import("../pages/auth/Login"));
 const RegisterPage = lazy(() => import("../pages/auth/Register"));
@@ -39,10 +38,13 @@ const AdminUsers = lazy(() => import("../pages/admin/Users"));
 const AdminRiderRequests = lazy(() => import("../pages/admin/RiderRequests"));
 const AdminJobs = lazy(() => import("../pages/admin/Jobs"));
 
-const RidersPage = lazy(() => import("../pages/riders/index"));
+const RidersDashboard = lazy(() => import("../pages/riders/index"));
+const RidersPage = lazy(() => import("../pages/riders/Rides"));
 
-const OwnerRestaurant = lazy(() => import("../pages/owners/index"));
+const OwnerDashboard = lazy(() => import("../pages/owners/index"));
+const OwnerRestaurant = lazy(() => import("../pages/owners/Restaurant"));
 const OwnerMenu = lazy(() => import("../pages/owners/Menu"));
+const OwnerOrderRequests = lazy(() => import("../pages/owners/OrderRequests"));
 
 const NotFoundPage = lazy(() => import("../pages/NotFound"));
 
@@ -98,7 +100,7 @@ const AllRoutes = () => {
     },
     {
       path: `${PRIVATE_ROUTE.ORDER_PLACED}/:orderId`,
-      element: <PlaceOrder />,
+      element: <OrderPlacePage />,
     },
     {
       path: PUBLIC_ROUTE.RIDE_WITH_US,
@@ -154,12 +156,24 @@ const AllRoutes = () => {
       element: <AdminJobs />,
     },
     {
+      path: PRIVATE_ROUTE.OWNER_DASHBOARD,
+      element: <OwnerDashboard />,
+    },
+    {
       path: PRIVATE_ROUTE.RESTAURANT,
       element: <OwnerRestaurant />,
     },
     {
       path: PRIVATE_ROUTE.MENU,
       element: <OwnerMenu />,
+    },
+    {
+      path: PRIVATE_ROUTE.ORDER_REQUESTS,
+      element: <OwnerOrderRequests />,
+    },
+    {
+      path: PRIVATE_ROUTE.RIDERS_DASHBOARD,
+      element: <RidersDashboard />,
     },
     {
       path: PRIVATE_ROUTE.RIDERS,

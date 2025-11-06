@@ -1,6 +1,7 @@
 import type { RESTAURANT_TYPE } from "../enums";
 
 export type IFood = {
+  count?: number;
   id: number;
   image: string;
   name: string;
