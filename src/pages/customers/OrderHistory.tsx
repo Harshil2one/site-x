@@ -8,7 +8,7 @@ import CustomButton from "../../components/UI/Button";
 import { ORDER_STATUS, PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../enums";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import { CircleCheck, CircleX } from "lucide-react";
+import { AlarmClock, Bike, CircleCheck, CircleX, Soup } from "lucide-react";
 import Loader from "../../components/UI/Loader";
 import type { IOrder } from "../../types/order";
 import { reorderCart } from "../../redux/actions/cart";
@@ -140,7 +140,70 @@ const OrderHistoryPage = () => {
                         )}{" "}
                         <CircleCheck fill="#1BA672" color="white" size={24} />
                       </Typography>
-                    ) : (
+                    ) : order?.order_status ===
+                      ORDER_STATUS.READY_FOR_PICKUP ? (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          gap: 0.5,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Ready to be picked up
+                        <Bike fill="#1BA672" color="#1BA672" size={24} />
+                      </Typography>
+                    ) : order?.order_status === ORDER_STATUS.PREPARING ? (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          gap: 0.5,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Preparing
+                        <Soup fill="orange" color="orange" size={24} />
+                      </Typography>
+                    ) : order?.order_status ===
+                      ORDER_STATUS.OUT_FOR_DELIVERY ? (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          gap: 0.5,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Out for delivery
+                        <Bike fill="#1BA672" color="#1BA672" size={24} />
+                      </Typography>
+                    ) :  order?.order_status ===
+                    ORDER_STATUS.ORDER_PLACED ? (
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#4D5070",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        gap: 0.5,
+                        mt: { md: 0, sm: 2, xs: 2 },
+                      }}
+                    >
+                      Order placed
+                      <AlarmClock color="#1BA672" size={24} />
+                    </Typography>
+                  ) : (
                       <Typography
                         sx={{
                           display: "flex",

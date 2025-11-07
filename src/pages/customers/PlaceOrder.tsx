@@ -252,7 +252,7 @@ const PlaceOrder = () => {
               Your order is on the way! Get ready to enjoy your meal.
             </Typography>
             <Typography mt={1} color="text.secondary">
-              Remaining time: {order?.estimatedTime || "12 mins"}
+              Estimated time: {order?.estimatedTime || "12 mins"}
             </Typography>
           </>
         ) : order?.order_status === ORDER_STATUS.CANCELLED ? (

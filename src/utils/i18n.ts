@@ -136,7 +136,8 @@ i18n
           nearBy2: "Explore Top Restaurants Near Me",
 
           // Dashboards
-          heyText: "Welcome to",
+          heyText: "Hey",
+          welcomeText: "Welcome to",
           ownerDashboardHeader: "Take a look at your restaurant stats",
           ownerSubHeaderText1: "All your restaurants are live and open now.",
           ownerSubHeaderText2: "All your restaurants are closed now.",
@@ -152,6 +153,13 @@ i18n
           revenue: "Revenue",
           revenuePerDay: "Revenues per day",
           recentOrders: "Recent Orders",
+
+          ridersDashboardHeader: "Take a look at your order deliveries stats",
+          totalEarn: "Total Earnings",
+          successRate: "Success Rate",
+          ratingsText: "Ratings",
+          ordersCompleted: "Completed Orders",
+          earnings: "Earnings",
 
           // Search
           searchPlaceholder: "Search for restaurants and food",
@@ -283,7 +291,8 @@ i18n
           nearBy2: "近くの人気レストランを探す",
 
           // Dashboards
-          heyText: "へようこそ",
+          heyText: "おい",
+          welcomeText: "へようこそ",
           ownerDashboardHeader: "レストランの統計を見てみましょう",
           ownerSubHeaderText1: "すべてのレストランは現在ライブで営業中です。",
           ownerSubHeaderText2: "あなたのレストランはすべて閉店しています。",
@@ -299,6 +308,13 @@ i18n
           revenue: "収益",
           revenuePerDay: "1日あたりの収益",
           recentOrders: "最近の注文",
+
+          ridersDashboardHeader: "注文の配送統計をご覧ください",
+          totalEarn: "総収益",
+          successRate: "成功率",
+          ratingsText: "評価",
+          ordersCompleted: "完了した注文",
+          earnings: "収益",
 
           // Search
           searchPlaceholder: "レストランや食べ物を検索",

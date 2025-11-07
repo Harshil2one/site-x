@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { ArrowRight, Star } from "lucide-react";
-import { PUBLIC_ROUTE, RESTAURANT_TYPE } from "../../enums";
+import { PRIVATE_ROUTE, RESTAURANT_TYPE } from "../../enums";
 
 interface IProps {
   type: string;
@@ -80,7 +80,7 @@ const SearchCard = (props: IProps) => {
               (new Date().getHours() < 9 && new Date().getHours() > 21) ||
               place.open === 0
                 ? ``
-                : `${PUBLIC_ROUTE.RESTAURANT}/${place?.restaurantId}#${place.foodId}`
+                : `${PRIVATE_ROUTE.RESTAURANT}/${place?.restaurantId}#${place.foodId}`
             }
           >
             <ArrowRight
@@ -158,7 +158,7 @@ const SearchCard = (props: IProps) => {
         p: 2,
         cursor: "pointer",
       }}
-      onClick={() => navigate(`${PUBLIC_ROUTE.RESTAURANT}/${place.id}`)}
+      onClick={() => navigate(`${PRIVATE_ROUTE.RESTAURANT}/${place.id}`)}
     >
       <img
         src={place.images?.[0]}

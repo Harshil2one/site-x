@@ -105,7 +105,7 @@ const OwnerDashboard = () => {
             gap: 1,
           }}
         >
-          {t("heyText")} {restaurantDetails?.name}!
+          {t("welcomeText")} {restaurantDetails?.name}!
           <img
             src="../../../public/assets/waving.svg"
             width={45}
@@ -255,7 +255,7 @@ const OwnerDashboard = () => {
             </Typography>
             <Doughnut
               data={{
-                labels: [t("revenuePerDay")],
+                labels: Object.keys(dashboardData?.dailyRevenue),
                 datasets: [
                   {
                     label: "Revenue",

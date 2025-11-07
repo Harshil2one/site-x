@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { Box, Card, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -10,18 +18,12 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
-import { Doughnut, Line, Pie } from "react-chartjs-2";
+import { Doughnut, Line } from "react-chartjs-2";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import useFetch from "../../hooks/useFetch";
-import { Cpu, Glasses, MemoryStick, Timer } from "lucide-react";
-import { keyframes } from "@mui/system";
-
-const scrollUp = keyframes`
-  0% { transform: translateY(100%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-100%); opacity: 0; }
-`;
+import { useTranslation } from "react-i18next";
+import type { IOrder } from "../../types/order";
+import moment from "moment";
 
 ChartJS.register(
   ArcElement,
@@ -34,23 +36,32 @@ ChartJS.register(
 );
 
 const RidersDashboard = () => {
+  const { t } = useTranslation();
+
   const { getLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
 
   const { response, makeAPICall } = useFetch();
-  const monitorDetails = response?.data;
-  const usedHeap = monitorDetails?.usedHeap || 0;
-  const totalHeap = monitorDetails?.totalHeap || 1;
-  const usedPercent = Math.min((usedHeap / totalHeap) * 100, 100);
-  const remainingPercent = 100 - usedPercent;
-  const rss = monitorDetails?.rss || 100;
-  const points = Array.from({ length: 8 }, (_, i) => Math.round((rss / 7) * i));
 
-  useEffect(() => {
-    makeAPICall(`auth/monitors`, {
+  const fetchDashboardData = async () => {
+    await makeAPICall(`riders/get-dashboard-details/${user?.id}`, {
       method: "GET",
     });
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
   }, []);
+
+  const dashboardData = response?.data || {
+    totalRevenue: 0,
+    totalOrders: 0,
+    averageOrderValue: 0,
+    orders: {},
+    dailyRevenue: {},
+    recentOrders: [],
+    revenueGrowth: 0,
+  };
 
   return (
     <Box sx={{ pt: 1, pb: 3 }}>
@@ -73,7 +84,7 @@ const RidersDashboard = () => {
             gap: 1,
           }}
         >
-          Hey, {user?.name?.split(" ")?.[1]}!
+          {t("heyText")}, {user?.name}! {t("welcomeText")} Bigbite Partners
           <img
             src="../../../public/assets/waving.svg"
             width={45}
@@ -82,114 +93,55 @@ const RidersDashboard = () => {
           />
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 18, fontWeight: 600 }}>
-          Take a look at your rides stats
+          {t("ridersDashboardHeader")}
         </Typography>
       </Box>
       <Grid container spacing={3} sx={{ mt: 3 }}>
-        <Grid size={{ md: 8, sm: 12 }}>
-          <Grid container spacing={3}>
-            <Grid size={{ md: 6, sm: 12 }}>
-              <Card sx={{ p: 2 }}>
-                <Typography
-                  fontWeight={700}
-                  mb={2}
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
-                >
-                  <MemoryStick size={20} /> Heap Usage (MB)
-                </Typography>
-                <Doughnut
-                  data={{
-                    labels: ["Occupied", "Remaining"],
-                    datasets: [
-                      {
-                        label: "Usage (%)",
-                        data: [usedPercent, remainingPercent],
-                        backgroundColor: ["#FFA084", "rgb(54, 162, 235)"],
-                        hoverOffset: 4,
-                        borderWidth: 0,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: {
-                      legend: { position: "bottom" },
-                    },
-                  }}
-                />
-              </Card>
-            </Grid>
-            <Grid size={{ md: 6, sm: 12 }}>
-              <Card sx={{ p: 2 }}>
-                <Typography
-                  fontWeight={700}
-                  mb={2}
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
-                >
-                  <Cpu size={20} /> CPU Usage (MB)
-                </Typography>
-                <Pie
-                  data={{
-                    labels: ["User", "System"],
-                    datasets: [
-                      {
-                        label: "Usage",
-                        data: [
-                          monitorDetails?.cpu?.user,
-                          monitorDetails?.cpu?.system,
-                        ],
-                        backgroundColor: ["#FFA084", "rgb(54, 162, 235)"],
-                        hoverOffset: 4,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: {
-                      legend: { position: "bottom" },
-                    },
-                  }}
-                />
-              </Card>
-            </Grid>
-            <Grid size={12}>
-              <Card sx={{ p: 3 }}>
-                <Typography
-                  fontWeight={700}
-                  mb={2}
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
-                >
-                  <Timer size={20} /> RSS (MB)
-                </Typography>
-                <Line
-                  data={{
-                    labels: points,
-                    datasets: [
-                      {
-                        label: "Memory",
-                        data: points.map(
-                          () => Math.random() * 10 + monitorDetails?.uptime
-                        ),
-                        borderColor: "#42A5F5",
-                        tension: 0.3,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true } },
-                  }}
-                />
-              </Card>
-            </Grid>
+        {[
+          {
+            label: "totalEarn",
+            value: dashboardData?.totalRevenue?.toFixed(2),
+            color: "green",
+          },
+          {
+            label: "successRate",
+            value: dashboardData?.revenueGrowth?.toFixed(2) + "%",
+            color: "navy",
+          },
+          {
+            label: "ratingsText",
+            value: dashboardData?.averageOrderValue?.toFixed(2),
+            color: "orange",
+          },
+          {
+            label: "ordersCompleted",
+            value: dashboardData?.totalOrders,
+            color: "red",
+          },
+        ]?.map((card) => (
+          <Grid
+            key={card.label}
+            size={{ md: 3, sm: 6, xs: 12 }}
+            component={Card}
+            sx={{
+              p: 3,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{ fontSize: 34, fontWeight: 600, color: card.color }}
+            >
+              {card.value}
+            </Typography>
+            <Typography sx={{ fontWeight: 600 }}>{t(card.label)}</Typography>
           </Grid>
-        </Grid>
-        <Grid size={{ md: 4, sm: 12 }}>
-          <Card sx={{ p: 2, fontSize: 20, fontWeight: 500 }}>
+        ))}
+      </Grid>
+      <Grid container spacing={3} sx={{ mt: 3 }}>
+        <Grid size={{ md: 8, sm: 12 }}>
+          <Card sx={{ p: 3 }}>
             <Typography
               fontWeight={700}
               mb={2}
@@ -197,39 +149,152 @@ const RidersDashboard = () => {
               alignItems="center"
               gap={1}
             >
-              <Glasses size={20} /> Specifications
+              {t("orders")}
             </Typography>
-            <Box
-              sx={{
-                height: "110vh",
-                overflow: "hidden",
-                position: "relative",
+            <Line
+              data={{
+                labels: Object.keys(dashboardData?.orders),
+                datasets: [
+                  {
+                    label: t("orders"),
+                    data: Object.values(dashboardData?.orders),
+                    borderColor: "#42A5F5",
+                  },
+                ],
               }}
+              options={{
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    grace: 2,
+                    ticks: {
+                      stepSize: 1,
+                    },
+                  },
+                },
+              }}
+            />
+          </Card>
+        </Grid>
+
+        <Grid size={{ md: 4, sm: 12 }}>
+          <Card sx={{ p: 3 }}>
+            <Typography
+              fontWeight={700}
+              mb={2}
+              display="flex"
+              alignItems="center"
+              gap={1}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  animation: `${scrollUp} 12s linear infinite`,
-                }}
-              >
-                {[
-                  "Bigbite helps users to order their favorite foods by any restaurants easily and get it delivered within just 10-15 minutes.",
-                  "It is built upon considering every use cases based on the user experiences. Team have used the application their self so they can understand better way about the flows and UI experience.",
-                  "Delivery boys are also verified by their respective teams and have proper behavioral manners. So, If they by any how do the improper things to any user, they directly need to take the responsibility about the action and provide proper details if they are not at fault.",
-                  "Bigbite is the application to make users life easier and better in case they do not have time or not want to visit the restaurants as many restaurants does not provide much sitting areas for much people.",
-                  "We are working 24x7 to help customers resolve their queries and doubts related to the orders or the application. Customers can contact us via email or our contact information. Bigbite team will reach to them within 10-12 working hours.",
-                  "If any customers found to be report false issues or dummy queries to take benefits from application, Immediate actions are going to be taken by the team and user might end up being blocked if team finds users fault into the queries or reports.",
-                ].map((text, idx) => (
-                  <Typography key={idx} sx={{ py: 0.5, textAlign: "left" }}>
-                    {text}
-                  </Typography>
-                ))}
-              </Box>
-            </Box>
+              {t("earnings")}
+            </Typography>
+            <Doughnut
+              data={{
+                labels: Object.keys(dashboardData?.dailyRevenue),
+                datasets: [
+                  {
+                    label: "Revenue",
+                    data: Object.values(dashboardData?.dailyRevenue),
+                    backgroundColor: Object.values(
+                      dashboardData?.dailyRevenue
+                    )?.map((_revenue: any) => {
+                      var letters = "0123456789ABCDEF";
+                      var color = "#";
+                      for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                      }
+                      return color;
+                    }),
+                    hoverOffset: 4,
+                    borderWidth: 0,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  legend: { position: "bottom" },
+                },
+              }}
+            />
           </Card>
         </Grid>
       </Grid>
+      <Card sx={{ p: 3, mt: 3 }}>
+        <Typography sx={{ fontWeight: 700 }}>{t("recentOrders")}</Typography>
+        <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+          {dashboardData?.recentOrders?.map((order: IOrder, index: number) => (
+            <Box
+              key={index}
+              sx={{
+                border: "1px solid #E0E0E0",
+                borderRadius: 2,
+                px: 2,
+                py: 2,
+                bgcolor: "white",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                transition: "all 0.2s ease-in-out",
+              }}
+            >
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Avatar
+                  src={order.user?.image}
+                  alt={order.user?.name || "User"}
+                  sx={{ width: 40, height: 40 }}
+                />
+                <Box>
+                  <Typography sx={{ fontWeight: 600, color: "#2F2F2F" }}>
+                    {order.user?.name || "Deleted Account"}
+                  </Typography>
+                  <Typography sx={{ fontSize: 13, color: "#7A7A7A" }}>
+                    {order.user?.email || "No email"}
+                  </Typography>
+                  {order.user?.contact && (
+                    <Typography sx={{ fontSize: 13, color: "#7A7A7A" }}>
+                      📞 {order.user.contact}
+                    </Typography>
+                  )}
+                </Box>
+              </Stack>
+
+              <Divider sx={{ my: 1.5 }} />
+
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+                {order.food?.map((f: any, i: number) => (
+                  <Typography key={i} sx={{ fontSize: 14, color: "#333" }}>
+                    {f.count} × {f.name}
+                  </Typography>
+                ))}
+              </Box>
+
+              <Divider sx={{ my: 1.5 }} />
+
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography sx={{ fontSize: 14, color: "#555" }}>
+                  Delivered on{" "}
+                  {moment(order.delivered_time * 1000).format(
+                    "DD MMM YYYY, hh:mm A"
+                  )}
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: "#27AE60",
+                    fontSize: 16,
+                    fontWeight: 700,
+                  }}
+                >
+                  ₹{Number(order.delivery_fee)?.toFixed(2)}
+                </Typography>
+              </Stack>
+            </Box>
+          ))}
+        </Box>
+      </Card>
     </Box>
   );
 };

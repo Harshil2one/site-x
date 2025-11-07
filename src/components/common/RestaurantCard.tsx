@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import type { IRestaurant } from "../../types/restaurant";
 import { CircleStar } from "lucide-react";
 import { useNavigate } from "react-router";
-import { PUBLIC_ROUTE } from "../../enums";
+import { PRIVATE_ROUTE } from "../../enums";
 import { useTranslation } from "react-i18next";
 
 interface IProps {
@@ -26,7 +26,7 @@ const RestaurantCard = (props: IProps) => {
         alignItems: "start",
         cursor: "pointer",
       }}
-      onClick={() => navigate(`${PUBLIC_ROUTE.RESTAURANT}/${place.id}`)}
+      onClick={() => navigate(`${PRIVATE_ROUTE.RESTAURANT}/${place.id}`)}
     >
       <Box>
         <img
