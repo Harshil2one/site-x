@@ -37,6 +37,8 @@ const OrderRequests = () => {
         status:
           orderStatus === ORDER_STATUS.ORDER_PLACED
             ? ORDER_STATUS.PREPARING
+            : orderStatus === ORDER_STATUS.READY_FOR_PICKUP
+            ? ORDER_STATUS.OUT_FOR_DELIVERY
             : ORDER_STATUS.READY_FOR_PICKUP,
       },
     });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bell, CheckCheck, EyeOff } from "lucide-react";
 import {
   Badge,
@@ -12,6 +12,9 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { type INotification } from "../../types/notifications";
 
 interface IProps {
   style?: SxProps<Theme>;
@@ -19,7 +22,12 @@ interface IProps {
 
 const Notification = ({ style }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [notifications, setNotifications] = useState<INotification[]>([]);
   const open = Boolean(anchorEl);
+
+  const { makeAPICall } = useFetch();
+  const { getLocalStorage } = useLocalStorage();
+  const user = getLocalStorage("user");
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +37,34 @@ const Notification = ({ style }: IProps) => {
     setAnchorEl(null);
   };
 
-  const notifications: any[] = [];
+  const fetchNotifications = async () => {
+    const res = await makeAPICall(`notification/${user?.id}`, {
+      method: "GET",
+    });
+    setNotifications(res?.data);
+  };
+
+  const handleMarkAsRead = async (id: number) => {
+    await makeAPICall(`notification/mark-as-read/${id}`, {
+      method: "GET",
+    });
+    setTimeout(() => {
+      fetchNotifications();
+    }, 0);
+  };
+
+  const handleMarkAllAsRead = async () => {
+    await makeAPICall(`notification/mark-as-read`, {
+      method: "GET",
+    });
+    setTimeout(() => {
+      fetchNotifications();
+    }, 0);
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", ...style }}>
@@ -76,14 +111,14 @@ const Notification = ({ style }: IProps) => {
           }}
         >
           <Typography variant="subtitle1">
-            Notifications ({notifications.length})
+            Notifications ({notifications?.length})
           </Typography>
 
-          {notifications.length > 0 && (
+          {notifications?.length > 0 && (
             <Button
               size="small"
               color="primary"
-              onClick={() => console.log("Mark all as read")}
+              onClick={handleMarkAllAsRead}
               startIcon={<CheckCheck size={14} />}
             >
               Mark all as read
@@ -91,10 +126,10 @@ const Notification = ({ style }: IProps) => {
           )}
         </Box>
 
-        {notifications.length > 0 ? (
-          notifications.map((item: any) => (
+        {notifications?.length > 0 ? (
+          notifications?.map((item) => (
             <Box
-              key={item._id}
+              key={item.id}
               sx={{
                 backgroundColor: "#f5f5f5",
                 borderRadius: 1,
@@ -112,7 +147,7 @@ const Notification = ({ style }: IProps) => {
                 <Typography variant="body2">{item.message}</Typography>
                 <IconButton
                   size="small"
-                  onClick={() => console.log("Hide", item._id)}
+                  onClick={() => handleMarkAsRead(item.id)}
                 >
                   <EyeOff size={14} />
                 </IconButton>
@@ -127,7 +162,7 @@ const Notification = ({ style }: IProps) => {
                 }}
               >
                 <Typography variant="caption" color="text.secondary">
-                  {moment(item.createdAt).fromNow()}
+                  {moment(item.created_at * 1000).fromNow()}
                 </Typography>
                 {item.link && (
                   <Link

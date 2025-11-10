@@ -6,7 +6,7 @@ import { getAllOrdersHistory } from "../../redux/actions/order";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import CustomButton from "../../components/UI/Button";
 import { ORDER_STATUS, PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../enums";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { AlarmClock, Bike, CircleCheck, CircleX, Soup } from "lucide-react";
 import Loader from "../../components/UI/Loader";
@@ -112,7 +112,12 @@ const OrderHistoryPage = () => {
                           }}
                         >
                           <Typography sx={{ fontSize: 13 }}>
-                            ORDER #{order.order_id}
+                            ORDER{" "}
+                            <Link
+                              to={`${PRIVATE_ROUTE.ORDER_PLACED}/${order.order_id}`}
+                            >
+                              #{order.order_id}
+                            </Link>
                           </Typography>
                           <Typography sx={{ fontSize: 13 }}>|</Typography>
                           <Typography sx={{ fontSize: 13 }}>
@@ -187,23 +192,22 @@ const OrderHistoryPage = () => {
                         Out for delivery
                         <Bike fill="#1BA672" color="#1BA672" size={24} />
                       </Typography>
-                    ) :  order?.order_status ===
-                    ORDER_STATUS.ORDER_PLACED ? (
-                    <Typography
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        color: "#4D5070",
-                        fontSize: 14,
-                        fontWeight: 600,
-                        gap: 0.5,
-                        mt: { md: 0, sm: 2, xs: 2 },
-                      }}
-                    >
-                      Order placed
-                      <AlarmClock color="#1BA672" size={24} />
-                    </Typography>
-                  ) : (
+                    ) : order?.order_status === ORDER_STATUS.ORDER_PLACED ? (
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#4D5070",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          gap: 0.5,
+                          mt: { md: 0, sm: 2, xs: 2 },
+                        }}
+                      >
+                        Order placed
+                        <AlarmClock color="#1BA672" size={24} />
+                      </Typography>
+                    ) : (
                       <Typography
                         sx={{
                           display: "flex",

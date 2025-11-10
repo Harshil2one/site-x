@@ -25,19 +25,17 @@ const RidesPage = () => {
     setPickupRequests(response?.data?.data);
   };
 
-  const handleOrderRequest = async (orderId: number) => {
+  const handleOrderRequest = async (orderId: number, status: ORDER_STATUS) => {
     await makeAPICall("orders/update-status", {
       method: "POST",
       data: {
         orderId,
-        status: ORDER_STATUS.DELIVERED,
+        status,
         pickupBy: user?.id,
       },
     });
     fetchRideRequests();
   };
-
-  console.log("sss", pickupRequests);
 
   useEffect(() => {
     fetchRideRequests();
@@ -126,7 +124,8 @@ const RidesPage = () => {
                     </Box>
                   </Box>
                 </Box>
-                {order?.order_status === ORDER_STATUS.OUT_FOR_DELIVERY ? (
+                {order?.order_status === ORDER_STATUS.OUT_FOR_DELIVERY &&
+                !order?.pickup_by?.id ? (
                   <Typography
                     sx={{
                       display: "flex",
@@ -141,7 +140,7 @@ const RidesPage = () => {
                     Waiting to be picked up
                     <AlarmClock color="#d54545" size={24} />
                   </Typography>
-                ) : (
+                ) : order?.order_status === ORDER_STATUS.DELIVERED ? (
                   <Typography
                     sx={{
                       display: "flex",
@@ -153,11 +152,24 @@ const RidesPage = () => {
                       mt: { md: 0, sm: 2, xs: 2 },
                     }}
                   >
+                    Delivered by {order?.pickup_by?.name} at{" "}
+                    {moment(order?.delivered_time * 1000).format(
+                      "MMM DD, YYYY hh:mm A"
+                    )}
+                    <CircleCheck fill="green" color="white" size={24} />
+                  </Typography>
+                ) : (
+                  <Typography
+                    sx={{
+                      fontSize: 14,
+                      fontWeight: 600,
+                      mt: { md: 0, sm: 2, xs: 2 },
+                    }}
+                  >
                     Picked up by {order?.pickup_by?.name} at{" "}
                     {moment(order?.pickup_time * 1000).format(
                       "MMM DD, YYYY hh:mm A"
                     )}
-                    <CircleCheck fill="green" color="white" size={24} />
                   </Typography>
                 )}
               </Box>
@@ -182,7 +194,8 @@ const RidesPage = () => {
                   Total Paid: ₹{order.amount}
                 </Typography>
               </Box>
-              {order?.order_status === ORDER_STATUS.OUT_FOR_DELIVERY && (
+              {order?.order_status === ORDER_STATUS.OUT_FOR_DELIVERY &&
+              !order?.pickup_by?.id ? (
                 <CustomButton
                   btnText="Pick up"
                   style={{
@@ -192,9 +205,25 @@ const RidesPage = () => {
                     fontWeight: 700,
                     mt: 1,
                   }}
-                  onClick={() => handleOrderRequest(order?.id)}
+                  onClick={() =>
+                    handleOrderRequest(order?.id, ORDER_STATUS.OUT_FOR_DELIVERY)
+                  }
                 />
-              )}
+              ) : order?.order_status !== ORDER_STATUS.DELIVERED ? (
+                <CustomButton
+                  btnText="Delivered"
+                  style={{
+                    display: "flex",
+                    justifySelf: "end",
+                    width: "max-content",
+                    fontWeight: 700,
+                    mt: 1,
+                  }}
+                  onClick={() =>
+                    handleOrderRequest(order?.id, ORDER_STATUS.DELIVERED)
+                  }
+                />
+              ) : null}
             </Box>
           ))
         ) : (

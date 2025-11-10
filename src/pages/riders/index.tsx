@@ -56,7 +56,7 @@ const RidersDashboard = () => {
   const dashboardData = response?.data || {
     totalRevenue: 0,
     totalOrders: 0,
-    averageOrderValue: 0,
+    ratings: 0.0,
     orders: {},
     dailyRevenue: {},
     recentOrders: [],
@@ -110,7 +110,7 @@ const RidersDashboard = () => {
           },
           {
             label: "ratingsText",
-            value: dashboardData?.averageOrderValue?.toFixed(2),
+            value: dashboardData?.ratings?.toFixed(2),
             color: "orange",
           },
           {

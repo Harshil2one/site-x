@@ -16,14 +16,18 @@ const AIBot = () => {
   const { makeAPICall } = useFetch();
 
   const [isBotOpened, setIsBotOpened] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<any>([]);
   const [message, setMessage] = useState("");
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const loadMessages = async () => {
     const response = await axiosInstance.get(`/chat/messages/${user.id}`);
-    setMessages(response.data.data.messages);
+    if (response?.data?.data) setMessages(response.data.data.messages);
+    else
+      setMessages([
+        { type: "bot", message: "Hi, I am your assistant to help you." },
+      ]);
   };
 
   const sendMessage = async () => {

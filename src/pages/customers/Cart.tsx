@@ -138,18 +138,25 @@ const CartPage = () => {
       toast.error("Please fill the address before placing order.");
       return;
     }
-    const data: any = await axiosInstance.post("/orders/createOrder", {
-      amount,
-      userId: user.id,
-      orderInfo: { food, restaurant: restaurant.id },
+    const data: any = await makeAPICall("orders/createOrder", {
+      method: "POST",
+      data: {
+        amount,
+        userId: user.id,
+        orderInfo: { email: user.email, food, restaurant: restaurant.id },
+      },
     });
 
     if (data) {
-      const { order_id, amount } = data.data.data;
+      const { order_id, amount } = data.data;
       setOrderDetails({
         ...orderDetails,
         orderId: order_id,
         amount: amount,
+      });
+      makeAPICall(`coupon/redeem/${user.id}`, {
+        method: "POST",
+        data: { code: couponCode },
       });
       setDisplayRazor(true);
     }

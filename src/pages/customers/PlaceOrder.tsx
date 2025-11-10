@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Avatar,
   Box,
   Card,
   Dialog,
   DialogContent,
   DialogTitle,
   Divider,
+  Rating,
   Typography,
 } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -27,7 +29,7 @@ import {
 import moment from "moment";
 import { GST_PCT } from "./Cart";
 import CustomButton from "../../components/UI/Button";
-import { Copy, Download, Share2, X } from "lucide-react";
+import { Copy, Download, Share2, Star, X } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import toast from "react-hot-toast";
@@ -47,6 +49,9 @@ const PlaceOrder = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [order, setOrder] = useState<any>(null);
   const [shareLink, setShareLink] = useState<string | null>(null);
+  const [ratingOpen, setRatingOpen] = useState(false);
+  const [ratings, setRatings] = useState<number | null>(0);
+  const [ratingsText, setRatingsText] = useState("");
 
   const fetchOrderDetails = async () => {
     try {
@@ -55,7 +60,17 @@ const PlaceOrder = () => {
           token: shareLink?.split("token=")[1],
         },
       });
-      setOrder(res?.data?.data);
+      const data = res?.data?.data;
+      setOrder(data);
+      if (
+        data?.order_status === ORDER_STATUS.DELIVERED &&
+        !data?.ratings &&
+        !data?.ratingsText
+      ) {
+        setTimeout(() => {
+          setRatingOpen(true);
+        }, 3000);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -63,7 +78,15 @@ const PlaceOrder = () => {
 
   useEffect(() => {
     fetchOrderDetails();
-  }, []);
+    // Check after every 10 seconds for updated status
+    if (
+      order?.order_status !== ORDER_STATUS.DELIVERED &&
+      order?.order_status !== ORDER_STATUS.CANCELLED
+    ) {
+      const interval = setInterval(fetchOrderDetails, 10000);
+      return () => clearInterval(interval);
+    }
+  }, [order?.order_status]);
 
   const getAnimation = () => {
     switch (order?.order_status) {
@@ -88,12 +111,22 @@ const PlaceOrder = () => {
       return;
     }
 
-    makeAPICall(`orders/cancel/${order?.id}`);
+    makeAPICall(`orders/cancel/${order?.id}`, {
+      method: "POST",
+      data: {
+        paymentId: order?.payment_id,
+        amount: moment(cancellationTime).isAfter(moment.now())
+          ? order?.amount
+          : 0,
+      },
+    });
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    fetchOrderDetails();
+    setTimeout(() => {
+      fetchOrderDetails();
+    }, 0);
   };
 
   const handleDownload = async () => {
@@ -127,6 +160,27 @@ const PlaceOrder = () => {
     if (!shareLink) return;
     await navigator.clipboard.writeText(shareLink);
     toast.success("Link copied to clipboard!");
+  };
+
+  const handlePartnerRatings = async () => {
+    if (!order?.id) {
+      toast.error("No order found. Please try reloading the tab");
+      return;
+    }
+    makeAPICall(`orders/ratings/${order?.id}`, {
+      method: "POST",
+      data: {
+        ratings,
+        ratingsText,
+      },
+    });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    setTimeout(() => {
+      setRatingOpen(false);
+    }, 0);
   };
 
   if (order?.order_status === ORDER_STATUS.ORDER_REJECTED) {
@@ -170,6 +224,8 @@ const PlaceOrder = () => {
     .add(10, "minutes")
     .format("MMM DD, YYYY, hh:mm A");
 
+  console.log("sss", order);
+
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <Dialog open={shareLink !== null} onClose={() => setShareLink(null)}>
@@ -184,24 +240,91 @@ const PlaceOrder = () => {
           />
         </DialogContent>
       </Dialog>
-      {order?.order_status !== ORDER_STATUS.CANCELLED && (
-        <>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            textAlign="center"
-            gutterBottom
-          >
-            Tracking your order 🚴‍♂️
-          </Typography>
-          <Typography textAlign="center" color="text.secondary" mb={4}>
-            Order ID: {orderId}
-          </Typography>
-        </>
-      )}
+      <Dialog open={ratingOpen} onClose={() => setRatingOpen(false)}>
+        <DialogTitle>
+          Rate delivery by{" "}
+          <span style={{ color: "#d54545" }}>{order?.pickup_by?.name}</span>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <Avatar
+            src={"../../../public/assets/delivery-partner.avif"}
+            sx={{ width: 100, height: 120 }}
+          />
+          <Rating
+            name="order-rating"
+            emptyIcon={<Star size={32} />}
+            icon={<Star fill="orange" size={32} />}
+            sx={{ display: "flex", gap: 3 }}
+            value={ratings}
+            onChange={(_, newValue) => setRatings(newValue)}
+            precision={1}
+          />
+          <Box>
+            <Input
+              multiline
+              bounceTime={0}
+              style={{
+                width: { md: "400px", sm: "auto", xs: "auto" },
+                backgroundColor: "#F2F2F2",
+              }}
+              isReset
+              value={ratingsText}
+              onDebounce={(ratingsText) => setRatingsText(ratingsText)}
+              placeholder={`Tell us what you ${
+                !ratings
+                  ? "observe"
+                  : ratings && ratings <= 2
+                  ? "feel"
+                  : ratings > 2 && ratings <= 4
+                  ? "liked"
+                  : "loved"
+              }...`}
+            />
+            <Typography sx={{ color: "grey", fontSize: 12 }}>
+              Your word makes Bigbite a better place. You are the influence!
+            </Typography>
+          </Box>
+          <CustomButton
+            btnText="SUBMIT YOUR FEEDBACK"
+            style={{
+              marginTop: "8px",
+              borderRadius: "18px",
+            }}
+            onClick={handlePartnerRatings}
+          />
+        </DialogContent>
+      </Dialog>
+      {order?.order_status !== ORDER_STATUS.DELIVERED &&
+        order?.order_status !== ORDER_STATUS.CANCELLED && (
+          <>
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              textAlign="center"
+              gutterBottom
+            >
+              Tracking your order 🚴‍♂️
+            </Typography>
+            <Typography textAlign="center" color="text.secondary" mb={4}>
+              Order ID: {orderId}
+            </Typography>
+          </>
+        )}
 
       <Box
-        mt={order?.order_status !== ORDER_STATUS.CANCELLED ? 6 : 2}
+        mt={
+          order?.order_status !== ORDER_STATUS.DELIVERED &&
+          order?.order_status !== ORDER_STATUS.CANCELLED
+            ? 6
+            : 2
+        }
         textAlign="center"
       >
         <Lottie
@@ -484,7 +607,9 @@ const PlaceOrder = () => {
               <Divider
                 sx={{ my: 1.5, backgroundColor: "black", height: "0.5px" }}
               />
-              {itemsTotal + gstCharge + deliveryCharge - order?.amount > 0 && (
+              {Number((itemsTotal + gstCharge + deliveryCharge)?.toFixed(2)) -
+                order?.amount >
+                0 && (
                 <Box
                   sx={{
                     display: "flex",
