@@ -157,7 +157,7 @@ const ProfilePage = () => {
             {t("profileHeader")}
           </Typography>
 
-          {user.role === 1 && (
+          {user.role === USER_ROLE.ADMIN && (
             <CustomButton
               variant={BUTTON_VARIANT.OUTLINED}
               style={{

@@ -42,8 +42,8 @@ export enum PRIVATE_ROUTE {
 export enum USER_ROLE {
   ADMIN = 1,
   USER = 2,
-  OWNER = 4,
   RIDER = 3,
+  OWNER = 4,
 }
 
 export enum BUTTON_TYPE {

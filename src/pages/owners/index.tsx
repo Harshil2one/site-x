@@ -130,7 +130,7 @@ const OwnerDashboard = () => {
           {restaurantDetails?.open === 1
             ? t("ownerSubHeaderText1")
             : t("ownerSubHeaderText2")}
-          {restaurantDetails?.status !== STATUS.APPROVED && (
+          {restaurantDetails?.status === STATUS.PENDING && (
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Typography
                 sx={{
@@ -149,16 +149,18 @@ const OwnerDashboard = () => {
             </Box>
           )}
         </Box>
-        <CustomButton
-          btnText={
-            restaurantDetails?.open === 0
-              ? t("openRestaurantBtn")
-              : t("closeRestaurantBtn")
-          }
-          variant={BUTTON_VARIANT.OUTLINED}
-          style={{ width: "max-content" }}
-          onClick={handleRestaurantTime}
-        />
+        {restaurantDetails?.status === STATUS.APPROVED && (
+          <CustomButton
+            btnText={
+              restaurantDetails?.open === 0
+                ? t("openRestaurantBtn")
+                : t("closeRestaurantBtn")
+            }
+            variant={BUTTON_VARIANT.OUTLINED}
+            style={{ width: "max-content" }}
+            onClick={handleRestaurantTime}
+          />
+        )}
       </Card>
       <Grid container spacing={3} sx={{ mt: 3 }}>
         {[

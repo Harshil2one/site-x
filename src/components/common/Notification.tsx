@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { type INotification } from "../../types/notifications";
+import socketService from "../../utils/socketService";
 
 interface IProps {
   style?: SxProps<Theme>;
@@ -54,8 +55,8 @@ const Notification = ({ style }: IProps) => {
   };
 
   const handleMarkAllAsRead = async () => {
-    await makeAPICall(`notification/mark-as-read`, {
-      method: "GET",
+    await makeAPICall(`notification/mark-as-read/${user?.id}`, {
+      method: "DELETE",
     });
     setTimeout(() => {
       fetchNotifications();
@@ -65,6 +66,16 @@ const Notification = ({ style }: IProps) => {
   useEffect(() => {
     fetchNotifications();
   }, []);
+
+  useEffect(() => {
+    socketService.on("receive_notification", (payload) => {
+      setNotifications((prev) => [payload as INotification, ...prev]);
+    });
+
+    return () => {
+      socketService.off("receive_notification");
+    };
+  });
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", ...style }}>

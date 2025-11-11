@@ -57,11 +57,14 @@ const LoginPage = () => {
     setLocalStorage("token", response?.data.token);
     dispatch(addToCart(response?.data?.cart));
     dispatch(switchRoles(response.data.user?.role));
-    if (response.data.user?.role === 1 || response.data.user?.role === 2) {
+    if (
+      response.data.user?.role === USER_ROLE.ADMIN ||
+      response.data.user?.role === USER_ROLE.USER
+    ) {
       navigate(PUBLIC_ROUTE.HOME);
-    } else if (response.data.user?.role === 3) {
+    } else if (response.data.user?.role === USER_ROLE.RIDER) {
       navigate(PRIVATE_ROUTE.RIDERS_DASHBOARD);
-    } else if (response.data.user?.role === 4) {
+    } else if (response.data.user?.role === USER_ROLE.OWNER) {
       navigate(PRIVATE_ROUTE.OWNER_DASHBOARD);
     }
   }

@@ -120,7 +120,7 @@ const RestaurantMenu = () => {
               color: "grey",
               handleClick: importCsvFile,
             },
-          ]?.map((option) => (
+          ].map((option) => (
             <Box
               key={option.label}
               sx={{
@@ -191,7 +191,9 @@ const RestaurantMenu = () => {
               method: restaurantDetails.id > 0 ? "PUT" : "POST",
               data: {
                 ...restaurantDetails,
-                food: [...restaurantDetails?.food, id],
+                food: restaurantDetails?.food
+                  ? [...restaurantDetails?.food, id]
+                  : [id],
               },
             }
           );

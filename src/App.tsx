@@ -1,13 +1,14 @@
 import { Box, Container } from "@mui/material";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import AllRoutes from "./route";
-import { PUBLIC_ROUTE } from "./enums";
+import { PUBLIC_ROUTE, USER_ROLE } from "./enums";
 import { useEffect } from "react";
-import { store } from "./redux/store";
+import { store, type RootState } from "./redux/store";
 import AIBot from "./components/common/AIBot";
+import { SocketProvider } from "./context/SocketContext";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ const ScrollToTop = () => {
 
 function Layout() {
   const location = useLocation();
+  const role = useSelector((state: RootState) => state.user.role);
 
   const hideLayout = [
     PUBLIC_ROUTE.SIGNIN,
@@ -32,8 +34,10 @@ function Layout() {
   ];
   const isHidden = hideLayout.includes(location.pathname as PUBLIC_ROUTE);
 
+  const isAdmin = role === USER_ROLE.ADMIN;
+
   return (
-    <Provider store={store}>
+    <>
       <Header hideNav={isHidden} />
       <Container>
         <Box sx={{ my: isHidden ? 0 : 10, mx: 3 }}>
@@ -41,16 +45,22 @@ function Layout() {
         </Box>
       </Container>
       <AIBot />
-      {!isHidden && <Footer />}
-    </Provider>
+      {!isHidden && !isAdmin && <Footer />}
+    </>
   );
 }
 
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <Layout />
+      <Provider store={store}>
+        <SocketProvider
+          url={import.meta.env.REACT_APP_SOCKET_URL || "http://localhost:8000"}
+        >
+          <ScrollToTop />
+          <Layout />
+        </SocketProvider>
+      </Provider>
     </BrowserRouter>
   );
 }

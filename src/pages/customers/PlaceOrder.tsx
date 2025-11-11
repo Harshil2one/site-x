@@ -120,10 +120,6 @@ const PlaceOrder = () => {
           : 0,
       },
     });
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
     setTimeout(() => {
       fetchOrderDetails();
     }, 0);
@@ -223,8 +219,6 @@ const PlaceOrder = () => {
   const cancellationTime = moment(order?.created_at * 1000)
     .add(10, "minutes")
     .format("MMM DD, YYYY, hh:mm A");
-
-  console.log("sss", order);
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>

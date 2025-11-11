@@ -97,7 +97,7 @@ const Coupons = () => {
             <Switch
               color="success"
               name="isActive"
-              defaultChecked={formik.values.isActive === 1}
+              checked={formik.values.isActive === 1}
               onChange={(e) =>
                 formik.setFieldValue("isActive", e.target.checked ? 1 : 0)
               }

@@ -89,27 +89,28 @@ const OwnerPage = () => {
     if (images?.length === 0) return;
     const offers = values?.offers?.includes(",")
       ? values.offers?.split(",").map((item) => item.trim())
-      : restaurantDetails.id > 0
+      : restaurantDetails?.id > 0
       ? values.offers
       : [values.offers];
 
     const special = values?.special?.includes(",")
       ? values.special?.split(",").map((item) => item.trim())
-      : restaurantDetails.id > 0
+      : restaurantDetails?.id > 0
       ? values.special
       : [values.special];
     const res = await makeAPICall(
-      restaurantDetails.id > 0
+      restaurantDetails?.id > 0
         ? `restaurants/${restaurantDetails.id}`
         : `restaurants`,
       {
-        method: restaurantDetails.id > 0 ? "PUT" : "POST",
+        method: restaurantDetails?.id > 0 ? "PUT" : "POST",
         data: {
           ...values,
           offers,
           special,
           images,
           food: restaurantDetails?.food,
+          created_by: user?.id,
         },
       }
     );
@@ -126,7 +127,7 @@ const OwnerPage = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError("");
     const files = Array.from(e.target.files || []);
-    const totalFiles = images.length + files.length;
+    const totalFiles = images?.length + files?.length;
 
     if (totalFiles > 4) {
       setError("You can upload a maximum of 4 images.");
@@ -142,7 +143,7 @@ const OwnerPage = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        setImages((prev) => [...prev, base64String]);
+        setImages((prev) => (prev ? [...prev, base64String] : [base64String]));
       };
 
       reader.readAsDataURL(file);
@@ -211,7 +212,7 @@ const OwnerPage = () => {
             <Switch
               color="success"
               name="type"
-              defaultChecked={formik.values.type === "veg"}
+              checked={formik.values.type === "veg"}
               onChange={(e) =>
                 formik.setFieldValue(
                   "type",
@@ -232,7 +233,7 @@ const OwnerPage = () => {
             <Switch
               color="warning"
               name="isSpecial"
-              defaultChecked={formik.values.isSpecial === 1}
+              checked={formik.values.isSpecial === 1}
               onChange={(e) =>
                 formik.setFieldValue("isSpecial", e.target.checked ? 1 : 0)
               }
@@ -297,7 +298,7 @@ const OwnerPage = () => {
                 </IconButton>
               </Box>
             ))}
-            {images?.length < 4 && (
+            {(!images || images?.length < 4) && (
               <label
                 htmlFor="file-upload"
                 style={{

@@ -211,7 +211,7 @@ const Foods = () => {
             <Switch
               color="success"
               name="type"
-              defaultChecked={formik.values.type === "veg"}
+              checked={formik.values.type === "veg"}
               onChange={(e) =>
                 formik.setFieldValue(
                   "type",
@@ -232,7 +232,7 @@ const Foods = () => {
             <Switch
               color="warning"
               name="isBest"
-              defaultChecked={formik.values.isBest === 1}
+              checked={formik.values.isBest === 1}
               onChange={(e) =>
                 formik.setFieldValue("isBest", e.target.checked ? 1 : 0)
               }
