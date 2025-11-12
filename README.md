@@ -1,69 +1,96 @@
-# React + TypeScript + Vite
+# 🍔 Bigbite - Food Ordering Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bigbite is a modern **food ordering web application** built with **React**, **Vite**, and **TypeScript**.  
+It allows users to explore restaurants, filter cuisines, and order food online in a seamless and responsive interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- ⚛️ **React 18** – UI library
+- ⚡ **Vite** – Next-generation frontend build tool
+- 🧠 **TypeScript** – Static type checking
+- 🎨 **Material UI (MUI)** – UI components and styling
+- 🌍 **i18next** – Internationalization support
+- 🧩 **Custom Hooks** – For API fetching (`useFetch`)
+- 🧰 **ESLint + Prettier** – Code linting and formatting
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+✅ Modern UI inspired by food delivery platforms  
+✅ Restaurant listings with filters (Veg, Non-Veg, Offers, Distance, Price range)  
+✅ Cuisine and Nearby restaurant sections  
+✅ API-driven restaurant data fetching  
+✅ Multilingual support with **i18next**  
+✅ Modular and reusable components  
+✅ Environment-ready configuration for production builds  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧰 Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/bigbite.git
+cd bigbite
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2️⃣ Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# or
+yarn install
 ```
+
+### 3️⃣ Run the Development Server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+## 🏗️ Project Structure
+
+```bash
+src/
+├── components/
+│   ├── common/
+│   │   └── RestaurantCard.tsx
+│   ├── home/
+│   │   ├── Filters.tsx
+│   │   ├── FoodSlides.tsx
+│   │   └── TopRestaurants.tsx
+│
+├── hooks/
+│   └── useFetch.ts
+│
+├── pages/
+│   └── HomePage.tsx
+│
+├── types/
+│   └── restaurant.ts
+│
+├── i18n/
+│   └── index.ts
+│
+└── main.tsx
+```
+
+## 🧱 Build for Production
+
+```bash
+npm run build
+```
+
+## 🧑‍💻 Author
+
+```bash
+Harshil Babariya
+Frontend Developer (React + TypeScript)
+📧 harshilbabariya01@gmail.com
+🌐 https://harshilbabariya.github.io/profile/
