@@ -9,6 +9,7 @@ import { Bike, CircleCheck, Soup } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import socketService from "../../utils/socketService";
 
 const OrderRequests = () => {
   const navigate = useNavigate();
@@ -48,6 +49,19 @@ const OrderRequests = () => {
   useEffect(() => {
     fetchOrderRequests();
   }, []);
+
+  useEffect(() => {
+    socketService.on("receive_order", (payload: any) => {
+      setOrderRequests((prev: IOrder[]) => {
+        if (prev?.some((r) => r.id === payload.id)) return prev;
+        return [payload, ...prev];
+      });
+    });
+
+    return () => {
+      socketService.off("receive_order");
+    };
+  });
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>

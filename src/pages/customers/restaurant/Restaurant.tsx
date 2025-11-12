@@ -4,7 +4,6 @@ import {
   useLocation,
   useNavigate,
   useParams,
-  useSearchParams,
 } from "react-router";
 import { Box, Card, Divider, Typography } from "@mui/material";
 import { CircleStar, Rose, ShoppingBag } from "lucide-react";
@@ -13,9 +12,11 @@ import type { IRestaurant } from "../../../types/restaurant";
 import SwipeButtons from "../../../components/common/SwipeButtons";
 import FoodCard from "../../../components/common/FoodCard";
 import type { IFood } from "../../../types/food";
-import { FOOD_CARD_TYPE, PRIVATE_ROUTE } from "../../../enums";
+import { FOOD_CARD_TYPE, PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../../enums";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { getAllFoodItems } from "../../../redux/actions/restaurant";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import toast from "react-hot-toast";
 
 const ITEMS_TO_SHOW = 4;
 
@@ -25,6 +26,9 @@ const RestaurantPage = () => {
   const location = useLocation();
   const { response, makeAPICall } = useFetch();
   const restaurantDetails = response?.data as IRestaurant;
+
+  const { getLocalStorage } = useLocalStorage();
+  const user = getLocalStorage("user");
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -343,7 +347,13 @@ const RestaurantPage = () => {
               fontWeight: 700,
               cursor: "pointer",
             }}
-            onClick={() => navigate(PRIVATE_ROUTE.CART)}
+            onClick={() => {
+              if (user?.id) navigate(PRIVATE_ROUTE.CART);
+              else {
+                toast.error("Please log in first.");
+                navigate(PUBLIC_ROUTE.SIGNIN);
+              }
+            }}
           >
             VIEW CART <ShoppingBag size={18} />
           </Box>

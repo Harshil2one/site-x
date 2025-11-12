@@ -49,6 +49,9 @@ i18n
           ahmedabad: "Ahmedabad",
           tagLine: "© 2025 BigBite Limited",
 
+          // Unauthorized
+          unauthorized: "You are not authorized to access this page!",
+
           // Not Found
           notFound: "404 | Page Not Found",
           goToHome: "Go To Home",
@@ -139,8 +142,10 @@ i18n
           heyText: "Hey",
           welcomeText: "Welcome to",
           ownerDashboardHeader: "Take a look at your restaurant stats",
-          ownerSubHeaderText1: "All your restaurants are live and open now.",
-          ownerSubHeaderText2: "All your restaurants are closed now.",
+          ownerSubHeaderText: "Your restaurant request is pending.",
+          ownerSubHeaderText0: "Your restaurant request is rejected.",
+          ownerSubHeaderText1: "Your restaurant is live and open now.",
+          ownerSubHeaderText2: "Your restaurant is closed now.",
           ownerWarningText: "Warning:",
           ownerWarningSubText:
             "Please follow up with admin for approval for recent listing.",
@@ -201,6 +206,9 @@ i18n
           availableIn: "利用可能な地域:",
           ahmedabad: "アーメダバード",
           tagLine: "© 2025 ビッグバイトリミテッド",
+
+          // Unauthorzed
+          unauthorized: "このページにアクセスする権限がありません。",
 
           // Not Found
           notFound: "404 | ページが見つかりません",
@@ -294,8 +302,10 @@ i18n
           heyText: "おい",
           welcomeText: "へようこそ",
           ownerDashboardHeader: "レストランの統計を見てみましょう",
-          ownerSubHeaderText1: "すべてのレストランは現在ライブで営業中です。",
-          ownerSubHeaderText2: "あなたのレストランはすべて閉店しています。",
+          ownerSubHeaderText: "レストランのリクエストは保留中です。",
+          ownerSubHeaderText0: "レストランのリクエストは拒否されました。",
+          ownerSubHeaderText1: "あなたのレストランは現在営業中です。",
+          ownerSubHeaderText2: "あなたのレストランは現在閉店しています。",
           ownerWarningText: "警告：",
           ownerWarningSubText:
             "最近のリストの承認については管理者に問い合わせてください。",

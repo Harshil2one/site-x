@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Box, Typography } from "@mui/material";
 import CommonTable from "../../components/UI/Table";
 import useFetch from "../../hooks/useFetch";
 import { PRIVATE_ROUTE, STATUS, TABLE_NAME } from "../../enums";
 import toast from "react-hot-toast";
+import socketService from "../../utils/socketService";
+import type { IRestaurant } from "../../types/restaurant";
 
 const Restaurants = () => {
   const navigate = useNavigate();
 
   const { error, makeAPICall } = useFetch();
 
-  const [allRestaurants, setAllRestaurants] = React.useState([]);
+  const [allRestaurants, setAllRestaurants] = useState<IRestaurant[]>([]);
 
   const fetchRestaurants = async () => {
     const res = await makeAPICall(`restaurants`, {
@@ -40,6 +42,34 @@ const Restaurants = () => {
   useEffect(() => {
     fetchRestaurants();
   }, []);
+
+  useEffect(() => {
+    socketService.on("receive_restaurant", (payload: any) => {
+      setAllRestaurants((prev: IRestaurant[]) => {
+        if (prev?.some((r) => r.id === payload.id)) return prev;
+        return [payload, ...prev];
+      });
+    });
+
+    return () => {
+      socketService.off("receive_restaurant");
+    };
+  });
+
+  useEffect(() => {
+    socketService.on("update_restaurant", (payload: any) => {
+      setAllRestaurants((prev: IRestaurant[]) => {
+        const data = prev?.map((item) =>
+          item.id === payload.id ? payload : item
+        );
+        return data;
+      });
+    });
+
+    return () => {
+      socketService.off("update_restaurant");
+    };
+  });
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>

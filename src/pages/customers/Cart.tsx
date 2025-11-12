@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Card, Divider, Grid, Tooltip, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -45,6 +45,8 @@ const CartPage = () => {
   const { getLocalStorage, setLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
   const { response, error, setError, makeAPICall } = useFetch();
+
+  const addressRef = useRef<any>(null);
 
   const [couponCode, setCouponCode] = useState("");
   const [codeApplied, setCodeApplied] = useState(false);
@@ -136,6 +138,10 @@ const CartPage = () => {
   const handleCreateOrder = async (amount: number) => {
     if (!user?.address) {
       toast.error("Please fill the address before placing order.");
+      addressRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return;
     }
     const data: any = await makeAPICall("orders/createOrder", {
@@ -675,6 +681,7 @@ const CartPage = () => {
           boxShadow: "none",
           border: "1px solid #8080802e",
         }}
+        ref={addressRef}
       >
         <Address
           address={address}

@@ -44,7 +44,7 @@ const HomePage = () => {
 
   const [selectedFilter, setSelectedFilter] = useState<any>({});
 
-  useEffect(() => {
+  const fetchRestaurants = () => {
     const filterQuery = Object.keys(selectedFilter)
       .filter((key) => selectedFilter?.[key])
       .join(",");
@@ -56,6 +56,10 @@ const HomePage = () => {
         method: "GET",
       }
     );
+  };
+
+  useEffect(() => {
+    if (Object.values(selectedFilter)?.length > 0) fetchRestaurants();
   }, [selectedFilter]);
 
   return (

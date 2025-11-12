@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cart";
-import { switchRoles } from "../../redux/slices/role";
 
 const LoginPage = () => {
   const { loading, response, error, setError, makeAPICall } = useFetch();
@@ -44,7 +43,6 @@ const LoginPage = () => {
         password: formData.password,
       },
     });
-    dispatch(switchRoles(USER_ROLE.USER));
   };
 
   if (error) {
@@ -56,16 +54,14 @@ const LoginPage = () => {
     setLocalStorage("user", response.data.user);
     setLocalStorage("token", response?.data.token);
     dispatch(addToCart(response?.data?.cart));
-    dispatch(switchRoles(response.data.user?.role));
-    if (
-      response.data.user?.role === USER_ROLE.ADMIN ||
-      response.data.user?.role === USER_ROLE.USER
-    ) {
+    if (response.data.user?.role === USER_ROLE.USER) {
       navigate(PUBLIC_ROUTE.HOME);
     } else if (response.data.user?.role === USER_ROLE.RIDER) {
       navigate(PRIVATE_ROUTE.RIDERS_DASHBOARD);
     } else if (response.data.user?.role === USER_ROLE.OWNER) {
       navigate(PRIVATE_ROUTE.OWNER_DASHBOARD);
+    } else {
+      navigate(PRIVATE_ROUTE.DASHBOARD);
     }
   }
 

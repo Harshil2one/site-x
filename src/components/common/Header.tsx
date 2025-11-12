@@ -41,7 +41,6 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { type AppDispatch, type RootState } from "../../redux/store";
 import { emptyCart } from "../../redux/slices/cart";
-import { switchRoles } from "../../redux/slices/role";
 import i18n from "../../utils/i18n";
 import { useTranslation } from "react-i18next";
 import Notification from "./Notification";
@@ -66,7 +65,6 @@ const NavList = ({ ...props }) => {
 
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart.userCart?.food);
-  const role = useSelector((state: RootState) => state.user.role);
 
   const { getLocalStorage, removeLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
@@ -86,7 +84,6 @@ const NavList = ({ ...props }) => {
     removeLocalStorage("token");
     removeLocalStorage("persist:root");
     dispatch(emptyCart());
-    dispatch(switchRoles(USER_ROLE.USER));
     navigate(PUBLIC_ROUTE.SIGNIN);
   };
 
@@ -195,11 +192,11 @@ const NavList = ({ ...props }) => {
       width={{ xs: "200px", md: "initial" }}
       {...props}
     >
-      {(user?.id && role === USER_ROLE.ADMIN
+      {(user?.id && user?.role === USER_ROLE.ADMIN
         ? adminPages
-        : role === USER_ROLE.OWNER
+        : user?.role === USER_ROLE.OWNER
         ? ownerPages
-        : role === USER_ROLE.RIDER
+        : user?.role === USER_ROLE.RIDER
         ? ridersPages
         : userPages
       ).map((page: INavLink) => (
@@ -361,6 +358,9 @@ const NavList = ({ ...props }) => {
 };
 
 const Nav = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [open, setOpen] = useState(false);
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -387,9 +387,7 @@ const Nav = () => {
           <Earth size={20} />
           {i18n.language.toUpperCase()}
         </Link>
-        <Notification
-          style={{ display: { md: "none", sm: "flex", xs: "flex" } }}
-        />
+        {isMobile && <Notification />}
         <Button
           variant="text"
           onClick={toggleDrawer(true)}
@@ -425,7 +423,8 @@ const Header = (props: IProps) => {
   const { hideNav } = props;
   const navigate = useNavigate();
 
-  const role = useSelector((state: RootState) => state.user.role);
+  const { getLocalStorage } = useLocalStorage();
+  const user = getLocalStorage("user");
 
   return (
     <AppBar
@@ -455,11 +454,11 @@ const Header = (props: IProps) => {
               }}
               onClick={() =>
                 navigate(
-                  role === USER_ROLE.ADMIN
+                  user?.role === USER_ROLE.ADMIN
                     ? PRIVATE_ROUTE.DASHBOARD
-                    : role === USER_ROLE.OWNER
+                    : user?.role === USER_ROLE.OWNER
                     ? PRIVATE_ROUTE.OWNER_DASHBOARD
-                    : role === USER_ROLE.RIDER
+                    : user?.role === USER_ROLE.RIDER
                     ? PRIVATE_ROUTE.RIDERS_DASHBOARD
                     : PUBLIC_ROUTE.HOME
                 )

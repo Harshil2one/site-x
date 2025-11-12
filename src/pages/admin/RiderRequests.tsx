@@ -13,11 +13,12 @@ import CustomButton from "../../components/UI/Button";
 import { BUTTON_VARIANT, STATUS } from "../../enums";
 import { Ban, Signature, ThumbsDown, ThumbsUp } from "lucide-react";
 import toast from "react-hot-toast";
+import socketService from "../../utils/socketService";
 
 const RiderRequests = () => {
   const { error, makeAPICall } = useFetch();
 
-  const [allRequests, setAllRequests] = React.useState([]);
+  const [allRequests, setAllRequests] = useState<IRiderRequest[]>([]);
   const [selected, setSelected] = useState("all");
 
   const fetchRiderRequests = async () => {
@@ -52,6 +53,19 @@ const RiderRequests = () => {
   useEffect(() => {
     fetchRiderRequests();
   }, []);
+
+  useEffect(() => {
+    socketService.on("receive_rider", (payload: any) => {
+      setAllRequests((prev: IRiderRequest[]) => {
+        if (prev?.some((r) => r.id === payload.id)) return prev;
+        return [payload, ...prev];
+      });
+    });
+
+    return () => {
+      socketService.off("receive_rider");
+    };
+  });
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>

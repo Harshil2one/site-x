@@ -168,9 +168,6 @@ const RidersDashboard = () => {
                   y: {
                     beginAtZero: true,
                     grace: 2,
-                    ticks: {
-                      stepSize: 1,
-                    },
                   },
                 },
               }}

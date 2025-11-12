@@ -19,15 +19,7 @@ import {
   STATUS,
   TABLE_NAME,
 } from "../../enums";
-import {
-  Ban,
-  Pencil,
-  Signature,
-  Star,
-  ThumbsDown,
-  ThumbsUp,
-  Trash2,
-} from "lucide-react";
+import { Pencil, Star, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import type { IRestaurant } from "../../types/restaurant";
 
 interface IHeader {
@@ -358,19 +350,21 @@ const CommonTable = (props: IProps) => {
                                 <CustomButton
                                   btnText="Approved"
                                   variant={BUTTON_VARIANT.OUTLINED}
-                                  icon={<Signature size={18} />}
                                   style={{
                                     borderColor: "green !important",
                                     color: "green !important",
                                   }}
-                                  disabled
+                                  onClick={() =>
+                                    handleDelete && handleDelete(row.id)
+                                  }
                                 />
                               ) : (
                                 <CustomButton
                                   btnText="Rejected"
                                   variant={BUTTON_VARIANT.OUTLINED}
-                                  icon={<Ban size={18} />}
-                                  disabled
+                                  onClick={() =>
+                                    handleEdit && handleEdit(row.id)
+                                  }
                                 />
                               )}
                             </Box>

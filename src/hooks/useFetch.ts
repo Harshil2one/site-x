@@ -37,7 +37,6 @@ const useFetch = () => {
       });
       setResponse(response.data);
       setError("");
-      setLoading(false);
       return response.data;
     } catch (err: any) {
       setError(err.response.data.message || "Something went wrong");
@@ -51,7 +50,7 @@ const useFetch = () => {
     window.location.href = PUBLIC_ROUTE.SIGNIN;
   }
 
-  return { response, loading, error, makeAPICall, setError };
+  return { response, setResponse, loading, error, makeAPICall, setError };
 };
 
 export default useFetch;

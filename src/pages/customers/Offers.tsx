@@ -25,22 +25,27 @@ const onlineFilters = [
 ];
 
 const OffersPage = () => {
-  const { response, makeAPICall } = useFetch();
+  const { response, setResponse, makeAPICall } = useFetch();
   const [selectedTab, setSelectedTab] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState<any>({});
 
-  useEffect(() => {
+  const fetchRestaurants = () => {
+    setResponse([]);
     const filterQuery = Object.keys(selectedFilter)
       .filter((key) => selectedFilter?.[key])
       .join(",");
     makeAPICall(
-      `restaurants?requests=approved&filter=${filterQuery ? filterQuery : "offers"}&mode=${
-        selectedTab ? "dine" : "online"
-      }`,
+      `restaurants?requests=approved&filter=${
+        filterQuery ? filterQuery : "offers"
+      }&mode=${selectedTab ? "dine" : "online"}`,
       {
         method: "GET",
       }
     );
+  };
+
+  useEffect(() => {
+    if (Object.values(selectedFilter)?.length > 0) fetchRestaurants();
   }, [selectedTab, selectedFilter]);
 
   return (

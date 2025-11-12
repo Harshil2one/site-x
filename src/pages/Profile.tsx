@@ -17,9 +17,6 @@ import toast from "react-hot-toast";
 import useFetch from "../hooks/useFetch";
 import Address from "../components/common/AddressField";
 import { type IAddress } from "../types/common";
-import { useDispatch, useSelector } from "react-redux";
-import { type AppDispatch, type RootState } from "../redux/store";
-import { switchRoles } from "../redux/slices/role";
 import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
@@ -32,9 +29,6 @@ const ProfilePage = () => {
   const { getLocalStorage, setLocalStorage, clearLocalStorage } =
     useLocalStorage();
   const user = getLocalStorage("user");
-
-  const dispatch = useDispatch<AppDispatch>();
-  const role = useSelector((state: RootState) => state.user.role);
 
   const [image, setImage] = useState<string | null>(null);
   const [profileData, setProfileData] = useState<{
@@ -156,25 +150,6 @@ const ProfilePage = () => {
           <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
             {t("profileHeader")}
           </Typography>
-
-          {user.role === USER_ROLE.ADMIN && (
-            <CustomButton
-              variant={BUTTON_VARIANT.OUTLINED}
-              style={{
-                width: "max-content",
-              }}
-              btnText={
-                role === USER_ROLE.ADMIN ? t("switchToUser") : t("becomeAdmin")
-              }
-              onClick={() =>
-                dispatch(
-                  switchRoles(
-                    role === USER_ROLE.ADMIN ? USER_ROLE.USER : USER_ROLE.ADMIN
-                  )
-                )
-              }
-            />
-          )}
         </Box>
         <Typography variant="body1" sx={{ color: "text.secondary", mb: 1 }}>
           {t("profileSubText")}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import type { IRestaurant } from "../../types/restaurant";
 import CustomButton from "../../components/UI/Button";
+import socketService from "../../utils/socketService";
 
 const OwnerPage = () => {
   const { getLocalStorage } = useLocalStorage();
@@ -28,11 +29,9 @@ const OwnerPage = () => {
 
   const { error, setError, makeAPICall } = useFetch();
 
-  const [restaurantDetails, setRestaurantDetails] = React.useState(
-    {} as IRestaurant
-  );
-  const [deleteOpen, setDeleteOpen] = React.useState(-1);
-  const [images, setImages] = React.useState<string[]>([]);
+  const [restaurantDetails, setRestaurantDetails] = useState({} as IRestaurant);
+  const [deleteOpen, setDeleteOpen] = useState(-1);
+  const [images, setImages] = useState<string[]>([]);
 
   const fetchRestaurants = async () => {
     const res = await makeAPICall(`restaurants?created_by=${user.id}`, {
@@ -151,7 +150,7 @@ const OwnerPage = () => {
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    setImages((prev) => prev?.filter((_, i) => i !== index));
   };
 
   const handleConfirmDelete = async () => {
@@ -171,6 +170,16 @@ const OwnerPage = () => {
   useEffect(() => {
     fetchRestaurants();
   }, []);
+
+  useEffect(() => {
+    socketService.on("restaurant_status", (payload: any) => {
+      setRestaurantDetails(payload);
+    });
+
+    return () => {
+      socketService.off("restaurant_status");
+    };
+  });
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>

@@ -64,7 +64,7 @@ const Notification = ({ style }: IProps) => {
   };
 
   useEffect(() => {
-    fetchNotifications();
+    if (user?.id) fetchNotifications();
   }, []);
 
   useEffect(() => {
@@ -88,11 +88,7 @@ const Notification = ({ style }: IProps) => {
           },
         }}
       >
-        <Badge
-          variant="dot"
-          color="error"
-          invisible={notifications.length === 0}
-        >
+        <Badge variant="dot" color="error" invisible={!notifications?.length}>
           <Bell size={20} />
         </Badge>
       </IconButton>
@@ -122,7 +118,7 @@ const Notification = ({ style }: IProps) => {
           }}
         >
           <Typography variant="subtitle1">
-            Notifications ({notifications?.length})
+            Notifications ({notifications?.length || 0})
           </Typography>
 
           {notifications?.length > 0 && (
@@ -137,60 +133,67 @@ const Notification = ({ style }: IProps) => {
           )}
         </Box>
 
-        {notifications?.length > 0 ? (
-          notifications?.map((item) => (
-            <Box
-              key={item.id}
-              sx={{
-                backgroundColor: "#f5f5f5",
-                borderRadius: 1,
-                p: 1.2,
-                mb: 1,
-              }}
-            >
+        <Box
+          sx={{
+            maxHeight: 400,
+            overflow: "auto",
+          }}
+        >
+          {notifications?.length > 0 ? (
+            notifications?.map((item) => (
               <Box
+                key={item.id}
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: 1,
+                  p: 1.2,
+                  mb: 1,
                 }}
               >
-                <Typography variant="body2">{item.message}</Typography>
-                <IconButton
-                  size="small"
-                  onClick={() => handleMarkAsRead(item.id)}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  <EyeOff size={14} />
-                </IconButton>
-              </Box>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "end",
-                  mt: 0.5,
-                }}
-              >
-                <Typography variant="caption" color="text.secondary">
-                  {moment(item.created_at * 1000).fromNow()}
-                </Typography>
-                {item.link && (
-                  <Link
-                    to={item.link}
-                    style={{ fontSize: 12, textDecoration: "underline" }}
+                  <Typography variant="body2">{item.message}</Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleMarkAsRead(item.id)}
                   >
-                    See details
-                  </Link>
-                )}
+                    <EyeOff size={14} />
+                  </IconButton>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "end",
+                    mt: 0.5,
+                  }}
+                >
+                  <Typography variant="caption" color="text.secondary">
+                    {moment(item.created_at * 1000).fromNow()}
+                  </Typography>
+                  {item.link && (
+                    <Link
+                      to={item.link}
+                      style={{ fontSize: 12, textDecoration: "underline" }}
+                    >
+                      See details
+                    </Link>
+                  )}
+                </Box>
               </Box>
-            </Box>
-          ))
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            No new notifications
-          </Typography>
-        )}
+            ))
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              No new notifications
+            </Typography>
+          )}
+        </Box>
       </Popover>
     </Box>
   );

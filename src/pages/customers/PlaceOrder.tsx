@@ -36,6 +36,7 @@ import toast from "react-hot-toast";
 import useFetch from "../../hooks/useFetch";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import Input from "../../components/UI/Input";
+import socketService from "../../utils/socketService";
 
 const PlaceOrder = () => {
   const { orderId } = useParams();
@@ -75,18 +76,6 @@ const PlaceOrder = () => {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    fetchOrderDetails();
-    // Check after every 10 seconds for updated status
-    if (
-      order?.order_status !== ORDER_STATUS.DELIVERED &&
-      order?.order_status !== ORDER_STATUS.CANCELLED
-    ) {
-      const interval = setInterval(fetchOrderDetails, 10000);
-      return () => clearInterval(interval);
-    }
-  }, [order?.order_status]);
 
   const getAnimation = () => {
     switch (order?.order_status) {
@@ -178,6 +167,20 @@ const PlaceOrder = () => {
       setRatingOpen(false);
     }, 0);
   };
+
+  useEffect(() => {
+    fetchOrderDetails();
+  }, []);
+
+  useEffect(() => {
+    socketService.on("update_order_status", (payload: any) => {
+      setOrder(payload);
+    });
+
+    return () => {
+      socketService.off("update_order_status");
+    };
+  });
 
   if (order?.order_status === ORDER_STATUS.ORDER_REJECTED) {
     return (

@@ -28,6 +28,7 @@ import useFetch from "../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import type { IOrder } from "../../types/order";
 import moment from "moment";
+import socketService from "../../utils/socketService";
 
 ChartJS.register(
   ArcElement,
@@ -73,6 +74,16 @@ const OwnerDashboard = () => {
   useEffect(() => {
     fetchRestaurants();
   }, []);
+
+  useEffect(() => {
+    socketService.on("restaurant_status", (payload: any) => {
+      setRestaurantDetails(payload);
+    });
+
+    return () => {
+      socketService.off("restaurant_status");
+    };
+  });
 
   const dashboardData = response?.data || {
     totalRevenue: 0,
@@ -127,7 +138,11 @@ const OwnerDashboard = () => {
         }}
       >
         <Box sx={{ fontSize: 20, fontWeight: 500 }}>
-          {restaurantDetails?.open === 1
+          {restaurantDetails?.status === STATUS.PENDING
+            ? t("ownerSubHeaderText")
+            : restaurantDetails?.status === STATUS.REJECTED
+            ? t("ownerSubHeaderText0")
+            : restaurantDetails?.open === 1
             ? t("ownerSubHeaderText1")
             : t("ownerSubHeaderText2")}
           {restaurantDetails?.status === STATUS.PENDING && (

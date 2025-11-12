@@ -1,6 +1,7 @@
 export enum PUBLIC_ROUTE {
   HOME = "/",
   NOT_FOUND = "*",
+  UNAUTHORIZED = "/unauthorized",
   SIGNIN = "/signin",
   SIGNUP = "/signup",
   FORGOT_PASSWORD = "/forgot-password",

@@ -9,6 +9,7 @@ import { AlarmClock, CircleCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import socketService from "../../utils/socketService";
 
 const RidesPage = () => {
   const navigate = useNavigate();
@@ -40,6 +41,19 @@ const RidesPage = () => {
   useEffect(() => {
     fetchRideRequests();
   }, []);
+
+  useEffect(() => {
+    socketService.on("receive_pickup", (payload: any) => {
+      setPickupRequests((prev: IOrder[]) => {
+        if (prev?.some((r) => r.id === payload.id)) return prev;
+        return [payload, ...prev];
+      });
+    });
+
+    return () => {
+      socketService.off("receive_pickup");
+    };
+  });
 
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
