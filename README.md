@@ -14,6 +14,11 @@ It allows users to explore restaurants, filter cuisines, and order food online i
 - 🌍 **i18next** – Internationalization support
 - 🧩 **Custom Hooks** – For API fetching (`useFetch`)
 - 🧰 **ESLint + Prettier** – Code linting and formatting
+- 🧾 **Formik and Yup** - For validation of forms
+- 🤖 **Gemini** - For AI assistant
+- 🗃️ **Redux** - For global state management
+- 📊 **Chart.js** - For charts
+- 🔌 **Socket.io** - Real time data handling
 
 ---
 
@@ -34,8 +39,8 @@ It allows users to explore restaurants, filter cuisines, and order food online i
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/bigbite.git
-cd bigbite
+git clone https://github.com/your-username/site-x.git
+cd site-x
 ```
 
 ### 2️⃣ Install Dependencies
@@ -60,24 +65,59 @@ yarn dev
 src/
 ├── components/
 │   ├── common/
-│   │   └── RestaurantCard.tsx
+│   │   ├── RestaurantCard.tsx
+│   │   └── ...
 │   ├── home/
 │   │   ├── Filters.tsx
 │   │   ├── FoodSlides.tsx
-│   │   └── TopRestaurants.tsx
+│   │   ├── TopRestaurants.tsx
+│   │   └── ...
+│   └── ...
 │
-├── hooks/
-│   └── useFetch.ts
+├── context/
+│   ├── LoadingContext.tsx
+│   └── SocketContext.tsx
 │
-├── pages/
-│   └── HomePage.tsx
-│
-├── types/
-│   └── restaurant.ts
-│
-├── i18n/
+├── enums/
 │   └── index.ts
 │
+├── hooks/
+│   ├── useFetch.ts
+│   └── ...
+│
+├── pages/
+│   ├── HomePage.tsx
+│   └── ...
+│
+├── types/
+│   ├── restaurant.ts
+│   └── ...
+│
+├── routes/
+│   ├── index.ts
+│   └── ProtectedRoute.tsx
+│
+├── redux/
+│   ├── store
+│   │   └── index.ts
+│   ├── actions
+│   │   ├── cart.ts
+│   │   ├── order.ts
+│   │   └── restaurant.ts
+│   ├── services
+│   │   ├── cart.ts
+│   │   ├── order.ts
+│   │   └── restaurant.ts
+│   ├── slices
+│   │   ├── cart.ts
+│   │   ├── order.ts
+│   │   └── restaurant.ts
+│
+├── i18n/
+│   ├── index.ts
+│   └── ...
+│
+├── App.tsx
 └── main.tsx
 ```
 

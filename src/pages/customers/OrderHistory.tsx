@@ -71,7 +71,7 @@ const OrderHistoryPage = () => {
                       }}
                     >
                       <img
-                        src={order.restaurant.images?.[0]}
+                        src={order.restaurant?.images?.[0]}
                         width={160}
                         height={100}
                         loading="lazy"

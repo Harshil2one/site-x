@@ -10,6 +10,8 @@ import { store } from "./redux/store";
 import AIBot from "./components/common/AIBot";
 import { SocketProvider } from "./context/SocketContext";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { usePushNotifications } from "./hooks/useRequestPermission";
+import useFetch from "./hooks/useFetch";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -29,6 +31,35 @@ function Layout() {
 
   const { getLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
+
+  const { makeAPICall } = useFetch();
+
+  const { requestPermissionAndGetToken } = usePushNotifications();
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/firebase-messaging-sw.js")
+        .then(() => {
+          console.log("Service worker registered");
+          const setupNotifications = async () => {
+            const token = await requestPermissionAndGetToken();
+            if (token) {
+              makeAPICall("token/save", {
+                method: "POST",
+                data: {
+                  token,
+                  userId: user?.id,
+                },
+              });
+            }
+          };
+
+          setupNotifications();
+        })
+        .catch((err) => console.error("SW registration failed", err));
+    }
+  }, []);
 
   const hideLayout = [
     PUBLIC_ROUTE.SIGNIN,

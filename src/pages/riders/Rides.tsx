@@ -205,7 +205,7 @@ const RidesPage = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Total Paid: ₹{order.amount}
+                  Earning: ₹{order.delivery_fee}
                 </Typography>
               </Box>
               {order?.order_status === ORDER_STATUS.OUT_FOR_DELIVERY &&
