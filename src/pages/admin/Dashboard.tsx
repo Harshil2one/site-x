@@ -78,6 +78,7 @@ const Dashboard = () => {
             src="/assets/waving.svg"
             width={45}
             height={45}
+            alt="Waving"
             loading="lazy"
           />
         </Typography>

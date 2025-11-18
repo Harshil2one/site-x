@@ -168,6 +168,7 @@ const RestaurantPage = () => {
                     src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_96,h_96/offers/generic"
                     width={50}
                     height={50}
+                    alt="Offer"
                     loading="lazy"
                   />
                   <Box sx={{ display: "flex", flexDirection: "column" }}>

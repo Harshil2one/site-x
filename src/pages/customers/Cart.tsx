@@ -209,6 +209,7 @@ const CartPage = () => {
           src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
           width={350}
           height={350}
+          alt="Empty cart"
           loading="lazy"
         />
         <Box
@@ -253,6 +254,7 @@ const CartPage = () => {
             style={{
               objectFit: "cover",
             }}
+            alt={restaurant.name}
             loading="lazy"
           />
           <Box
@@ -317,6 +319,7 @@ const CartPage = () => {
                           }`}
                           width={16}
                           height={16}
+                          alt="Food type"
                           loading="lazy"
                         />
                         <Typography sx={{ fontWeight: 500 }}>
@@ -564,6 +567,7 @@ const CartPage = () => {
                     src={`/assets/${method.icon}`}
                     width={80}
                     height={80}
+                    alt={method.label}
                     loading="lazy"
                   />
                   <Typography

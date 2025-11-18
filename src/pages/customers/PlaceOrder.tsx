@@ -452,7 +452,11 @@ const PlaceOrder = () => {
                 gap: 3,
               }}
             >
-              <img src={restaurant?.images?.[0]} width={250} />
+              <img
+                src={restaurant?.images?.[0]}
+                width={250}
+                alt={restaurant?.name}
+              />
               <Box>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                   <Typography

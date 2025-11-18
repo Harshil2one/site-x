@@ -97,6 +97,7 @@ const OrderRequests = () => {
                     src={order.restaurant.images?.[0]}
                     width={160}
                     height={100}
+                    alt={order.restaurant.name}
                     loading="lazy"
                   />
                   <Box>

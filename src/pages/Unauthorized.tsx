@@ -30,6 +30,7 @@ const UnauthorizedPage = () => {
       <img
         src="/assets/unauthorized.jpg"
         style={{ width: "400px", height: "auto" }}
+        alt="Unauthorized"
       />
       <Box
         sx={{

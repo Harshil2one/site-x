@@ -59,6 +59,7 @@ const OffersPage = () => {
           objectFit: "cover",
           marginBottom: "16px",
         }}
+        alt="Selected tab"
         loading="lazy"
       />
       <Typography

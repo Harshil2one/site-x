@@ -118,7 +118,7 @@ const OwnerDashboard = () => {
           }}
         >
           {t("welcomeText")} {restaurantDetails?.name}!
-          <img src="/assets/waving.svg" width={45} height={45} loading="lazy" />
+          <img src="/assets/waving.svg" width={45} height={45} alt="Waving" loading="lazy" />
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 18, fontWeight: 600 }}>
           {t("ownerDashboardHeader")}

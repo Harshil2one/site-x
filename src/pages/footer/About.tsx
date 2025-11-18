@@ -24,6 +24,7 @@ const AboutUsPage = () => {
           top: 0,
         }}
         src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/about-banner-image-scaled.webp"
+        alt="About us"
         loading="lazy"
       />
       {!isMobile && (
@@ -31,6 +32,7 @@ const AboutUsPage = () => {
           <img
             src="https://www.swiggy.com/corporate/wp-content/uploads/2024/10/dineout.webp"
             style={{ position: "absolute", top: 480, width: "180px" }}
+            alt="Dineout"
             loading="lazy"
           />
           <img
@@ -41,6 +43,7 @@ const AboutUsPage = () => {
               left: 450,
               width: "180px",
             }}
+            alt="Food"
             loading="lazy"
           />
         </>
@@ -74,6 +77,7 @@ const AboutUsPage = () => {
               right: 450,
               width: "180px",
             }}
+            alt="Instamart"
             loading="lazy"
           />
           <img
@@ -84,6 +88,7 @@ const AboutUsPage = () => {
               right: 180,
               width: "180px",
             }}
+            alt="Scenes"
             loading="lazy"
           />
         </>
@@ -158,6 +163,7 @@ const AboutUsPage = () => {
               }}
               loading="lazy"
               src="https://img.freepik.com/premium-vector/man-jumping-barrier-obstacle-ambitious-male-character-overcoming-hurdledifficulty-problem-life-trouble-challenge-psychology-concept-flat-vector-illustration-isolated-white-background_198278-23205.jpg"
+              alt="About us"
             />
           </Grid>
         </Grid>

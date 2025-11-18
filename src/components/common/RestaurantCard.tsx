@@ -35,6 +35,7 @@ const RestaurantCard = (props: IProps) => {
           style={{
             borderRadius: "16px",
           }}
+          alt={place.name}
           loading="lazy"
         />
         {place?.offers?.length > 0 && (

@@ -60,6 +60,7 @@ const CareersPage = () => {
           objectFit: "cover",
           objectPosition: "top",
         }}
+        alt="Careers"
         loading="lazy"
       />
       <Typography
@@ -106,7 +107,7 @@ const CareersPage = () => {
               gap: 2,
             }}
           >
-            <img src={job.icon} loading="lazy" />
+            <img src={job.icon} alt={job.title} loading="lazy" />
             <Typography
               variant="h6"
               sx={{

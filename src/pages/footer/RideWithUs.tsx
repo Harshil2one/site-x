@@ -32,6 +32,7 @@ const RideWithUs = () => {
           objectPosition: "top",
           marginBottom: "16px",
         }}
+        alt="Ride with us"
         loading="lazy"
       />
       <Typography
@@ -111,7 +112,12 @@ const RideWithUs = () => {
               justifyContent: "center",
             }}
           >
-            <img src="/assets/success.gif" width={300} loading="lazy" />
+            <img
+              src="/assets/success.gif"
+              width={300}
+              alt="Success"
+              loading="lazy"
+            />
             <Typography
               sx={{ fontSize: 28, color: "#414449", textAlign: "center" }}
             >
@@ -189,7 +195,12 @@ const RideWithUs = () => {
               gap: 1,
             }}
           >
-            <img src={`/assets/${benefit.img}`} width={100} loading="lazy" />
+            <img
+              src={`/assets/${benefit.img}`}
+              width={100}
+              alt={benefit.label}
+              loading="lazy"
+            />
             <Typography sx={{ fontWeight: 600, fontSize: 20, color: "grey" }}>
               {benefit.label}
             </Typography>

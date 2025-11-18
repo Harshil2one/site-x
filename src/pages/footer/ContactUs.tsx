@@ -55,12 +55,14 @@ const ContactUsPage = () => {
                 left: 0,
                 zIndex: 999,
               }}
+              alt="Salad"
               loading="lazy"
             />
             <img
               src={"/assets/bg-sandwich.webp"}
               width={250}
               style={{ position: "absolute", top: 10, right: 0, zIndex: 999 }}
+              alt="Sandwich"
               loading="lazy"
             />
           </>
@@ -159,6 +161,7 @@ const ContactUsPage = () => {
           width: "100%",
           height: "360px",
         }}
+        alt="Fast food"
         loading="lazy"
       />
     </>

@@ -74,6 +74,7 @@ const OrderHistoryPage = () => {
                         src={order.restaurant?.images?.[0]}
                         width={160}
                         height={100}
+                        alt={order.restaurant.name}
                         loading="lazy"
                       />
                       <Box>
@@ -273,6 +274,7 @@ const OrderHistoryPage = () => {
               src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
               width={350}
               height={350}
+              alt="Order history"
               loading="lazy"
             />
             <Box

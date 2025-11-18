@@ -111,6 +111,7 @@ const SearchCard = (props: IProps) => {
               }`}
               width={18}
               height={18}
+              alt="Food type"
               loading="lazy"
             />
             <Typography
@@ -139,6 +140,7 @@ const SearchCard = (props: IProps) => {
               borderRadius: "8px",
               objectFit: "cover",
             }}
+            alt={`Place #${place.id}`}
             loading="lazy"
           />
         </Box>
@@ -167,6 +169,7 @@ const SearchCard = (props: IProps) => {
           borderRadius: "8px",
           objectFit: "cover",
         }}
+        alt={`Place #${place.id}`}
         loading="lazy"
       />
       <Box>

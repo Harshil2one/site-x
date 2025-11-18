@@ -152,6 +152,7 @@ const Foods = () => {
                     height: "100%",
                     objectFit: "cover",
                   }}
+                  alt={formik.values.name}
                   loading="lazy"
                 />
                 <IconButton

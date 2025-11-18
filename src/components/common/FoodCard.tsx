@@ -65,7 +65,7 @@ const FoodCard = (props: IProps) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: {md: 0, sm: 2, xs: 1}
+          gap: { md: 0, sm: 2, xs: 1 },
         }}
       >
         <Box>
@@ -78,6 +78,7 @@ const FoodCard = (props: IProps) => {
               }`}
               width={18}
               height={18}
+              alt="Food type"
               loading="lazy"
             />
             {foodInfo?.isBest === 1 && (
@@ -150,6 +151,7 @@ const FoodCard = (props: IProps) => {
                 width={180}
                 height={180}
                 style={{ objectFit: "cover", borderRadius: 16 }}
+                alt={foodInfo.name}
                 loading="lazy"
               />
             )}
@@ -188,6 +190,7 @@ const FoodCard = (props: IProps) => {
           width="100%"
           height="100%"
           style={{ objectFit: "cover" }}
+          alt={foodInfo.name}
           loading="lazy"
         />
 
@@ -216,6 +219,7 @@ const FoodCard = (props: IProps) => {
             top: 12,
             left: 12,
           }}
+          alt="Food type"
           loading="lazy"
         />
 
