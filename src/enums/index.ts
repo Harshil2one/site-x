@@ -1,4 +1,4 @@
-export enum PUBLIC_ROUTE {
+export const enum PUBLIC_ROUTE {
   HOME = "/",
   NOT_FOUND = "*",
   UNAUTHORIZED = "/unauthorized",
@@ -18,7 +18,7 @@ export enum PUBLIC_ROUTE {
   TERM_POLICY = "/terms",
 }
 
-export enum PRIVATE_ROUTE {
+export const enum PRIVATE_ROUTE {
   DASHBOARD = "/dashboard",
   USER_PROFILE = "/profile",
   CART = "/cart",
@@ -40,26 +40,26 @@ export enum PRIVATE_ROUTE {
   RIDERS = "/riders/rides",
 }
 
-export enum USER_ROLE {
+export const enum USER_ROLE {
   ADMIN = 1,
   USER = 2,
   RIDER = 3,
   OWNER = 4,
 }
 
-export enum BUTTON_TYPE {
+export const enum BUTTON_TYPE {
   SUBMIT = "submit",
   BUTTON = "button",
   RESET = "reset",
 }
 
-export enum BUTTON_VARIANT {
+export const enum BUTTON_VARIANT {
   CONTAINED = "contained",
   OUTLINED = "outlined",
   TEXT = "text",
 }
 
-export enum COLOR {
+export const enum COLOR {
   ERROR = "error",
   SUCCESS = "success",
   WARNING = "warning",
@@ -68,13 +68,13 @@ export enum COLOR {
   SECONDARY = "secondary",
 }
 
-export enum INPUT_VARIANT {
+export const enum INPUT_VARIANT {
   FILLED = "filled",
   OUTLINED = "outlined",
   STANDARD = "standard",
 }
 
-export enum INPUT_TYPE {
+export const enum INPUT_TYPE {
   EMAIL = "email",
   TEXT = "text",
   PASSWORD = "password",
@@ -89,27 +89,27 @@ export enum INPUT_TYPE {
   TEL = "tel",
 }
 
-export enum INPUT_SIZE {
+export const enum INPUT_SIZE {
   SMALL = "small",
   MEDIUM = "medium",
 }
 
-export enum RESTAURANT_TYPE {
+export const enum RESTAURANT_TYPE {
   VEG = "veg",
   NON_VEG = "nonVeg",
 }
 
-export enum RESTAURANT_MODE {
+export const enum RESTAURANT_MODE {
   ONLINE = "online",
   DINE_IN = "dine",
 }
 
-export enum FOOD_CARD_TYPE {
+export const enum FOOD_CARD_TYPE {
   TOP_PICK = "top",
   LIST = "list",
 }
 
-export enum TABLE_NAME {
+export const enum TABLE_NAME {
   RESTAURANTS = "restaurants",
   FOODS = "foods",
   COUPONS = "coupons",
@@ -119,13 +119,13 @@ export enum TABLE_NAME {
   MENU = "menu",
 }
 
-export enum STATUS {
+export const enum STATUS {
   PENDING = "pending",
   APPROVED = "approved",
   REJECTED = "rejected",
 }
 
-export enum ORDER_STATUS {
+export const enum ORDER_STATUS {
   PREPARING = 1,
   READY_FOR_PICKUP = 2,
   OUT_FOR_DELIVERY = 3,

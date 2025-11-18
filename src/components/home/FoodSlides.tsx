@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import SwipeButtons from "../common/SwipeButtons";
 import { PUBLIC_ROUTE } from "../../enums";
