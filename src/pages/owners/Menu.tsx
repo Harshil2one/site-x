@@ -4,7 +4,7 @@ import CommonTable from "../../components/UI/Table";
 import useFetch from "../../hooks/useFetch";
 import { TABLE_NAME } from "../../enums";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import toast from "react-hot-toast";
 import CustomButton from "../../components/UI/Button";
 import { ArrowDownFromLine, ArrowUpFromLine, Upload } from "lucide-react";
@@ -216,7 +216,7 @@ const RestaurantMenu = () => {
               data: {
                 ...restaurantDetails,
                 food: restaurantDetails?.food?.filter(
-                  (foodId) => foodId !== id
+                  (foodId: number) => foodId !== id
                 ),
               },
             }

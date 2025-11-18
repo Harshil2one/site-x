@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Star } from "lucide-react";
 import { FOOD_CARD_TYPE, RESTAURANT_TYPE } from "../../enums";
-import type { IFood } from "../../types/food";
+import type { IFood } from "../../types/food.ts";
 import FoodCounterButton from "./FoodCounterButton";
 import { addToCart, removeFromCart } from "../../redux/slices/cart";
 import { useDispatch, useSelector } from "react-redux";

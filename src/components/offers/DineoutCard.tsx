@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Chip, Typography } from "@mui/material";
 import Slider from "react-slick";
 import { BadgePercent, CalendarCheck, CircleStar } from "lucide-react";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import { PUBLIC_ROUTE } from "../../enums";
 import { useNavigate } from "react-router";
 
@@ -40,7 +40,7 @@ const DineoutCard = ({ place }: IProps) => {
     >
       <Box sx={{ width: "100%", height: 200 }}>
         <Slider {...sliderSettings}>
-          {place.images.map((img, index) => (
+          {place.images.map((img: string, index: number) => (
             <Box key={index}>
               <img
                 src={img}

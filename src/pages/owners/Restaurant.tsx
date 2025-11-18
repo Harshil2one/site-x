@@ -19,7 +19,7 @@ import { restaurantValidationSchema } from "../../utils/schema";
 import DeletePopup from "../../components/UI/DeletePopup";
 import toast from "react-hot-toast";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import CustomButton from "../../components/UI/Button";
 import socketService from "../../utils/socketService";
 

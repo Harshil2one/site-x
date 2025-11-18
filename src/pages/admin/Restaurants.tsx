@@ -6,7 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import { PRIVATE_ROUTE, STATUS, TABLE_NAME } from "../../enums";
 import toast from "react-hot-toast";
 import socketService from "../../utils/socketService";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 
 const Restaurants = () => {
   const navigate = useNavigate();

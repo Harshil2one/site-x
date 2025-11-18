@@ -25,7 +25,7 @@ import RenderRazorpay from "../../components/payments/RenderRazorpay";
 import axiosInstance from "../../utils/axiosInstance";
 import Loader from "../../components/UI/Loader";
 import FoodCounterButton from "../../components/common/FoodCounterButton";
-import type { IFood } from "../../types/food";
+import type { IFood } from "../../types/food.ts";
 import { addToCart, removeFromCart } from "../../redux/slices/cart";
 import toast from "react-hot-toast";
 

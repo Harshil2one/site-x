@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Box, Typography } from "@mui/material";
 import useFetch from "../../hooks/useFetch";
 import RestaurantCard from "../../components/common/RestaurantCard";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 
 const FoodCollectionPage = () => {
   const { food } = useParams();

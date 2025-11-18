@@ -20,7 +20,7 @@ import {
   TABLE_NAME,
 } from "../../enums";
 import { Pencil, Star, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 
 interface IHeader {
   id: string;

@@ -1,5 +1,5 @@
-import type { IFood } from "./food";
-import type { IRestaurant } from "./restaurant";
+import type { IFood } from "./food.ts";
+import type { IRestaurant } from "./restaurant.ts";
 
 export type IOrder = {
   id: number;

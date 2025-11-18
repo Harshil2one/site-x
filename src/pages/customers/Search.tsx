@@ -4,7 +4,7 @@ import Input from "../../components/UI/Input";
 import { ChevronLeft, Search, X } from "lucide-react";
 import SearchCard from "../../components/search/SearchCard";
 import useFetch from "../../hooks/useFetch";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import { useTranslation } from "react-i18next";
 
 const filters = [

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import { CircleStar } from "lucide-react";
 import { useNavigate } from "react-router";
 import { PRIVATE_ROUTE } from "../../enums";

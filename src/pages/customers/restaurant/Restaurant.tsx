@@ -8,10 +8,10 @@ import {
 import { Box, Card, Divider, Typography } from "@mui/material";
 import { CircleStar, Rose, ShoppingBag } from "lucide-react";
 import useFetch from "../../../hooks/useFetch";
-import type { IRestaurant } from "../../../types/restaurant";
+import type { IRestaurant } from "../../../types/restaurant.ts";
 import SwipeButtons from "../../../components/common/SwipeButtons";
 import FoodCard from "../../../components/common/FoodCard";
-import type { IFood } from "../../../types/food";
+import type { IFood } from "../../../types/food.ts";
 import { FOOD_CARD_TYPE, PRIVATE_ROUTE, PUBLIC_ROUTE } from "../../../enums";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { getAllFoodItems } from "../../../redux/actions/restaurant";
@@ -150,7 +150,7 @@ const RestaurantPage = () => {
         </Typography>
         <Box sx={{ display: "flex", gap: 2, overflowX: "auto" }}>
           {restaurantDetails?.offers?.length > 0 ? (
-            restaurantDetails?.offers?.map((offer) => {
+            restaurantDetails?.offers?.map((offer: string) => {
               return (
                 <Card
                   sx={{

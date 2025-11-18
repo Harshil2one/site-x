@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllFoodItems } from "../actions/restaurant";
-import type { IFood } from "../../types/food";
+import type { IFood } from "../../types/food.ts";
 
 interface IInitialState {
   foodItems: IFood[];

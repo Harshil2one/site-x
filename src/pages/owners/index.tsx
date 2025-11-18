@@ -20,7 +20,7 @@ import {
 } from "chart.js";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import axiosInstance from "../../utils/axiosInstance";
 import { BUTTON_VARIANT, STATUS } from "../../enums";
 import CustomButton from "../../components/UI/Button";
@@ -29,7 +29,7 @@ import { useTranslation } from "react-i18next";
 import type { IOrder } from "../../types/order";
 import moment from "moment";
 import socketService from "../../utils/socketService";
-import type { IFood } from "../../types/food";
+import type { IFood } from "../../types/food.ts";
 
 ChartJS.register(
   ArcElement,

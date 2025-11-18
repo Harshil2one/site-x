@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { emptyCartItems, getAllCartItems, reorderCart } from "../actions/cart";
-import type { IRestaurant } from "../../types/restaurant";
-import type { IFood } from "../../types/food";
+import type { IRestaurant } from "../../types/restaurant.ts";
+import type { IFood } from "../../types/food.ts";
 
 interface IInitialState {
   isLoading: boolean;

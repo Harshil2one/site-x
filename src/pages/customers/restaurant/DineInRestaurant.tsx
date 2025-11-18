@@ -12,7 +12,7 @@ import {
 import { useParams } from "react-router";
 import { motion } from "framer-motion";
 import useFetch from "../../../hooks/useFetch";
-import type { IRestaurant } from "../../../types/restaurant";
+import type { IRestaurant } from "../../../types/restaurant.ts";
 import {
   Calendar,
   CheckCircle2,
@@ -376,7 +376,7 @@ const DineInRestaurantPage = () => {
           </Typography>
           <Box sx={{ display: "flex", gap: 2, overflowX: "auto" }}>
             {restaurantDetails?.offers?.length > 0 ? (
-              restaurantDetails?.offers?.map((offer) => {
+              restaurantDetails?.offers?.map((offer: string) => {
                 return (
                   <Card
                     sx={{

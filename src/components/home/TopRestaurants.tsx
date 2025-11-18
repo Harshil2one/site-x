@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import RestaurantCard from "../common/RestaurantCard";
 import SwipeButtons from "../common/SwipeButtons";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import { useTranslation } from "react-i18next";
 
 interface IProps {

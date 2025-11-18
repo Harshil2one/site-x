@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import Filters from "../../components/home/Filters";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import RestaurantCard from "../../components/common/RestaurantCard";
 import DineoutCard from "../../components/offers/DineoutCard";
 import useFetch from "../../hooks/useFetch";

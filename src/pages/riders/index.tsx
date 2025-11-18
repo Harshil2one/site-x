@@ -24,7 +24,7 @@ import useFetch from "../../hooks/useFetch";
 import { useTranslation } from "react-i18next";
 import type { IOrder } from "../../types/order";
 import moment from "moment";
-import type { IFood } from "../../types/food";
+import type { IFood } from "../../types/food.ts";
 
 ChartJS.register(
   ArcElement,

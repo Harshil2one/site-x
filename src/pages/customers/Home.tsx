@@ -4,7 +4,7 @@ import FoodSlides from "../../components/home/FoodSlides";
 import TopRestaurantsPage from "../../components/home/TopRestaurants";
 import Filters from "../../components/home/Filters";
 import useFetch from "../../hooks/useFetch";
-import type { IRestaurant } from "../../types/restaurant";
+import type { IRestaurant } from "../../types/restaurant.ts";
 import RestaurantCard from "../../components/common/RestaurantCard";
 import { useTranslation } from "react-i18next";
 
