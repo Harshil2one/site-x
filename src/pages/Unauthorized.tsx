@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE, PUBLIC_ROUTE, USER_ROLE } from "../enums";
 import { useTranslation } from "react-i18next";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useEffect } from "react";
 
 const UnauthorizedPage = () => {
   const { t } = useTranslation();
@@ -12,6 +13,12 @@ const UnauthorizedPage = () => {
 
   const { getLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
+
+  useEffect(() => {
+    if (!user?.id) {
+      navigate(PUBLIC_ROUTE.SIGNIN);
+    }
+  }, []);
 
   return (
     <Box

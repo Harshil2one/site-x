@@ -55,12 +55,7 @@ const AllRoutes = () => {
   const routes = useRoutes([
     {
       path: PUBLIC_ROUTE.HOME,
-      element: (
-        <ProtectedRoute
-          element={<HomePage />}
-          allowedRoles={[USER_ROLE.USER]}
-        />
-      ),
+      element: <HomePage />,
     },
     {
       path: PUBLIC_ROUTE.SIGNIN,
