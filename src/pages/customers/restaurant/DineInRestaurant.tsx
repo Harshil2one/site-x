@@ -434,7 +434,7 @@ const DineInRestaurantPage = () => {
         >
           {["menu-1.jpg", "menu-2.jpg", "menu-3.webp"]?.map((menu) => (
             <img
-              src={`../../../public/assets/${menu}`}
+              src={`/assets/${menu}`}
               width={300}
               height={350}
               loading="lazy"

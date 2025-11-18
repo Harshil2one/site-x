@@ -71,7 +71,7 @@ const FoodCard = (props: IProps) => {
         <Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             <img
-              src={`../../../public/assets/${
+              src={`/assets/${
                 foodInfo?.type == RESTAURANT_TYPE.VEG
                   ? "veg-icon.png"
                   : "non-veg-icon.png"
@@ -204,7 +204,7 @@ const FoodCard = (props: IProps) => {
         />
 
         <img
-          src={`../../../public/assets/${
+          src={`/assets/${
             foodInfo?.type == RESTAURANT_TYPE.VEG
               ? "veg-icon.png"
               : "non-veg-icon.png"

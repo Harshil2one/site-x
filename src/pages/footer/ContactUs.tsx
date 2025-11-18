@@ -47,7 +47,7 @@ const ContactUsPage = () => {
         {!isMobile && (
           <>
             <img
-              src={"../../../public/assets/bg-salad.webp"}
+              src={"/assets/bg-salad.webp"}
               width={250}
               style={{
                 position: "absolute",
@@ -58,7 +58,7 @@ const ContactUsPage = () => {
               loading="lazy"
             />
             <img
-              src={"../../../public/assets/bg-sandwich.webp"}
+              src={"/assets/bg-sandwich.webp"}
               width={250}
               style={{ position: "absolute", top: 10, right: 0, zIndex: 999 }}
               loading="lazy"

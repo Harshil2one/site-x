@@ -10,7 +10,7 @@ const MagicWandLoader = () => {
   return (
     <div className="magic-loader-container">
       <img
-        src={"../../../public/assets/loader.gif"}
+        src={"/assets/loader.gif"}
         alt="Loading..."
         width={300}
       />

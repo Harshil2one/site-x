@@ -77,7 +77,7 @@ const FoodSlides = () => {
               }
             >
               <img
-                src={`../../../public/assets/${option.src}`}
+                src={`/assets/${option.src}`}
                 alt={option.title}
                 width={150}
                 height={120}

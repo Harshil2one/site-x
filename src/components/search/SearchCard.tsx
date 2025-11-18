@@ -104,7 +104,7 @@ const SearchCard = (props: IProps) => {
         >
           <Box>
             <img
-              src={`../../../public/assets/${
+              src={`/assets/${
                 place?.type == RESTAURANT_TYPE.VEG
                   ? "veg-icon.png"
                   : "non-veg-icon.png"

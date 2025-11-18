@@ -310,7 +310,7 @@ const CartPage = () => {
                         sx={{ display: "flex", gap: 2, alignItems: "center" }}
                       >
                         <img
-                          src={`../../../public/assets/${
+                          src={`/assets/${
                             f?.type == RESTAURANT_TYPE.VEG
                               ? "veg-icon.png"
                               : "non-veg-icon.png"
@@ -561,7 +561,7 @@ const CartPage = () => {
                   }}
                 >
                   <img
-                    src={`../../../public/assets/${method.icon}`}
+                    src={`/assets/${method.icon}`}
                     width={80}
                     height={80}
                     loading="lazy"

@@ -23,7 +23,7 @@ const RideWithUs = () => {
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 } }}>
       <img
-        src={`../../../public/assets/ride-with-us.jpg`}
+        src={`/assets/ride-with-us.jpg`}
         style={{
           borderRadius: "16px",
           width: "100%",
@@ -111,11 +111,7 @@ const RideWithUs = () => {
               justifyContent: "center",
             }}
           >
-            <img
-              src="../../../public/assets/success.gif"
-              width={300}
-              loading="lazy"
-            />
+            <img src="/assets/success.gif" width={300} loading="lazy" />
             <Typography
               sx={{ fontSize: 28, color: "#414449", textAlign: "center" }}
             >
@@ -193,11 +189,7 @@ const RideWithUs = () => {
               gap: 1,
             }}
           >
-            <img
-              src={`../../../public/assets/${benefit.img}`}
-              width={100}
-              loading="lazy"
-            />
+            <img src={`/assets/${benefit.img}`} width={100} loading="lazy" />
             <Typography sx={{ fontWeight: 600, fontSize: 20, color: "grey" }}>
               {benefit.label}
             </Typography>

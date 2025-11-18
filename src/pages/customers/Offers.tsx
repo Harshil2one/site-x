@@ -51,7 +51,7 @@ const OffersPage = () => {
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <img
-        src={`../../../public/assets/${selectedTab ? "offers" : "food"}.jpg`}
+        src={`/assets/${selectedTab ? "offers" : "food"}.jpg`}
         style={{
           borderRadius: "16px",
           width: "100%",

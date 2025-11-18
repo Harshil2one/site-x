@@ -56,7 +56,7 @@ const Dashboard = () => {
     <Box sx={{ pt: 1, pb: 3 }}>
       <Box
         sx={{
-          background: "url(../../../public/assets/background.jpg)",
+          background: "url(/assets/background.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           p: 3,
@@ -75,7 +75,7 @@ const Dashboard = () => {
         >
           Hey, {user?.name?.split(" ")?.[1]}!
           <img
-            src="../../../public/assets/waving.svg"
+            src="/assets/waving.svg"
             width={45}
             height={45}
             loading="lazy"

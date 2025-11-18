@@ -251,7 +251,7 @@ const PlaceOrder = () => {
           }}
         >
           <Avatar
-            src={"../../../public/assets/delivery-partner.avif"}
+            src={"/assets/delivery-partner.avif"}
             sx={{ width: 100, height: 120 }}
           />
           <Rating

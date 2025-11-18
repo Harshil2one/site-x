@@ -28,7 +28,7 @@ const UnauthorizedPage = () => {
       }}
     >
       <img
-        src="../../public/assets/unauthorized.jpg"
+        src="/assets/unauthorized.jpg"
         style={{ width: "400px", height: "auto" }}
       />
       <Box

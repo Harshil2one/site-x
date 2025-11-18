@@ -173,7 +173,7 @@ const CommonTable = (props: IProps) => {
                                     }}
                                   >
                                     <img
-                                      src={`../../../public/assets/${
+                                      src={`/assets/${
                                         row.type === RESTAURANT_TYPE.VEG
                                           ? "veg-icon.png"
                                           : "non-veg-icon.png"

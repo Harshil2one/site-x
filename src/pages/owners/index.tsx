@@ -100,7 +100,7 @@ const OwnerDashboard = () => {
     <Box sx={{ pt: 1, pb: 3 }}>
       <Box
         sx={{
-          background: "url(../../../public/assets/background.jpg)",
+          background: "url(/assets/background.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           p: 3,
@@ -118,12 +118,7 @@ const OwnerDashboard = () => {
           }}
         >
           {t("welcomeText")} {restaurantDetails?.name}!
-          <img
-            src="../../../public/assets/waving.svg"
-            width={45}
-            height={45}
-            loading="lazy"
-          />
+          <img src="/assets/waving.svg" width={45} height={45} loading="lazy" />
         </Typography>
         <Typography variant="body1" sx={{ fontSize: 18, fontWeight: 600 }}>
           {t("ownerDashboardHeader")}
@@ -342,13 +337,11 @@ const OwnerDashboard = () => {
               <Divider sx={{ my: 1.5 }} />
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                {order.food?.map(
-                  (f: IFood, i: number) => (
-                    <Typography key={i} sx={{ fontSize: 14, color: "#333" }}>
-                      {f.count} × {f.name}
-                    </Typography>
-                  )
-                )}
+                {order.food?.map((f: IFood, i: number) => (
+                  <Typography key={i} sx={{ fontSize: 14, color: "#333" }}>
+                    {f.count} × {f.name}
+                  </Typography>
+                ))}
               </Box>
 
               <Divider sx={{ my: 1.5 }} />

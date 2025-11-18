@@ -129,7 +129,7 @@ const RiderRequests = () => {
                   }}
                 >
                   <Avatar
-                    src="../../../public/assets/user.jpg"
+                    src="/assets/user.jpg"
                     sx={{
                       width: "70px",
                       height: "70px",
