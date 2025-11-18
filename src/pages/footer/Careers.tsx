@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import CustomButton from "../../components/UI/Button";
 import { BUTTON_VARIANT } from "../../enums";

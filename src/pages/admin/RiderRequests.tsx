@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import {
   Avatar,
   Box,
@@ -29,7 +29,7 @@ const RiderRequests = () => {
   };
 
   const handleChange = (
-    _event: React.MouseEvent<HTMLElement>,
+    _event: MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
     setSelected(newAlignment);

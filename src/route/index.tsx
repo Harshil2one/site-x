@@ -110,7 +110,12 @@ const AllRoutes = () => {
       element: (
         <ProtectedRoute
           element={<RestaurantPage />}
-          allowedRoles={[USER_ROLE.USER]}
+          allowedRoles={[
+            USER_ROLE.USER,
+            USER_ROLE.ADMIN,
+            USER_ROLE.RIDER,
+            USER_ROLE.OWNER,
+          ]}
         />
       ),
     },

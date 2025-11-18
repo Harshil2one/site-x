@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box, Card, Grid, Typography } from "@mui/material";
 import {
   Chart as ChartJS,

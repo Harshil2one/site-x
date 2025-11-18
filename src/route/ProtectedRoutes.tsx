@@ -1,10 +1,10 @@
-import React from "react";
+import type { ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { PUBLIC_ROUTE, USER_ROLE } from "../enums";
 
 interface ProtectedRouteProps {
-  element: React.ReactElement;
+  element: ReactElement;
   allowedRoles: USER_ROLE[];
 }
 

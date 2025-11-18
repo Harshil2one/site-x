@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import socketService from "../utils/socketService";
 
@@ -20,14 +26,11 @@ export const useSocket = () => {
 };
 
 interface SocketProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   url: string;
 }
 
-export const SocketProvider: React.FC<SocketProviderProps> = ({
-  children,
-  url,
-}) => {
+export const SocketProvider = ({ children, url }: SocketProviderProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const { getLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");

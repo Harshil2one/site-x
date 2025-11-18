@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import {
   Avatar,
   Box,
@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Input from "../components/UI/Input";
 import { Mail, Phone, Trash2, User } from "lucide-react";
-import { BUTTON_VARIANT, INPUT_SIZE, PUBLIC_ROUTE, USER_ROLE } from "../enums";
+import { BUTTON_VARIANT, INPUT_SIZE, PUBLIC_ROUTE } from "../enums";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import CustomButton from "../components/UI/Button";
 import { useNavigate } from "react-router";
@@ -54,7 +54,7 @@ const ProfilePage = () => {
     fileInput.current?.click();
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setError("");

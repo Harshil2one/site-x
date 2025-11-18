@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import type { IRestaurant } from "../../types/restaurant";
 import { CircleStar } from "lucide-react";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import type { IOrder } from "../../types/order";
 import moment from "moment";
 import socketService from "../../utils/socketService";
+import type { IFood } from "../../types/food";
 
 ChartJS.register(
   ArcElement,
@@ -279,10 +280,10 @@ const OwnerDashboard = () => {
                     data: Object.values(dashboardData?.dailyRevenue),
                     backgroundColor: Object.values(
                       dashboardData?.dailyRevenue
-                    )?.map((_revenue: any) => {
-                      var letters = "0123456789ABCDEF";
-                      var color = "#";
-                      for (var i = 0; i < 6; i++) {
+                    )?.map((_revenue) => {
+                      const letters = "0123456789ABCDEF";
+                      let color = "#";
+                      for (let i = 0; i < 6; i++) {
                         color += letters[Math.floor(Math.random() * 16)];
                       }
                       return color;
@@ -341,11 +342,13 @@ const OwnerDashboard = () => {
               <Divider sx={{ my: 1.5 }} />
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                {order.food?.map((f: any, i: number) => (
-                  <Typography key={i} sx={{ fontSize: 14, color: "#333" }}>
-                    {f.count} × {f.name}
-                  </Typography>
-                ))}
+                {order.food?.map(
+                  (f: IFood, i: number) => (
+                    <Typography key={i} sx={{ fontSize: 14, color: "#333" }}>
+                      {f.count} × {f.name}
+                    </Typography>
+                  )
+                )}
               </Box>
 
               <Divider sx={{ my: 1.5 }} />

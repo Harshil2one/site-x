@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { Bell, CheckCheck, EyeOff } from "lucide-react";
 import {
   Badge,
@@ -30,7 +30,7 @@ const Notification = ({ style }: IProps) => {
   const { getLocalStorage } = useLocalStorage();
   const user = getLocalStorage("user");
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

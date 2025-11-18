@@ -1,4 +1,4 @@
-import React, { type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Button, type SxProps, type Theme } from "@mui/material";
 import { BUTTON_TYPE, BUTTON_VARIANT, COLOR } from "../../enums";
 

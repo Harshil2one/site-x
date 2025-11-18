@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   AppBar,
   Dialog,
@@ -12,21 +11,22 @@ import type { TransitionProps } from "@mui/material/transitions";
 import { X } from "lucide-react";
 import CustomButton from "./Button";
 import { BUTTON_VARIANT } from "../../enums";
+import { forwardRef, type ReactElement, type ReactNode, type Ref } from "react";
 
 interface IProps {
   title: string;
   fullScreen?: boolean;
   open: number;
-  children: React.ReactNode;
+  children: ReactNode;
   setOpen: (value: number) => void;
   handleSave?: () => void;
 }
 
-const Transition = React.forwardRef(function Transition(
+const Transition = forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<unknown>;
+    children: ReactElement<unknown>;
   },
-  ref: React.Ref<unknown>
+  ref: Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -44,7 +44,7 @@ const FullScreenDialog = (props: IProps) => {
   const handleClose = () => setOpen(-1);
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         fullScreen={fullScreen}
         open={open >= 0}
@@ -86,7 +86,7 @@ const FullScreenDialog = (props: IProps) => {
           {children}
         </Grid>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 

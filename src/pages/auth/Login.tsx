@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Box, InputLabel, Typography } from "@mui/material";
 import Input from "../../components/UI/Input";

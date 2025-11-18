@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Chip, Grid, Typography } from "@mui/material";
 import Input from "../../components/UI/Input";
 import { ChevronLeft, Search, X } from "lucide-react";

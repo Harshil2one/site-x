@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import CommonTable from "../../components/UI/Table";
 import useFetch from "../../hooks/useFetch";
@@ -13,8 +13,8 @@ const Users = () => {
 
   const { error, makeAPICall } = useFetch();
 
-  const [allUsers, setAllUsers] = React.useState([]);
-  const [deleteOpen, setDeleteOpen] = React.useState(-1);
+  const [allUsers, setAllUsers] = useState([]);
+  const [deleteOpen, setDeleteOpen] = useState(-1);
 
   const fetchUsers = async () => {
     const res = await makeAPICall(`auth/${user?.id}`, {

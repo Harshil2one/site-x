@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, type KeyboardEvent, type ClipboardEvent } from "react";
 import { Box, TextField } from "@mui/material";
 import { INPUT_TYPE, INPUT_VARIANT } from "../../enums";
 
@@ -27,7 +27,7 @@ const OtpInput = ({ isFocused = false, length = 6, testId = "", onChange }: IPro
   };
 
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLDivElement>,
+    e: KeyboardEvent<HTMLDivElement>,
     index: number
   ) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
@@ -35,7 +35,7 @@ const OtpInput = ({ isFocused = false, length = 6, testId = "", onChange }: IPro
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pasteData = e.clipboardData.getData("Text").trim();
     if (!/^\d{1,6}$/.test(pasteData)) return;

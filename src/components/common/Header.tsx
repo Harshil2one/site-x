@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from "react";
+import { useState, type ReactNode, type MouseEvent } from "react";
 import { Link as DOMLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
@@ -73,7 +73,7 @@ const NavList = ({ ...props }) => {
 
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Card, Typography } from "@mui/material";
 import Input from "../../components/UI/Input";
 import CustomButton from "../../components/UI/Button";

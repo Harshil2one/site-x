@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import Filters from "../../components/home/Filters";
 import type { IRestaurant } from "../../types/restaurant";

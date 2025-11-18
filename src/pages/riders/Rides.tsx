@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import axiosInstance from "../../utils/axiosInstance";
 import CustomButton from "../../components/UI/Button";

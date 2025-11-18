@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import {
   Box,
   Grid,
@@ -23,10 +23,10 @@ import toast from "react-hot-toast";
 const Foods = () => {
   const { error, setError, makeAPICall } = useFetch();
 
-  const [allFoods, setAllFoods] = React.useState([]);
-  const [open, setOpen] = React.useState(-1);
-  const [deleteOpen, setDeleteOpen] = React.useState(-1);
-  const [image, setImage] = React.useState<string | null>(null);
+  const [allFoods, setAllFoods] = useState([]);
+  const [open, setOpen] = useState(-1);
+  const [deleteOpen, setDeleteOpen] = useState(-1);
+  const [image, setImage] = useState<string | null>(null);
 
   const fetchFoods = async () => {
     const res = await makeAPICall(`foods`, {
@@ -63,7 +63,7 @@ const Foods = () => {
     },
   });
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setError("");

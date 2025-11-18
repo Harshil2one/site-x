@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import {
   Box,
   Grid,
@@ -123,7 +123,7 @@ const OwnerPage = () => {
     }
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     setError("");
     const files = Array.from(e.target.files || []);
     const totalFiles = images?.length + files?.length;

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import CustomButton from "../components/UI/Button";
 import { useNavigate } from "react-router-dom";

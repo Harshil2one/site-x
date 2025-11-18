@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Star } from "lucide-react";
 import { FOOD_CARD_TYPE, RESTAURANT_TYPE } from "../../enums";

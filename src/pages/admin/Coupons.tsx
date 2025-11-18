@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -22,9 +22,9 @@ import toast from "react-hot-toast";
 const Coupons = () => {
   const { error, makeAPICall } = useFetch();
 
-  const [allCoupons, setAllCoupons] = React.useState([]);
-  const [open, setOpen] = React.useState(-1);
-  const [deleteOpen, setDeleteOpen] = React.useState(-1);
+  const [allCoupons, setAllCoupons] = useState([]);
+  const [open, setOpen] = useState(-1);
+  const [deleteOpen, setDeleteOpen] = useState(-1);
 
   const fetchCoupons = async () => {
     const res = await makeAPICall(`coupon`, {

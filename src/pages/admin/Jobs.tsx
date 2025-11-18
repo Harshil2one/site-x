@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -22,9 +22,9 @@ import toast from "react-hot-toast";
 const Jobs = () => {
   const { error, makeAPICall } = useFetch();
 
-  const [allJobs, setAllJobs] = React.useState([]);
-  const [open, setOpen] = React.useState(-1);
-  const [deleteOpen, setDeleteOpen] = React.useState(-1);
+  const [allJobs, setAllJobs] = useState([]);
+  const [open, setOpen] = useState(-1);
+  const [deleteOpen, setDeleteOpen] = useState(-1);
 
   const fetchJobs = async () => {
     const res = await makeAPICall(`jobs`, {

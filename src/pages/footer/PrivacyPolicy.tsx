@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Typography,
   Box,
@@ -10,7 +9,7 @@ import {
 } from "@mui/material";
 import { Shield, Info, MapPin, Mail, Phone } from "lucide-react";
 
-const PrivacyPolicyPage: React.FC = () => {
+const PrivacyPolicyPage = () => {
   return (
     <Box sx={{ py: {md: 3, xs: 1, sm: 2}, px: { md: 4, sm: 2, xs: 1 } }}>
       <Box mb={4}>

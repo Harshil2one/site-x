@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Avatar, Box, Typography } from "@mui/material";
 import { Bot, RefreshCw, Send, X } from "lucide-react";

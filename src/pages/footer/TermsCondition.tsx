@@ -1,7 +1,6 @@
-import React from "react";
 import { Box, Typography, Divider } from "@mui/material";
 
-const TermsAndPrivacyPage: React.FC = () => {
+const TermsAndPrivacyPage = () => {
   return (
     <Box sx={{ py: { md: 3, xs: 1, sm: 2 }, px: { md: 4, sm: 2, xs: 1 } }}>
       <Box mb={4}>

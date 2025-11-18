@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Card, CardContent, Chip, Typography } from "@mui/material";
 import Slider from "react-slick";
 import { BadgePercent, CalendarCheck, CircleStar } from "lucide-react";

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Grid, Typography, Link, Stack } from "@mui/material";
 import { Linkedin, Facebook, Twitter, Instagram } from "lucide-react";
 import { PUBLIC_ROUTE } from "../../enums";

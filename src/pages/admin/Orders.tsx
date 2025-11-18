@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import CommonTable from "../../components/UI/Table";
 import useFetch from "../../hooks/useFetch";
@@ -7,7 +7,7 @@ import { TABLE_NAME } from "../../enums";
 const Orders = () => {
   const { makeAPICall } = useFetch();
 
-  const [allOrders, setAllOrders] = React.useState([]);
+  const [allOrders, setAllOrders] = useState([]);
 
   const fetchOrders = async () => {
     const res = await makeAPICall(`orders`, {

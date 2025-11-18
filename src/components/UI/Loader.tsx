@@ -1,12 +1,12 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 export interface LoaderProps {
   fullScreen?: boolean;
   loading?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
-const MagicWandLoader: React.FC = () => {
+const MagicWandLoader = () => {
   return (
     <div className="magic-loader-container">
       <img
@@ -18,11 +18,11 @@ const MagicWandLoader: React.FC = () => {
   );
 };
 
-const Loader: React.FC<LoaderProps> = ({
+const Loader = ({
   fullScreen = false,
   loading = true,
   children,
-}) => {
+}: LoaderProps) => {
   if (!loading) return <>{children}</>;
 
   if (fullScreen) {

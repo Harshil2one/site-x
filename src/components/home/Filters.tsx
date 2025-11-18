@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Chip, FormControl, MenuItem, Select } from "@mui/material";
 import { X } from "lucide-react";
 import type { IFilter } from "../../types/common";

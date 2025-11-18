@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Box, Typography } from "@mui/material";
 import CommonTable from "../../components/UI/Table";

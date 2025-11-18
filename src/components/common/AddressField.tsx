@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Grid, InputLabel, Typography, Divider } from "@mui/material";
 import { Building, House, Map, MapPinHouse, MapPinned } from "lucide-react";
 import Input from "../UI/Input";
